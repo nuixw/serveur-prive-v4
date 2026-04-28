@@ -1,12 +1,58 @@
 :root {
-  $colors: (
-    body: "242, 246, 254",
-    success: "68, 255, 121",
-    danger: "255, 81, 81"
-  );
+  --white-darkest: oklch(0.9109 0.0055 117.93);
+  --white-dark: oklch(0.9288 0.0068 115.71);
+  --white-medium: oklch(0.9821 0 0);
+  --white-light: oklch(1 0 0);
 
-  @each $color, $rgb in $colors {
-    --#{$color}-rgb: #{$rgb};
-    --#{$color}: rgb(var(--#{$color}-rgb));
+  --black-medium: oklch(0.4137 0.0196 171.69);
+  --black-dark: oklch(0.2771 0.0113 167.8);
+
+  --primary: oklch(0.6692 0.2141 19.77);
+  --primary-light: oklch(0.7206 0.1756 16.29);
+  --gold: oklch(0.7601 0.1638 70.84);
+
+  --danger: var(--primary);
+  --warning: oklch(0.7712 0.2319 44.47);
+  --success: oklch(0.7712 0.251 143.76);
+
+  --white: var(--white-medium);
+  --black: var(--black-dark);
+
+  --body: var(--white-medium);
+  --text-primary: var(--black-dark);
+  --text-secondary: var(--black-medium);
+  --text-tertiary: oklch(from var(--black-medium) l c h / 0.75);
+
+  --border-primary: oklch(from var(--black-medium) l c h / 0.15);
+
+  --bg-primary: var(--white-light);
+  --bg-secondary: var(--white-dark);
+
+  --shadow-primary: 0 40px 80px oklch(from var(--black-dark) l c h / 0.25);
+}
+
+/* theme */
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  .switch-theme::before {
+    transform: translateX(-100%);
+  }
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --body: var(--black-dark);
+  --bg-primary: var(--black-medium);
+
+  --text-primary: var(--white-light);
+  --text-secondary: var(--white-medium);
+  --text-tertiary: oklch(from var(--white-medium) l c h / 0.75);
+  --border-primary: oklch(from var(--white-medium) l c h / 0.15);
+
+  .switch-theme::before {
+    transform: translateX(0);
   }
 }

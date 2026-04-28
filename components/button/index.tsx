@@ -4,7 +4,6 @@ import clsx from "clsx"
 import { ReactNode } from "react"
 import { Icon } from "../icon"
 import { Link } from "../link"
-import s from "./button.module.scss"
 
 export interface ButtonProps {
   children?: ReactNode
@@ -13,6 +12,9 @@ export interface ButtonProps {
   href?: string
   className?: string
   disabled?: boolean
+  variant?: "primary" | "secondary" | "tertiary"
+  border?: boolean
+  transparent?: boolean
   onClick?: () => void
 }
 
@@ -24,21 +26,24 @@ export const Button = ({
   className,
   onClick,
   disabled = false,
+  variant = "primary",
+  border = false,
+  transparent = false,
   ...props
 }: ButtonProps) => {
   const Content = (
     <>
       {icon && iconPosition == "left" && (
-        <Icon icon={icon} className={s.icon} />
+        <Icon icon={icon} className="btn-icon" />
       )}
       {children && <span>{children}</span>}
       {icon && iconPosition == "right" && (
-        <Icon icon={icon} className={s.icon} />
+        <Icon icon={icon} className="btn-icon" />
       )}
     </>
   )
 
-  const classNames = clsx(s.btn, className)
+  const classNames = clsx("btn", className, variant, border && "border", transparent && "transparent")
 
   const attrs = {
     className: classNames,

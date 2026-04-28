@@ -5,12 +5,20 @@
 @use "easing";
 @use "variables";
 @use "mixins" as *;
+@use "../components/layout/header/header";
+@use "../components/button/button";
+@use "../components/banner/banner";
+@use "../components/container/container";
+@use "../components/icon/icon";
+@use "../components/layout/footer/footer";
+@use "../app/(home)/page";
 
 html {
   background-color: var(--body);
-  color: var(--text);
-  font-size: calc(15px + 1 * ((100vw - 320px) / 680));
+  color: var(--text-primary);
+  font-size: 15px;
   line-height: 1.15;
+  overflow-x: clip;
   @include no-scrollbar;
 }
 
@@ -27,4 +35,18 @@ svg {
 
 img {
   @include user-select;
+}
+
+strong {
+  font-weight: 800;
+}
+
+h1 {
+  font-family: var(--font-heading);
+}
+
+/* main */
+
+.main {
+  padding-inline: var(--main-padding);
 }

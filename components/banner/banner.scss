@@ -1,0 +1,46 @@
+.banner {
+  --banner-padding: var(--size-20);
+  border-radius: var(--radius-primary);
+  background-color: var(--black-medium);
+  color: var(--white);
+  padding: var(--banner-padding) 0;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  background: url("/img/banner.webp") no-repeat center center / cover var(--black-dark);
+  position: relative;
+
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, oklch(from var(--black-dark) l c h / 0.75) 0%, oklch(from var(--black-medium) l c h / 0.75) 100%);
+    border-radius: inherit;
+  }
+
+  >* {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.banner-bottom {
+  display: flex;
+  align-items: stretch;
+  gap: var(--size-2);
+}
+
+.banner-stat {
+  background-color: oklch(from var(--black-dark) l c h / 0.75);
+  backdrop-filter: blur(16px);
+  display: inline-flex;
+  align-items: center;
+  padding: 1em 1.5em;
+  border-radius: var(--radius-rounded);
+  gap: .75em;
+
+  svg {
+    transform: scale(1.1);
+  }
+}

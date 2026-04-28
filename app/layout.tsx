@@ -3,6 +3,7 @@ import { APP_THEME_COLOR } from "@/lib/config"
 import { MetadataSeo } from "@/lib/metadata"
 import "@/styles/globals.scss"
 import type { LayoutProps } from "@/types/layout"
+import { ThemeProvider } from "next-themes"
 import { fonts } from "./fonts"
 
 export const metadata = MetadataSeo({
@@ -18,7 +19,9 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning={true}>
       <body className={fonts}>
-        <Wrapper>{children}</Wrapper>
+        <ThemeProvider>
+          <Wrapper>{children}</Wrapper>
+        </ThemeProvider>
       </body>
     </html>
   )

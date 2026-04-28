@@ -51,6 +51,7 @@
   perspective: 1000px;
   backface-visibility: hidden;
   transform: translate3d(0, 0, 0);
+
   @if $will-change {
     will-change: $will-change;
   }
@@ -118,10 +119,6 @@
   -webkit-mask: $gradient;
 }
 
-@mixin auto-alpha($alpha) {
-  opacity: $alpha;
-  visibility: if($alpha == 0, hidden, visible);
-}
 
 @mixin border-gradient($gradient, $radius: inherit, $width: 1px) {
   border: $width solid transparent;

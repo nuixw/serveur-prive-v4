@@ -3,7 +3,7 @@
 .field {
   --field-padding-x: var(--size-padding-x);
   --field-padding-y: var(--size-padding-y);
-  --field-size-height: calc(1.2em + var(--size-padding-y) * 2);
+  --field-size-height: var(--size-height);
   --field-transition: 0.25s var(--cubic);
   display: flex;
   align-items: center;

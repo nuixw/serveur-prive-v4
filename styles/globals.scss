@@ -5,13 +5,16 @@
 @use "easing";
 @use "variables";
 @use "mixins" as *;
-@use "../components/layout/header/header";
-@use "../components/button/button";
-@use "../components/banner/banner";
-@use "../components/container/container";
+@use "default";
 @use "../components/icon/icon";
+@use "../components/button/button";
+@use "../components/container/container";
+@use "../components/socials/socials";
+@use "../components/banner/banner";
+@use "../components/layout/header/header";
 @use "../components/layout/footer/footer";
 @use "../components/form/form";
+@use "../components/presentation/presentation";
 @use "../app/(home)/page";
 
 html {
@@ -21,10 +24,21 @@ html {
   line-height: 1.2;
   overflow-x: clip;
   @include no-scrollbar;
+  @include selection(oklch(from var(--primary) l c h / 0.85), var(--white));
+
+  #nprogress {
+    .bar {
+      background: var(--primary) !important;
+    }
+  }
+}
+
+[data-selection-black] {
+  @include selection(oklch(from var(--black-dark) l c h / 0.85), var(--white));
 }
 
 body {
-  font-weight: 400;
+  font-weight: 500;
   font-family: var(--font-main);
   font-feature-settings: "salt" on;
 }

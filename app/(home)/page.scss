@@ -64,18 +64,7 @@
 
 .home-banner-right-image {
   position: relative;
-  animation: show-banner-image 1s ease-in-out;
-  animation-fill-mode: forwards;
-
-  @keyframes show-banner-image {
-    from {
-      top: 50px;
-    }
-
-    to {
-      top: 0;
-    }
-  }
+  z-index: 2;
 }
 
 .home-top {
@@ -88,6 +77,7 @@
   h2 {
     font-size: 1.2em;
     font-weight: 500;
+    font-family: var(--font-main);
   }
 
   .field {
@@ -188,9 +178,14 @@
       margin-top: calc(var(--card-padding) / 2);
       bottom: 0;
       height: 1.15em;
+      display: inline-flex;
+      align-items: center;
+      gap: .5em;
 
       svg {
         width: 1em;
+        position: relative;
+        top: .1em;
       }
     }
   }
@@ -240,4 +235,24 @@
   height: 0;
   overflow: hidden;
   position: relative;
+}
+
+.home-presentation {
+  .presentation-top {
+    background-color: var(--primary);
+
+    h2 {
+      font-size: calc(24px + 2 * (100vw - 320px) / 1080);
+    }
+  }
+
+  .home-presentation-left-image {
+    margin-top: calc(var(--presentation-padding) * -1 - (24px + 16 * (100vw - 320px) / 1080));
+    position: relative;
+    left: calc(var(--presentation-padding) * -1);
+    flex: 1;
+    @include mask(linear-gradient(198deg, #000 40%, transparent 80%));
+    margin-bottom: calc(var(--presentation-padding) * -3);
+    z-index: 0;
+  }
 }

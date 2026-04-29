@@ -6,12 +6,11 @@
   background-color: var(--black-medium);
   color: var(--white);
   padding: var(--banner-padding) 0;
-  min-height: 400px;
+  min-height: 410px;
   display: flex;
   align-items: center;
   background: url("/img/banner.webp") no-repeat center center / cover var(--black-dark);
   position: relative;
-
 
   &::before {
     content: "";

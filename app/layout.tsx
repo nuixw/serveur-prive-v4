@@ -1,4 +1,5 @@
 import { DataLinkClick } from "@/components/data-link-click"
+import { FooterCounter } from "@/components/footer-counter"
 import { Wrapper } from "@/components/layout/wrapper"
 import { APP_THEME_COLOR } from "@/lib/config"
 import { MetadataSeo } from "@/lib/metadata"
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: LayoutProps) {
         <ThemeProvider>
           <Wrapper>{children}</Wrapper>
           <DataLinkClick />
+          <FooterCounter />
         </ThemeProvider>
       </body>
     </html>

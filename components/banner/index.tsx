@@ -10,12 +10,12 @@ export const Banner = ({ children, className }: BannerProps) => {
   const classNames = clsx("banner", className)
 
   return (
-    <div className={classNames}>
+    <section className={classNames}>
       <Container>
         <div className="banner-content">
           {children}
         </div>
       </Container>
-    </div>
+    </section>
   )
 }

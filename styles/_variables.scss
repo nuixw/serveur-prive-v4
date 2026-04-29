@@ -85,7 +85,8 @@
   --main-padding: var(--size-6);
   --main-margin-1: var(--size-2);
   --main-margin-2: var(--size-4);
-  --main-margin-3: var(--size-6);
+  --main-margin-3: calc(16px + 4 * (100vw - 320px) / 1080);
+  --main-margin-4: calc(40px + 24 * (100vw - 320px) / 1080);
 
   /* Container */
   --container-width: calc(800px + 450 * (100vw - 320px) / 1080);
@@ -96,6 +97,10 @@
   /* Sizes */
   --size-padding-x: 1.75em;
   --size-padding-y: 1.25em;
+  --size-height: calc(1.2em + var(--size-padding-y) * 2);
+
+  /* Content */
+  --content-padding: calc(32px + 12 * (100vw - 320px) / 1080);
 
   @include max(600px) {
     --container-max: 100%;

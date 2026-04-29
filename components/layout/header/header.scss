@@ -5,7 +5,7 @@ $mobile: 550px;
 $mobile-switch: 440px;
 
 .header {
-  --header-transition: 0.4s var(--cubic);
+  --header-transition: 0.6s var(--cubic);
   --header-padding: var(--main-padding);
   --header-gap: var(--size-2-5);
   --header-btn-size: 3.15em;
@@ -27,7 +27,7 @@ $mobile-switch: 440px;
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, var(--body) 0%, var(--bg-primary) 100%);
+    background-color: var(--body);
     border-radius: inherit;
     z-index: -1;
     height: var(--header-height, 0);
@@ -75,18 +75,11 @@ $mobile-switch: 440px;
 
 .header-logo {
   font-size: 28px;
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: -.025em;
   align-self: center;
   margin-inline: .5em .25em;
   display: inline-block;
-  top: -.1em;
   position: relative;
-
-  strong {
-    color: var(--primary);
-  }
+  top: -.1em;
 
   @include max($mobile) {
     font-size: 25px;

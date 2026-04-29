@@ -1,11 +1,11 @@
 :root {
-  --white-darkest: oklch(0.9109 0.0055 117.93);
+  --white-darker: oklch(0.9109 0.0055 117.93);
   --white-dark: oklch(0.9288 0.0068 115.71);
   --white-medium: oklch(0.9821 0 0);
   --white-light: oklch(1 0 0);
 
-  --black-darker: oklch(0.2376 0.0083 169.59);
-  --black-darkest: oklch(0.273 0.0113 167.78);
+  --black-darkest: oklch(0.2376 0.0083 169.59);
+  --black-darker: oklch(0.273 0.0113 167.78);
   --black-dark: oklch(0.2771 0.0113 167.8);
   --black-medium: oklch(0.4137 0.0196 171.69);
 
@@ -13,7 +13,7 @@
   --primary-light: oklch(0.7206 0.1756 16.29);
   --gold: oklch(0.7601 0.1638 70.84);
 
-  --danger: var(--primary);
+  --danger: oklch(0.6692 0.2141 19.77);
   --warning: oklch(0.7712 0.2319 44.47);
   --success: oklch(0.7712 0.251 143.76);
 
@@ -25,12 +25,22 @@
   --text-secondary: var(--black-medium);
   --text-tertiary: oklch(from var(--black-medium) l c h / 0.75);
 
-  --border-primary: oklch(from var(--black-medium) l c h / 0.15);
+  --border-primary: oklch(from var(--black-medium) l c h / 0.1);
 
   --bg-primary: var(--white-light);
   --bg-secondary: var(--white-dark);
 
   --shadow-primary: 0 40px 80px oklch(from var(--black-dark) l c h / 0.25);
+
+  /* socials */
+  --discord: oklch(0.62 0.19 274);
+  --twitter: oklch(0.66 0.16 239);
+  --x: oklch(0 0 0);
+  --facebook: oklch(0.63 0.17 244);
+  --instagram: oklch(0.62 0.21 15);
+  --linkedin: oklch(0.55 0.15 247);
+  --youtube: oklch(0.62 0.26 29);
+  --twitch: oklch(0.65 0.24 292);
 }
 
 /* theme */
@@ -46,9 +56,9 @@
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --body: var(--black-darker);
+  --body: var(--black-darkest);
   --bg-primary: var(--black-dark);
-  --bg-secondary: var(--black-darkest);
+  --bg-secondary: var(--black-darker);
 
   --text-primary: var(--white-light);
   --text-secondary: var(--white-medium);

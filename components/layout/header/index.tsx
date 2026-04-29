@@ -1,7 +1,7 @@
 import { Button } from "@/components/button"
 import { Input } from "@/components/form"
+import { Link } from "@/components/link"
 import { games } from "@/lib/games"
-import Link from "next/link"
 import { Switch } from "./switch"
 
 export const Header = () => {
@@ -9,7 +9,9 @@ export const Header = () => {
     <header className="header">
       <div className="header-left">
         <Link href="/" className="header-logo">
-          serveur<strong>prive</strong>
+          <span className="logo">
+            serveur<strong>prive</strong>
+          </span>
         </Link>
         <div className="header-games">
           <Button
@@ -26,7 +28,7 @@ export const Header = () => {
             <ul className="header-games-list" id="header-games-list">
               {games.map((game) => (
                 <li key={game.id}>
-                  <Link href={`/${game.id}`} title={game.nom} className="header-game-link">
+                  <Link href={`/jeu`} title={game.nom} className="header-game-link">
                     <img src={`/img/games/logo/${game.id}-logo.webp`} alt={game.nom + " logotype"} width={520} height={280} loading="lazy" draggable="false" className="header-game-logo" />
                     <img src={`/img/games/affiche/${game.id}.webp`} alt={game.nom + " serveur privé"} width={520} height={700} loading="lazy" draggable="false" className="header-game-bg" />
                   </Link>
@@ -41,7 +43,7 @@ export const Header = () => {
       </div>
       <div className="header-right">
         <Switch />
-        <Button icon="hugeicons:login-circle-01" variant="secondary" border>
+        <Button href="/connexion" icon="hugeicons:login-circle-01" variant="secondary" border>
           Se connecter
         </Button>
         <Button icon="hugeicons:add-circle">

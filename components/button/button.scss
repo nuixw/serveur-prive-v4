@@ -1,3 +1,5 @@
+@use "@/styles/mixins" as *;
+
 .btn {
   --btn-background: var(--primary);
   --btn-color: var(--white);
@@ -21,7 +23,12 @@
   padding: var(--btn-padding-y) var(--btn-padding-x);
   border: 1px solid var(--btn-border-color);
   gap: 0.75em;
-  transition: background-color var(--transition-link), border-color var(--transition-link), color var(--transition-link);
+  transition: background-color var(--transition-link), border-color var(--transition-link), color var(--transition-link), transform var(--transition-scale);
+  @include user-select;
+
+  &:active {
+    transform: scale(0.98);
+  }
 
   &:hover {
     background-color: var(--btn-hover-background);
@@ -47,7 +54,7 @@
 
   &.border {
     background: transparent;
-    border-color: oklch(from var(--btn-border-color) l c h / 0.15);
+    border-color: oklch(from var(--btn-border-color) l c h / 0.1);
     color: var(--btn-background);
 
     &:hover {

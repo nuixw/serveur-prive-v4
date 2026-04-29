@@ -1,0 +1,111 @@
+@use "@/styles/mixins" as *;
+
+$responsive: 1200px;
+$mobile: 950px;
+
+.presentation {
+  --presentation-gap: var(--main-margin-3);
+  --presentation-radius: var(--radius-primary);
+  --presentation-radius-big: calc(32px + 32 * (100vw - 320px) / 1080);
+  --presentation-padding: var(--content-padding);
+  display: flex;
+  align-items: stretch;
+  gap: var(--presentation-gap);
+  margin-top: var(--main-margin-4);
+
+  @include max($responsive) {
+    flex-direction: column;
+  }
+
+  @include min($responsive) {
+    &>* {
+      max-width: calc(50% - var(--presentation-gap) / 2);
+    }
+  }
+}
+
+.presentation-right {
+  flex: 1;
+  display: flex;
+  gap: var(--presentation-gap);
+
+  @include min($responsive) {
+    flex-direction: column;
+  }
+
+  @include max($mobile) {
+    flex-direction: column;
+  }
+}
+
+.presentation-bloc {
+  --paragraph-color: var(--white);
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: var(--presentation-radius);
+  background-color: light-dark(var(--black-medium), var(--black-dark));
+  padding: var(--presentation-padding);
+  color: var(--white);
+  gap: calc(var(--presentation-padding) / 2.5);
+
+  &>* {
+    z-index: 1;
+  }
+
+  &.presentation-left {
+    background-color: var(--black-darker);
+    border-top-left-radius: var(--presentation-radius-big);
+    border-bottom-left-radius: var(--presentation-radius-big);
+
+    @include max($responsive) {
+      border-top-right-radius: var(--presentation-radius-big);
+      border-bottom-left-radius: var(--presentation-radius);
+    }
+  }
+
+  &.presentation-top {
+    border-top-right-radius: var(--presentation-radius-big);
+
+    @include max($responsive) {
+      border-top-right-radius: var(--presentation-radius);
+      border-bottom-left-radius: var(--presentation-radius-big);
+    }
+
+    @include max($mobile) {
+      border-bottom-left-radius: var(--presentation-radius);
+    }
+  }
+
+  &.presentation-bottom {
+    border-bottom-right-radius: var(--presentation-radius-big);
+
+    @include max($mobile) {
+      border-bottom-left-radius: var(--presentation-radius-big);
+    }
+  }
+
+  h2 {
+    font-size: calc(24px + 6 * (100vw - 320px) / 1080);
+
+    strong {
+      color: var(--primary);
+    }
+  }
+}
+
+.presentation-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  width: 80%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+  @include mask(linear-gradient(-140deg, #000 20%, transparent 50%));
+  mix-blend-mode: soft-light;
+}

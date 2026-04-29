@@ -7,7 +7,7 @@ const TITLE_SELECTOR = '[data-game-card-title]'
 const TAG_SELECTOR = '[data-game-card-trunc]'
 const MORE_SELECTOR = '[data-game-card-more]'
 
-const toArray = <T,>(list: NodeListOf<T>) => Array.from(list)
+const toArray = <T extends Node>(list: NodeListOf<T>) => Array.from(list)
 
 function truncateContainer(container: HTMLElement) {
   const title = container.querySelector<TagsTitle>(TITLE_SELECTOR)

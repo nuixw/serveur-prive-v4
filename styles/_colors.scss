@@ -4,8 +4,10 @@
   --white-medium: oklch(0.9821 0 0);
   --white-light: oklch(1 0 0);
 
-  --black-medium: oklch(0.4137 0.0196 171.69);
+  --black-darker: oklch(0.2376 0.0083 169.59);
+  --black-darkest: oklch(0.273 0.0113 167.78);
   --black-dark: oklch(0.2771 0.0113 167.8);
+  --black-medium: oklch(0.4137 0.0196 171.69);
 
   --primary: oklch(0.6692 0.2141 19.77);
   --primary-light: oklch(0.7206 0.1756 16.29);
@@ -44,8 +46,9 @@
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --body: var(--black-dark);
-  --bg-primary: var(--black-medium);
+  --body: var(--black-darker);
+  --bg-primary: var(--black-dark);
+  --bg-secondary: var(--black-darkest);
 
   --text-primary: var(--white-light);
   --text-secondary: var(--white-medium);

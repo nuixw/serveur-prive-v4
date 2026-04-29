@@ -11,13 +11,14 @@
 @use "../components/container/container";
 @use "../components/icon/icon";
 @use "../components/layout/footer/footer";
+@use "../components/form/form";
 @use "../app/(home)/page";
 
 html {
   background-color: var(--body);
   color: var(--text-primary);
   font-size: 15px;
-  line-height: 1.15;
+  line-height: 1.2;
   overflow-x: clip;
   @include no-scrollbar;
 }

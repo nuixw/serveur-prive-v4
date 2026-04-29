@@ -1,4 +1,5 @@
 import { Button } from "@/components/button"
+import { Input } from "@/components/form"
 import { games } from "@/lib/games"
 import Link from "next/link"
 import { Switch } from "./switch"
@@ -33,6 +34,9 @@ export const Header = () => {
               ))}
             </ul>
           </nav>
+        </div>
+        <div className="header-search">
+          <Input icon="hugeicons:search-01" type="search" name="search" placeholder="Rechercher un serveur privé..." />
         </div>
       </div>
       <div className="header-right">

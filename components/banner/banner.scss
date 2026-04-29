@@ -1,3 +1,5 @@
+@use "@/styles/mixins" as *;
+
 .banner {
   --banner-padding: var(--size-20);
   border-radius: var(--radius-primary);
@@ -26,9 +28,14 @@
 }
 
 .banner-bottom {
+  --bottom-gap: var(--size-2);
   display: flex;
   align-items: stretch;
-  gap: var(--size-2);
+  gap: var(--bottom-gap);
+
+  @include max(1084px) {
+    --bottom-gap: var(--size-1);
+  }
 }
 
 .banner-stat {

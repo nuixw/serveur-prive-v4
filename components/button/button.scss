@@ -2,8 +2,8 @@
   --btn-background: var(--primary);
   --btn-color: var(--white);
   --btn-radius: var(--radius-rounded);
-  --btn-padding-x: 1.75em;
-  --btn-padding-y: 1.25em;
+  --btn-padding-x: var(--size-padding-x);
+  --btn-padding-y: var(--size-padding-y);
   --btn-border-color: var(--primary);
   --btn-hover-background: var(--primary-light);
   --btn-hover-border-color: var(--primary-light);

@@ -1,0 +1,51 @@
+@use "@/styles/mixins" as *;
+
+.field {
+  --field-padding-x: var(--size-padding-x);
+  --field-padding-y: var(--size-padding-y);
+  --field-size-height: calc(1.2em + var(--size-padding-y) * 2);
+  --field-transition: 0.25s var(--cubic);
+  display: flex;
+  align-items: center;
+
+  &:has(.field-input:focus) {
+    --box-shadow: oklch(from var(--text-primary) l c h / 0.05);
+
+    .field-icon {
+      color: var(--primary);
+    }
+  }
+}
+
+.field-content {
+  transition: box-shadow var(--field-transition);
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  background-color: var(--bg-secondary);
+  border-radius: calc(var(--radius-primary) * 2);
+  box-shadow: 0 0 0 2px var(--box-shadow, transparent) inset;
+}
+
+.field-input {
+  flex: 1;
+  padding: var(--field-padding-y) var(--field-padding-x);
+  font-weight: 500;
+  font-family: var(--font-main);
+
+  &::placeholder {
+    color: oklch(from var(--text-secondary) l c h / 0.5);
+  }
+}
+
+.field-icon {
+  transition: color var(--field-transition);
+  height: var(--field-size-height);
+  width: var(--field-size-height);
+  min-width: var(--field-size-height);
+  padding: calc(var(--field-padding-y) / 1.1);
+
+  &+.field-input {
+    padding-left: 0;
+  }
+}

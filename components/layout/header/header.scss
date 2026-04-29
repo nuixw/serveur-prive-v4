@@ -1,21 +1,76 @@
+@use "@/styles/mixins" as *;
+
+$responsive: 1200px;
+$mobile: 550px;
+$mobile-switch: 440px;
+
 .header {
-  --heading-gap: var(--size-2-5);
-  padding: var(--main-padding);
+  --header-transition: 0.4s var(--cubic);
+  --header-padding: var(--main-padding);
+  --header-gap: var(--size-2-5);
+  --header-btn-size: 3.15em;
+  --header-btn-padding: var(--size-1);
+  --header-btn-icon: 1.5em;
+  --header-btn-border: 1px;
+  padding: var(--header-padding);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--header-gap);
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 100;
-  // background: var(--body);
   border-radius: 0 0 var(--radius-primary) var(--radius-primary);
 
-  >* {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, var(--body) 0%, var(--bg-primary) 100%);
+    border-radius: inherit;
+    z-index: -1;
+    height: var(--header-height, 0);
+    transition: height var(--header-transition);
+  }
+
+  &>* {
     display: flex;
     align-items: stretch;
-    gap: var(--heading-gap);
+    gap: var(--header-gap);
   }
+
+  @include max($responsive) {
+    --header-gap: var(--size-2);
+
+    .btn {
+      padding: 0;
+      aspect-ratio: 1/1;
+      display: flex;
+      height: calc(var(--header-btn-size) + (var(--header-btn-padding) + var(--header-btn-border)) * 2);
+
+      span {
+        display: none;
+      }
+
+      .btn-icon {
+        margin: 0;
+        font-size: var(--header-btn-icon);
+      }
+    }
+  }
+
+  @include max($mobile) {
+    --header-padding: var(--size-4);
+    --header-gap: var(--size-1);
+    --header-btn-size: 2.65em;
+    --header-btn-padding: var(--size-0-5);
+    --header-btn-icon: 1.25em;
+  }
+}
+
+.fix {
+  --header-height: 100%;
 }
 
 .header-logo {
@@ -32,10 +87,15 @@
   strong {
     color: var(--primary);
   }
+
+  @include max($mobile) {
+    font-size: 25px;
+    margin-left: 0;
+  }
 }
 
 .header-left {
-  left: 1;
+  flex: 1;
 }
 
 .header-games {
@@ -120,33 +180,81 @@
   max-height: 90%;
 }
 
+.header-search {
+  flex: 1;
+  max-width: calc(300px + 150 * (100vw - 320px) / 1080);
+
+  @include max(800px) {
+    display: none;
+  }
+}
+
 .switch-theme {
-  --size: 3.15em;
   --transition: 0.25s var(--cubic);
-  border: 1px solid var(--border-primary);
+  border: var(--header-btn-border) solid var(--border-primary);
   border-radius: var(--radius-rounded);
-  padding: var(--size-1);
+  padding: var(--header-btn-padding);
   display: flex;
   position: relative;
 
-  &::before {
-    transition: transform var(--transition);
-    content: "";
-    position: absolute;
-    left: 0;
-    width: var(--size);
-    height: var(--size);
-    border-radius: var(--radius-rounded);
-    background-color: var(--bg-secondary);
-    z-index: 0;
-    left: 50%;
+  @include min($mobile-switch) {
+    &::before {
+      transition: transform var(--transition);
+      content: "";
+      position: absolute;
+      left: 0;
+      width: var(--header-btn-size);
+      height: var(--header-btn-size);
+      border-radius: var(--radius-rounded);
+      background-color: var(--bg-secondary);
+      z-index: 0;
+      left: 50%;
+      transform: translateX(-100%);
+    }
+  }
+}
+
+[data-theme="light"] {
+  .switch-theme::before {
     transform: translateX(-100%);
+  }
+}
+
+[data-theme="dark"] {
+  .switch-theme::before {
+    transform: translateX(0);
+  }
+}
+
+@include max($mobile-switch) {
+  [data-theme="light"] {
+    .switch-theme-button {
+      &:nth-child(1) {
+        display: none;
+      }
+
+      &:nth-child(2) {
+        display: block;
+      }
+    }
+  }
+
+  [data-theme="dark"] {
+    .switch-theme-button {
+      &:nth-child(1) {
+        display: block;
+      }
+
+      &:nth-child(2) {
+        display: none;
+      }
+    }
   }
 }
 
 .switch-theme-button {
   aspect-ratio: 1/1;
-  width: var(--size);
+  width: var(--header-btn-size);
   border-radius: var(--radius-rounded);
   display: grid;
   place-items: center;
@@ -154,7 +262,7 @@
   position: relative;
 
   svg {
-    width: 1.5em;
+    width: var(--header-btn-icon);
     z-index: 1;
   }
 }

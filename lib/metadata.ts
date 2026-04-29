@@ -10,18 +10,32 @@ export const MetadataSeo = ({
   title,
   description
 }: MetadataSeoProps): Metadata => {
-  const headTitle = `${APP_NAME} — ${title}`
+  const headTitle = title
+  const icon = "/favicon.svg"
 
   return {
     metadataBase: APP_BASE_URL,
     title: headTitle,
     description,
+    authors: [{ name: APP_NAME }],
+    creator: APP_NAME,
+    publisher: APP_NAME,
+    applicationName: APP_NAME,
+    robots: {
+      index: true,
+      follow: true
+    },
+    icons: {
+      icon,
+      shortcut: icon,
+      apple: icon
+    },
     openGraph: {
       title: headTitle,
       description,
       type: "website",
       siteName: APP_NAME,
-      locale: "en",
+      locale: "fr",
       url: APP_BASE_URL,
       images: [
         {
@@ -29,6 +43,14 @@ export const MetadataSeo = ({
           alt: description
         }
       ]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: headTitle,
+      description,
+      images: ["/img/thumbnail.png"],
+      creator: "@serveur_prive",
+      site: "@serveur_prive"
     }
   }
 }

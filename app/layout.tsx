@@ -1,3 +1,4 @@
+import { DataLinkClick } from "@/components/data-link-click"
 import { Wrapper } from "@/components/layout/wrapper"
 import { APP_THEME_COLOR } from "@/lib/config"
 import { MetadataSeo } from "@/lib/metadata"
@@ -7,8 +8,8 @@ import { ThemeProvider } from "next-themes"
 import { fonts } from "./fonts"
 
 export const metadata = MetadataSeo({
-  title: "My WebApp",
-  description: "My WebApp description"
+  title: "Liste Serveur privé de jeux vidéo gratuit",
+  description: "Découvrez le classement des serveurs privés de jeux vidéo. Trouvez un serveur Minecraft, Dofus, WoW, Arma, Habbo, Flyff et bien d'autres."
 })
 
 export const viewport = {
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: LayoutProps) {
       <body className={fonts}>
         <ThemeProvider>
           <Wrapper>{children}</Wrapper>
+          <DataLinkClick />
         </ThemeProvider>
       </body>
     </html>

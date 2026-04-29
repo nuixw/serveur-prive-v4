@@ -1,6 +1,6 @@
-export const APP_NAME = "Next 16 Starter"
+export const APP_NAME = "serveur-prive.net"
 
-export const APP_COLOR_PRIMARY = "rgb(27, 26, 22)"
+export const APP_COLOR_PRIMARY = "#FD4A5C"
 export const APP_COLOR_SECONDARY = "#ffffff"
 export const APP_THEME_COLOR = APP_COLOR_PRIMARY
 

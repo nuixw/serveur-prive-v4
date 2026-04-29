@@ -92,4 +92,13 @@
   --container-max: 85vw;
   --container-padding: calc((100vw - var(--container-max)) / 2);
   --container-middle: calc(var(--container-width) / 1.75);
+
+  /* Sizes */
+  --size-padding-x: 1.75em;
+  --size-padding-y: 1.25em;
+
+  @include max(600px) {
+    --container-max: 100%;
+    --main-padding: var(--size-4);
+  }
 }

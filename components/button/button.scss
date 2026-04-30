@@ -39,9 +39,9 @@
   span {
     +.btn-icon {
       margin-right: -0.1em;
+      margin-left: 0;
     }
   }
-
 
   &.secondary {
     --btn-color: var(--white);
@@ -77,4 +77,16 @@
 
 .btn-icon {
   transform: scale(1.1);
+  margin-left: -0.1em;
+}
+
+[data-theme="dark"] {
+  .btn.secondary {
+    --btn-color: var(--white);
+    --btn-background: var(--black-light);
+    --btn-border-color: var(--black-light);
+    --btn-hover-background: var(--black-lighter);
+    --btn-hover-border-color: var(--black-lighter);
+    --btn-hover-color: var(--white);
+  }
 }

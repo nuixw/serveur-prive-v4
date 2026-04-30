@@ -6,23 +6,26 @@
   background-color: var(--black-medium);
   color: var(--white);
   padding: var(--banner-padding) 0;
-  min-height: 410px;
   display: flex;
   align-items: center;
-  background: url("/img/banner.webp") no-repeat center center / cover var(--black-dark);
+  background: var(--bg-url, url("/img/banner.webp")) no-repeat center center / cover var(--black-dark);
   position: relative;
 
   &::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, oklch(from var(--black-dark) l c h / 0.75) 0%, oklch(from var(--black-medium) l c h / 0.75) 100%);
+    background: var(--banner-mask, linear-gradient(to right, oklch(from var(--black-dark) l c h / 0.75) 0%, oklch(from var(--black-medium) l c h / 0.75) 100%));
     border-radius: inherit;
   }
 
   >* {
     position: relative;
     z-index: 1;
+  }
+
+  &.banner-is-aside {
+    padding: 0;
   }
 }
 
@@ -45,8 +48,14 @@
   padding: 1em 1.5em;
   border-radius: var(--radius-rounded);
   gap: .75em;
+  white-space: nowrap;
 
   svg {
     transform: scale(1.1);
   }
+}
+
+.banner-aside {
+  width: var(--aside-width);
+  min-width: var(--aside-width);
 }

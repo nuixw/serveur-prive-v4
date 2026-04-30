@@ -28,9 +28,29 @@ export const Header = () => {
             <ul className="header-games-list" id="header-games-list">
               {games.map((game) => (
                 <li key={game.id}>
-                  <Link href={`/jeu`} title={game.nom} className="header-game-link">
-                    <img src={`/img/games/logo/${game.id}-logo.webp`} alt={game.nom + " logotype"} width={520} height={280} loading="lazy" draggable="false" className="header-game-logo" />
-                    <img src={`/img/games/affiche/${game.id}.webp`} alt={game.nom + " serveur privé"} width={520} height={700} loading="lazy" draggable="false" className="header-game-bg" />
+                  <Link
+                    href={`/${game.id}`}
+                    title={game.nom}
+                    className="header-game-link"
+                  >
+                    <img
+                      src={`/img/games/logo/${game.id}-logo.webp`}
+                      alt={game.nom + " logotype"}
+                      width={520}
+                      height={280}
+                      loading="lazy"
+                      draggable="false"
+                      className="header-game-logo"
+                    />
+                    <img
+                      src={`/img/games/affiche/${game.id}.webp`}
+                      alt={game.nom + " serveur privé"}
+                      width={520}
+                      height={700}
+                      loading="lazy"
+                      draggable="false"
+                      className="header-game-bg"
+                    />
                   </Link>
                 </li>
               ))}
@@ -38,17 +58,25 @@ export const Header = () => {
           </nav>
         </div>
         <div className="header-search">
-          <Input icon="hugeicons:search-01" type="search" name="search" placeholder="Rechercher un serveur privé..." />
+          <Input
+            icon="hugeicons:search-01"
+            type="search"
+            name="search"
+            placeholder="Rechercher un serveur privé..."
+          />
         </div>
       </div>
       <div className="header-right">
         <Switch />
-        <Button href="/connexion" icon="hugeicons:login-circle-01" variant="secondary" border>
+        <Button
+          href="/connexion"
+          icon="hugeicons:login-circle-01"
+          variant="secondary"
+          border
+        >
           Se connecter
         </Button>
-        <Button icon="hugeicons:add-circle">
-          Ajouter mon serveur
-        </Button>
+        <Button icon="hugeicons:add-circle">Ajouter mon serveur</Button>
       </div>
     </header>
   )

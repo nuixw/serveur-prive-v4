@@ -51,7 +51,7 @@
 
   &:hover {
     background-color: var(--color);
-    color: var(--white);
+    color: light-dark(var(--white), var(--black));
   }
 
   svg {

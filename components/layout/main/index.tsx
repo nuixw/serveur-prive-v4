@@ -4,11 +4,11 @@ import NextTopLoader from "nextjs-toploader"
 import { Footer } from "../footer"
 import { Header } from "../header"
 
-interface WrapperProps {
+interface MainProps {
   children: React.ReactNode
 }
 
-export const Wrapper = ({ children }: WrapperProps) => {
+export const Main = ({ children }: MainProps) => {
   return (
     <>
       <Header />

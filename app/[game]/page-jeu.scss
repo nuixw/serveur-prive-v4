@@ -1,0 +1,93 @@
+@use "@/styles/mixins" as *;
+
+$banner-responsive: 950px;
+
+.game-banner {
+  --banner-mask: linear-gradient(287deg, oklch(from var(--black-dark) l c h / 0.85) 43.21%, oklch(from var(--black-medium) l c h / 0.5) 64.4%);
+
+  .banner-container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: stretch;
+    justify-content: space-between;
+    padding-bottom: calc(var(--aside-spacing-top) + var(--main-padding));
+    gap: calc(200 * (100vw - 500px) / 1080);
+
+    @include max($banner-responsive) {
+      flex-direction: column;
+      align-items: center;
+      padding-inline: var(--content-padding);
+      gap: calc(var(--banner-padding) * .5);
+      padding-bottom: var(--banner-padding);
+    }
+  }
+
+  .banner-stat {
+    font-size: .9em;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .banner-bottom {
+    margin-bottom: var(--size-3);
+  }
+}
+
+.game-banner-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: center;
+
+  @include max($banner-responsive) {
+    width: auto;
+  }
+}
+
+.game-banner-top {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--size-2) 0 var(--size-4);
+
+  @include max($banner-responsive) {
+    display: none;
+  }
+}
+
+.game-banner-content {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: var(--size-6);
+  flex: 1;
+  padding: calc(var(--banner-padding) * .75) 0;
+  position: relative;
+  top: calc(var(--aside-spacing-top) * 1);
+
+  @include max($banner-responsive) {
+    text-align: center;
+    top: 0;
+    padding-top: var(--banner-padding);
+    padding-bottom: 0;
+  }
+
+  h1 {
+    font-size: calc(20px + 2 * (100vw - 320px) / 1080);
+    line-height: 1.1;
+    text-shadow: var(--shadow-text);
+
+    @include max($banner-responsive) {
+      font-size: calc(24px + 6 * (100vw - 320px) / 1080);
+    }
+  }
+
+  .paragraph {
+    color: var(--white);
+    text-shadow: var(--shadow-text);
+    font-size: calc(12px + 2 * (100vw - 500px) / 1080);
+  }
+}

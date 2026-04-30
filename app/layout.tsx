@@ -1,6 +1,6 @@
 import { DataLinkClick } from "@/components/data-link-click"
 import { FooterCounter } from "@/components/footer-counter"
-import { Wrapper } from "@/components/layout/wrapper"
+import { Main } from "@/components/layout/main"
 import { APP_THEME_COLOR } from "@/lib/config"
 import { MetadataSeo } from "@/lib/metadata"
 import "@/styles/globals.scss"
@@ -22,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps) {
     <html lang="en" dir="ltr" suppressHydrationWarning={true}>
       <body className={fonts}>
         <ThemeProvider>
-          <Wrapper>{children}</Wrapper>
+          <Main>{children}</Main>
           <DataLinkClick />
           <FooterCounter />
         </ThemeProvider>

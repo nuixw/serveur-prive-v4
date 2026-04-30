@@ -9,6 +9,7 @@
 @use "../components/icon/icon";
 @use "../components/button/button";
 @use "../components/container/container";
+@use "../components/wrapper/wrapper";
 @use "../components/socials/socials";
 @use "../components/banner/banner";
 @use "../components/layout/header/header";
@@ -16,6 +17,8 @@
 @use "../components/form/form";
 @use "../components/presentation/presentation";
 @use "../app/(home)/page";
+@use "../app/[game]/page-jeu";
+
 
 html {
   background-color: var(--body);

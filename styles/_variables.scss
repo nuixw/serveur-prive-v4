@@ -102,6 +102,10 @@
   /* Content */
   --content-padding: calc(32px + 12 * (100vw - 320px) / 1080);
 
+  /* Aside */
+  --aside-width: calc(280px + 32 * (100vw - 320px) / 1080);
+  --aside-spacing-top: var(--size-8);
+
   @include max(600px) {
     --container-max: 100%;
     --main-padding: var(--size-4);

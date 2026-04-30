@@ -8,6 +8,8 @@
   --black-darker: oklch(0.273 0.0113 167.78);
   --black-dark: oklch(0.2771 0.0113 167.8);
   --black-medium: oklch(0.4137 0.0196 171.69);
+  --black-light: oklch(0.5951 0.0208 171.03);
+  --black-lighter: oklch(0.6435 0.0231 170.2);
 
   --primary: oklch(0.6692 0.2141 19.77);
   --primary-light: oklch(0.7206 0.1756 16.29);
@@ -31,11 +33,12 @@
   --bg-secondary: var(--white-dark);
 
   --shadow-primary: 0 40px 80px oklch(from var(--black-dark) l c h / 0.25);
+  --shadow-text: 0 1px 2px oklch(from var(--black-dark) l c h / 0.75);
 
   /* socials */
   --discord: oklch(0.62 0.19 274);
   --twitter: oklch(0.66 0.16 239);
-  --x: oklch(0 0 0);
+  --x: light-dark(oklch(0 0 0), oklch(0.95 0 0));
   --facebook: oklch(0.63 0.17 244);
   --instagram: oklch(0.62 0.21 15);
   --linkedin: oklch(0.55 0.15 247);
@@ -61,9 +64,9 @@
   --bg-secondary: var(--black-darker);
 
   --text-primary: var(--white-light);
-  --text-secondary: var(--white-medium);
+  --text-secondary: var(--black-lighter);
   --text-tertiary: oklch(from var(--white-medium) l c h / 0.75);
-  --border-primary: oklch(from var(--white-medium) l c h / 0.15);
+  --border-primary: oklch(from var(--black-light) l c h / 0.15);
 
   .switch-theme::before {
     transform: translateX(0);

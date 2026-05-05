@@ -227,7 +227,7 @@ $mobile-switch: 440px;
       }
 
       &:nth-child(2) {
-        display: block;
+        display: grid;
       }
     }
   }
@@ -235,7 +235,7 @@ $mobile-switch: 440px;
   [data-theme="dark"] {
     .switch-theme-button {
       &:nth-child(1) {
-        display: block;
+        display: grid;
       }
 
       &:nth-child(2) {

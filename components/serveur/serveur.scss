@@ -105,6 +105,7 @@ $responsive: 700px;
     gap: calc(var(--serveur-padding) * .5);
   }
 
+
   &::before {
     content: "";
     background: linear-gradient(var(--direction, to right), var(--bg-primary) 0%, var(--body) 100%);
@@ -131,6 +132,10 @@ $responsive: 700px;
   @include max($responsive) {
     gap: calc(var(--serveur-padding) * .5);
     flex: 1;
+  }
+
+  @include max(420px) {
+    font-size: .75em;
   }
 }
 
@@ -208,6 +213,12 @@ $responsive: 700px;
 
   @include max($responsive) {
     width: 150px;
+  }
+
+  @include max(420px) {
+    width: 100px;
+    align-self: flex-start;
+    border-radius: var(--radius-secondary);
   }
 }
 

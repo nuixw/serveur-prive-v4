@@ -35,3 +35,11 @@ h6 {
   text-align: center;
   margin: 15vh 0;
 }
+
+[data-link] {
+  cursor: pointer;
+}
+
+.color-primary {
+  color: var(--primary);
+}

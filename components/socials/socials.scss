@@ -32,6 +32,10 @@
   --color: var(--twitch);
 }
 
+[data-social="telegram"] {
+  --color: var(--telegram);
+}
+
 .socials {
   display: flex;
   gap: var(--size-2);

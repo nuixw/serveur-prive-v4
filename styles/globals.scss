@@ -21,6 +21,7 @@
 @use "../components/presentation/presentation";
 @use "../app/(home)/page";
 @use "../app/[game]/page-jeu";
+@use "../app/serveur/page-serveur";
 
 html {
   background-color: var(--body);
@@ -42,9 +43,6 @@ html {
   @include selection(oklch(from var(--black-dark) l c h / 0.85), var(--white));
 }
 
-[data-link] {
-  cursor: pointer;
-}
 
 body {
   font-weight: 500;
@@ -65,9 +63,6 @@ strong {
   font-weight: 800;
 }
 
-h1 {
-  font-family: var(--font-heading);
-}
 
 /* main */
 

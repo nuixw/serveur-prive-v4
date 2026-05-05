@@ -26,6 +26,10 @@ $banner-responsive: 950px;
     font-size: .9em;
     flex: 1;
     justify-content: center;
+
+    @include max(450px) {
+      font-size: .8em;
+    }
   }
 
   .banner-bottom {

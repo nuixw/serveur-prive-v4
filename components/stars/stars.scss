@@ -1,0 +1,47 @@
+@use "@/styles/mixins" as *;
+
+.stars-list {
+  display: flex;
+  align-items: center;
+
+  &[data-rate="1"] {
+    .star:nth-child(-n + 1) {
+      --star-color: var(--star-color-active, var(--text-secondary));
+    }
+  }
+
+  &[data-rate="2"] {
+    .star:nth-child(-n + 2) {
+      --star-color: var(--star-color-active, var(--text-secondary));
+    }
+  }
+
+  &[data-rate="3"] {
+    .star:nth-child(-n + 3) {
+      --star-color: var(--star-color-active, var(--text-secondary));
+    }
+  }
+
+  &[data-rate="4"] {
+    .star:nth-child(-n + 4) {
+      --star-color: var(--star-color-active, var(--text-secondary));
+    }
+  }
+
+  &[data-rate="5"] {
+    .star:nth-child(-n + 5) {
+      --star-color: var(--star-color-active, var(--text-secondary));
+    }
+  }
+}
+
+.star {
+  &+.star {
+    margin-left: -0.05em;
+  }
+
+  * {
+    stroke-width: 0;
+    fill: var(--star-color, oklch(from var(--text-tertiary) l c h / 0.25));
+  }
+}

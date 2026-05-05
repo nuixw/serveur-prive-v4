@@ -1,5 +1,4 @@
-import { DataLinkClick } from "@/components/data-link-click"
-import { FooterCounter } from "@/components/footer-counter"
+import { DomInteractions } from "@/components/dom-interactions"
 import { Main } from "@/components/layout/main"
 import { APP_THEME_COLOR } from "@/lib/config"
 import { MetadataSeo } from "@/lib/metadata"
@@ -10,7 +9,8 @@ import { fonts } from "./fonts"
 
 export const metadata = MetadataSeo({
   title: "Liste Serveur privé de jeux vidéo gratuit",
-  description: "Découvrez le classement des serveurs privés de jeux vidéo. Trouvez un serveur Minecraft, Dofus, WoW, Arma, Habbo, Flyff et bien d'autres."
+  description:
+    "Découvrez le classement des serveurs privés de jeux vidéo. Trouvez un serveur Minecraft, Dofus, WoW, Arma, Habbo, Flyff et bien d'autres."
 })
 
 export const viewport = {
@@ -23,8 +23,7 @@ export default function RootLayout({ children }: LayoutProps) {
       <body className={fonts}>
         <ThemeProvider>
           <Main>{children}</Main>
-          <DataLinkClick />
-          <FooterCounter />
+          <DomInteractions />
         </ThemeProvider>
       </body>
     </html>

@@ -1,0 +1,28 @@
+@use "@/styles/mixins" as *;
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35em;
+}
+
+.tag {
+  font-weight: 600;
+  color: var(--text-secondary);
+  background-color: light-dark(var(--bg-secondary), var(--black-darkest));
+  padding: .5em .85em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-rounded);
+  text-align: center;
+  transition: color var(--transition-link), background-color var(--transition-link);
+
+  &[href] {
+    &:hover {
+      color: var(--white);
+      background-color: var(--primary);
+    }
+  }
+}

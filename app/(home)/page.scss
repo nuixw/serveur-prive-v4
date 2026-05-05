@@ -30,6 +30,7 @@
   @include max(1084px) {
     text-align: center;
     align-items: center;
+    padding: 0 var(--container-padding);
 
     h1 {
       font-size: calc(20px + 40 * (100vw - 400px) / 1080);
@@ -109,6 +110,12 @@
       width: calc(100% - var(--bottom-gap) * 2);
     }
   }
+
+  @include max(450px) {
+    .banner-stat {
+      font-size: .8em;
+    }
+  }
 }
 
 /* Games Grid */
@@ -116,7 +123,7 @@
 .games-grid {
   --grid-gap: calc(8px + 4 * (100vw - 320px) / 1080);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(calc(180px + 32 * (100vw - 320px) / 1080), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(calc(150px + 48 * (100vw - 320px) / 1080), 1fr));
   gap: var(--grid-gap);
 }
 
@@ -201,7 +208,7 @@
 }
 
 .game-card-tags {
-  --size: 0.7em;
+  --size: calc(9px + 2 * (100vw - 320px) / 1080);
   --padding-y: 0.5em;
   --padding-x: 1em;
   font-size: var(--size);

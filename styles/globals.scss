@@ -8,6 +8,9 @@
 @use "default";
 @use "../components/icon/icon";
 @use "../components/button/button";
+@use "../components/tags/tags";
+@use "../components/stars/stars";
+@use "../components/serveur/serveur";
 @use "../components/container/container";
 @use "../components/wrapper/wrapper";
 @use "../components/socials/socials";
@@ -18,7 +21,6 @@
 @use "../components/presentation/presentation";
 @use "../app/(home)/page";
 @use "../app/[game]/page-jeu";
-
 
 html {
   background-color: var(--body);
@@ -38,6 +40,10 @@ html {
 
 [data-selection-black] {
   @include selection(oklch(from var(--black-dark) l c h / 0.85), var(--white));
+}
+
+[data-link] {
+  cursor: pointer;
 }
 
 body {

@@ -1,5 +1,7 @@
 @use "@/styles/mixins" as *;
 
+$responsive-aside: 1150px;
+
 /* Bloc */
 
 .bloc {
@@ -10,6 +12,12 @@
   display: flex;
   flex-direction: column;
   gap: calc(var(--bloc-padding) / 1.25);
+}
+
+.bloc-section {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--bloc-padding) / 1.75);
 }
 
 /* Wrapper */
@@ -58,11 +66,72 @@
     color: var(--text-secondary);
   }
 
-  &.aside-relative {
-    margin-top: calc(var(--aside-spacing-top) * -1);
-  }
-
   .bloc {
     --bloc-padding: calc(var(--content-padding) * .65);
+  }
+
+  .tags-list {
+    font-size: .9em;
+  }
+}
+
+.aside-relative {
+  margin-top: calc(var(--aside-spacing-top) * -1);
+}
+
+.aside-responsive-left {
+  transition: transform var(--transition-aside);
+
+  @include max($responsive-aside) {
+    --padding: var(--size-4);
+    width: calc(var(--aside-width) + var(--padding) * 2);
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    height: 100dvh;
+    margin-top: 0;
+    background: linear-gradient(to right, oklch(from var(--body) l c h / 0.85) 0%, oklch(from var(--body) l c h / 0.85) 100%);
+    backdrop-filter: blur(16px);
+    padding: var(--padding);
+    border-radius: 0 var(--radius-primary) var(--radius-primary) 0;
+    overflow-y: auto;
+    @include no-scrollbar;
+    box-shadow: var(--shadow-aside-hidden);
+    transform: translateX(-100%);
+  }
+}
+
+.btn-aside-responsive-left {
+  --btn-background: oklch(from var(--primary) l c h / 0.15);
+  --btn-color: var(--primary);
+  --btn-border-color: transparent;
+  display: none;
+  position: fixed;
+  bottom: calc(var(--main-padding) * 1.5);
+  right: var(--main-padding);
+  z-index: 100;
+  backdrop-filter: blur(32px);
+
+  @include max($responsive-aside) {
+    display: inline-flex;
+  }
+}
+
+body.aside-responsive-left-open {
+  .aside-responsive-left {
+    @include max($responsive-aside) {
+      transform: translateX(0);
+    }
+  }
+
+  .btn-aside-responsive-left {
+    .btn-icon-swap {
+      display: block;
+    }
+
+    .btn-icon:not(.btn-icon-swap) {
+      display: none;
+    }
   }
 }

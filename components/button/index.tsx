@@ -15,6 +15,7 @@ export interface ButtonProps {
   variant?: "primary" | "secondary" | "tertiary"
   border?: boolean
   transparent?: boolean
+  iconOnly?: boolean
   onClick?: () => void
 }
 
@@ -29,6 +30,7 @@ export const Button = ({
   variant = "primary",
   border = false,
   transparent = false,
+  iconOnly = false,
   ...props
 }: ButtonProps) => {
   const Content = (
@@ -43,7 +45,14 @@ export const Button = ({
     </>
   )
 
-  const classNames = clsx("btn", className, variant, border && "border", transparent && "transparent")
+  const classNames = clsx(
+    "btn",
+    className,
+    variant,
+    border && "border",
+    transparent && "transparent",
+    iconOnly && "icon-only"
+  )
 
   const attrs = {
     className: classNames,

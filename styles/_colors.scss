@@ -34,6 +34,8 @@
 
   --shadow-primary: 0 40px 80px oklch(from var(--black-dark) l c h / 0.25);
   --shadow-text: 0 1px 2px oklch(from var(--black-dark) l c h / 0.75);
+  --shadow-aside-hidden: 0 0 200px transparent;
+  --shadow-aside: 0 0 200px oklch(from var(--black-dark) l c h / 0.5);
 
   /* socials */
   --discord: oklch(0.62 0.19 274);
@@ -67,6 +69,8 @@
   --text-secondary: var(--black-lighter);
   --text-tertiary: oklch(from var(--white-medium) l c h / 0.75);
   --border-primary: oklch(from var(--black-light) l c h / 0.15);
+
+  --shadow-aside: 0 0 200px oklch(from var(--black-darkest) l c h / 1);
 
   .switch-theme::before {
     transform: translateX(0);

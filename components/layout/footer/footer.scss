@@ -111,6 +111,12 @@ $responsive: 900px;
 
   span {
     white-space: nowrap;
+
+    strong {
+      width: 1.85ch;
+      display: inline-block;
+      text-align: right;
+    }
   }
 
   svg {

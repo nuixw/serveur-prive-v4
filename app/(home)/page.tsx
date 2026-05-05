@@ -3,7 +3,6 @@ import { BannerStat } from "@/components/banner/stat"
 import { Button } from "@/components/button"
 import { Container } from "@/components/container"
 import { Input } from "@/components/form"
-import { GameCardTagsTruncate } from "@/components/game-card-tags-truncate"
 import { Icon } from "@/components/icon"
 import { Link } from "@/components/link"
 import { Presentation } from "@/components/presentation"
@@ -132,8 +131,8 @@ export default function HomePage() {
                 className="home-presentation-left-image"
               />
               <h2>
-                Une plateforme <strong>innovante</strong> dédiée à la promotion
-                de serveurs de&nbsp;jeux
+                Une plateforme <strong>innovante</strong>&nbsp;dédiée à la
+                promotion de serveurs de&nbsp;jeux
               </h2>
               <div className="intro">
                 <p>
@@ -178,8 +177,8 @@ export default function HomePage() {
           bottom={
             <>
               <h2>
-                Nos classements répertorient des <strong>milliers</strong> de
-                serveurs de&nbsp;jeux
+                Nos classements répertorient des <strong>milliers</strong>
+                &nbsp;de serveurs de&nbsp;jeux
               </h2>
               <div className="intro">
                 <p>
@@ -209,7 +208,6 @@ export default function HomePage() {
           }
         />
       </Container>
-      <GameCardTagsTruncate />
     </>
   )
 }

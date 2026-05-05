@@ -72,11 +72,14 @@ export const Header = () => {
           href="/connexion"
           icon="hugeicons:login-circle-01"
           variant="secondary"
+          aria-label="Se connecter"
           border
         >
           Se connecter
         </Button>
-        <Button icon="hugeicons:add-circle">Ajouter mon serveur</Button>
+        <Button icon="hugeicons:add-circle" aria-label="Ajouter mon serveur">
+          Ajouter mon serveur
+        </Button>
       </div>
     </header>
   )

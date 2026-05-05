@@ -8,12 +8,17 @@ const ASIDE_OPEN_CLASS = "aside-responsive-left-open"
 const ASIDE_SELECTOR = ".aside-responsive-left"
 const ASIDE_TOGGLE_SELECTOR = ".btn-aside-responsive-left"
 const CARD_LINK_SELECTOR = "[data-link]"
+const COPY_TRIGGER_SELECTOR = "[data-copy]"
 const COUNTER_SELECTOR = "[data-footer-counter]"
-const TAGS_CONTAINER_SELECTOR = ".game-card-tags"
-const TITLE_SELECTOR = "[data-game-card-title]"
-const TAG_SELECTOR = "[data-game-card-trunc]"
-const MORE_SELECTOR = "[data-game-card-more]"
+const TRUNCATE_CONTAINER_SELECTOR = "[data-truncate]"
+const TRUNCATE_ITEM_SELECTOR = "[data-truncate-item]"
+const TRUNCATE_STATIC_SELECTOR = "[data-truncate-static]"
+const TRUNCATE_MORE_SELECTOR = "[data-truncate-more]"
 const INTERACTIVE_SELECTOR = "a, button, input, select, textarea, label"
+const COPY_CLASS = "copied"
+const DEFAULT_COPY_TIMEOUT_MS = 2000
+
+const copyTimeoutByElement = new WeakMap<HTMLElement, number>()
 
 interface CounterParts {
   days: number
@@ -70,16 +75,37 @@ function tickCounters() {
 }
 
 function truncateTagsContainer(container: HTMLElement) {
-  const title = container.querySelector<HTMLSpanElement>(TITLE_SELECTOR)
-  const truncTags = Array.from(
-    container.querySelectorAll<HTMLSpanElement>(TAG_SELECTOR)
+  const staticItems = Array.from(
+    container.querySelectorAll<HTMLElement>(TRUNCATE_STATIC_SELECTOR)
   )
-  const more = container.querySelector<HTMLSpanElement>(MORE_SELECTOR)
+  const manualItems = Array.from(
+    container.querySelectorAll<HTMLElement>(TRUNCATE_ITEM_SELECTOR)
+  )
+  const allChildren = Array.from(container.children).filter(
+    (child): child is HTMLElement => child instanceof HTMLElement
+  )
+  const truncateItems = (manualItems.length > 0 ? manualItems : allChildren).filter(
+    (item) =>
+      !item.matches(TRUNCATE_STATIC_SELECTOR) && !item.matches(TRUNCATE_MORE_SELECTOR)
+  )
 
-  if (!title || truncTags.length === 0 || !more) return
+  if (truncateItems.length === 0) return
 
-  truncTags.forEach((tag) => {
-    tag.style.display = ""
+  let more = container.querySelector<HTMLElement>(TRUNCATE_MORE_SELECTOR)
+  if (!more) {
+    const firstTagClass = truncateItems[0].className
+    const moreElement = document.createElement("span")
+    if (firstTagClass) moreElement.className = firstTagClass
+    moreElement.setAttribute("data-truncate-more", "")
+    container.appendChild(moreElement)
+    more = moreElement
+  }
+
+  staticItems.forEach((item) => {
+    item.style.display = ""
+  })
+  truncateItems.forEach((item) => {
+    item.style.display = ""
   })
   more.style.display = "none"
   more.textContent = "+0"
@@ -88,33 +114,54 @@ function truncateTagsContainer(container: HTMLElement) {
   if (availableWidth <= 0) return
 
   const epsilon = 2
-  const lastTag = truncTags[truncTags.length - 1]
-  const lastRight = lastTag.offsetLeft + lastTag.offsetWidth
-  if (lastRight <= availableWidth + epsilon) return
+  const styles = window.getComputedStyle(container)
+  const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0
 
-  let bestK = 0
-  let bestHidden = truncTags.length
+  function getVisibleItemsWidth(items: HTMLElement[]): number {
+    const visibleItems = items.filter((item) => item.style.display !== "none")
+    const itemsWidth = visibleItems.reduce((acc, item) => acc + item.offsetWidth, 0)
+    const gapsWidth = Math.max(visibleItems.length - 1, 0) * gap
+    return itemsWidth + gapsWidth
+  }
 
-  for (let k = truncTags.length - 1; k >= 0; k--) {
-    const hiddenCount = truncTags.length - k
+  const visibleWithoutMore = [...staticItems, ...truncateItems]
+  const contentWidthWithoutMore = getVisibleItemsWidth(visibleWithoutMore)
+  if (contentWidthWithoutMore <= availableWidth + epsilon) return
+
+  let bestK = -1
+  let bestHidden = 0
+
+  for (let k = truncateItems.length - 1; k >= 1; k--) {
+    const hiddenCount = truncateItems.length - k
 
     more.textContent = "+" + hiddenCount
     more.style.display = ""
 
-    truncTags.forEach((tag, index) => {
-      tag.style.display = index < k ? "" : "none"
+    truncateItems.forEach((item, index) => {
+      item.style.display = index < k ? "" : "none"
     })
 
-    const moreRight = more.offsetLeft + more.offsetWidth
-    if (moreRight <= availableWidth + epsilon) {
+    const currentWidth = getVisibleItemsWidth([...staticItems, ...truncateItems, more])
+    if (currentWidth <= availableWidth + epsilon) {
       bestK = k
       bestHidden = hiddenCount
       break
     }
   }
 
-  truncTags.forEach((tag, index) => {
-    tag.style.display = index < bestK ? "" : "none"
+  if (bestK === -1) {
+    // Keep at least one tag visible when space is too tight.
+    truncateItems.forEach((item, index) => {
+      item.style.display = index === 0 ? "" : "none"
+    })
+    const hiddenCount = Math.max(truncateItems.length - 1, 0)
+    more.textContent = "+" + hiddenCount
+    more.style.display = hiddenCount > 0 ? "" : "none"
+    return
+  }
+
+  truncateItems.forEach((item, index) => {
+    item.style.display = index < bestK ? "" : "none"
   })
   more.textContent = "+" + bestHidden
   more.style.display = ""
@@ -122,7 +169,7 @@ function truncateTagsContainer(container: HTMLElement) {
 
 function truncateGameCardTags() {
   const containers = Array.from(
-    document.querySelectorAll<HTMLElement>(TAGS_CONTAINER_SELECTOR)
+    document.querySelectorAll<HTMLElement>(TRUNCATE_CONTAINER_SELECTOR)
   )
   containers.forEach(truncateTagsContainer)
 }
@@ -131,9 +178,60 @@ function syncBodyFixClass() {
   document.body.classList.toggle(BODY_FIX_CLASS, window.scrollY > 0)
 }
 
-function onDocumentClick(event: MouseEvent) {
+async function copyTextToClipboard(text: string) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text)
+    return
+  }
+
+  const tempTextarea = document.createElement("textarea")
+  tempTextarea.value = text
+  tempTextarea.setAttribute("readonly", "")
+  tempTextarea.style.position = "fixed"
+  tempTextarea.style.opacity = "0"
+  document.body.appendChild(tempTextarea)
+  tempTextarea.select()
+  document.execCommand("copy")
+  document.body.removeChild(tempTextarea)
+}
+
+function applyCopiedState(trigger: HTMLElement) {
+  const timeoutRaw = trigger.getAttribute("data-copy-timeout")
+  const timeoutSeconds = timeoutRaw ? Number(timeoutRaw) : NaN
+  const timeoutMs = Number.isFinite(timeoutSeconds)
+    ? Math.max(timeoutSeconds, 0) * 1000
+    : DEFAULT_COPY_TIMEOUT_MS
+
+  const previousTimeout = copyTimeoutByElement.get(trigger)
+  if (previousTimeout) window.clearTimeout(previousTimeout)
+
+  trigger.classList.add(COPY_CLASS)
+
+  const timeoutId = window.setTimeout(() => {
+    trigger.classList.remove(COPY_CLASS)
+    copyTimeoutByElement.delete(trigger)
+  }, timeoutMs)
+
+  copyTimeoutByElement.set(trigger, timeoutId)
+}
+
+async function onDocumentClick(event: MouseEvent) {
   const target = event.target
   if (!(target instanceof Element)) return
+
+  const copyTrigger = target.closest<HTMLElement>(COPY_TRIGGER_SELECTOR)
+  if (copyTrigger) {
+    const valueToCopy = copyTrigger.getAttribute("data-copy")
+    if (!valueToCopy) return
+
+    try {
+      await copyTextToClipboard(valueToCopy)
+      applyCopiedState(copyTrigger)
+    } catch {
+      // Ignore copy failure to avoid blocking UI interactions.
+    }
+    return
+  }
 
   const toggleAsideButton = target.closest<HTMLElement>(ASIDE_TOGGLE_SELECTOR)
   if (toggleAsideButton) {

@@ -78,22 +78,22 @@ export default function HomePage() {
                   <div className="game-card-serveurs">
                     <strong>8,963</strong> serveurs
                   </div>
-                  <div className="game-card-tags">
-                    <span className="game-card-tag" data-game-card-title>
+                  <div className="game-card-tags" data-truncate>
+                    <span className="game-card-tag" data-truncate-static>
                       {game.nom}
                     </span>
                     {game.tags.map((tag) => (
                       <span
                         key={tag}
                         className="game-card-tag"
-                        data-game-card-trunc
+                        data-truncate-item
                       >
                         {tag}
                       </span>
                     ))}
                     <span
                       className="game-card-tag game-card-tag--more"
-                      data-game-card-more
+                      data-truncate-more
                       style={{ display: "none" }}
                     >
                       +0

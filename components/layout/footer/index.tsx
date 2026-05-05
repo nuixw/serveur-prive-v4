@@ -60,11 +60,13 @@ const socials = [
   {
     id: "x",
     icon: "hugeicons:new-twitter",
+    name: "X - Twitter",
     href: "https://x.com/serveur_prive"
   },
   {
     id: "discord",
     icon: "hugeicons:discord",
+    name: "Discord",
     href: "https://discord.gg/JmMszJE"
   }
 ]
@@ -75,9 +77,15 @@ export const Footer = () => {
       <Container>
         <section className="footer-top">
           <div className="footer-top-left">
-            <h2 className="footer-top-left-title">Découvrez des serveurs privés francophones pour tous les goûts</h2>
+            <h2 className="footer-top-left-title">
+              Découvrez des serveurs privés francophones pour tous les goûts
+            </h2>
             <div className="paragraph">
-              <p>Serveur-prive.net propose un classement gratuit qui répertorie les serveurs privés de jeux vidéo. Trouvez ou référencez un serveur privé sur nos listes.</p>
+              <p>
+                Serveur-prive.net propose un classement gratuit qui répertorie
+                les serveurs privés de jeux vidéo. Trouvez ou référencez un
+                serveur privé sur nos listes.
+              </p>
             </div>
             <Socials socials={socials} />
           </div>
@@ -98,17 +106,39 @@ export const Footer = () => {
         </section>
         <section className="footer-counter">
           <h2>Prochain reset des classements & votes dans</h2>
-          <div className="footer-counter-value" data-footer-counter data-counter-target={new Date(Date.now() + 8 * 24 * 60 * 60 * 1000).toISOString()}>
-            <span><strong data-counter-days>8</strong> jours</span>{' '}
-            <span><strong data-counter-hours>12</strong> heures</span>{' '}
-            <span><strong data-counter-minutes>34</strong> minutes et</span>{' '}
-            <span><strong data-counter-seconds>56</strong> secondes</span>
+          <div
+            className="footer-counter-value"
+            data-footer-counter
+            data-counter-target={new Date(
+              Date.now() + 8 * 24 * 60 * 60 * 1000
+            ).toISOString()}
+          >
+            <span>
+              <strong data-counter-days>8</strong> jours
+            </span>{" "}
+            <span>
+              <strong data-counter-hours>12</strong> heures
+            </span>{" "}
+            <span>
+              <strong data-counter-minutes>34</strong> minutes et
+            </span>{" "}
+            <span>
+              <strong data-counter-seconds>56</strong> secondes
+            </span>
             <Icon icon="svg-spinners:clock" />
           </div>
         </section>
         <section className="footer-bottom">
-          <p><span className="logo">serveur<strong>prive</strong></span> © 2026. Tous droits réservés.</p>
-          <p>Tous les noms de jeux cités sont des marques commerciales ™ ou des marques déposées ® de leurs détenteurs respectifs.</p>
+          <p>
+            <span className="logo">
+              serveur<strong>prive</strong>
+            </span>{" "}
+            © 2026. Tous droits réservés.
+          </p>
+          <p>
+            Tous les noms de jeux cités sont des marques commerciales ™ ou des
+            marques déposées ® de leurs détenteurs respectifs.
+          </p>
         </section>
       </Container>
     </footer>

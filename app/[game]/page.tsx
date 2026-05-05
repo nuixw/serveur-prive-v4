@@ -160,6 +160,95 @@ export default function Page() {
           </Button>
         </aside>
         <div className="wrapper-content">
+          <div className="sponso-serveur">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div
+                key={index}
+                className={clsx(
+                  "sponso-serveur-item",
+                  (index === 0 || index === 2) && "serveur-premium"
+                )}
+              >
+                <div className="sponso-serveur-top">
+                  <img
+                    src="https://placehold.co/200x100"
+                    width={200}
+                    height={100}
+                    loading="lazy"
+                    draggable="false"
+                    className="serveur-image"
+                  />
+                  <Stars note={4} />
+                </div>
+                <div className="sponso-serveur-bottom">
+                  <Link href="/serveur" className="serveur-item-title">
+                    {(index === 0 || index === 2) && (
+                      <Icon icon="hugeicons:police-badge" />
+                    )}{" "}
+                    HYPING - LE MEILLEUR SERVEUR MINECRAFT DE 2026
+                  </Link>
+                  <div className="tags-list" data-truncate>
+                    <span className="tag" data-truncate-static>
+                      Survie
+                    </span>
+                    <span className="tag" data-truncate-item>
+                      PVP
+                    </span>
+                    <span className="tag" data-truncate-item>
+                      Vanilla
+                    </span>
+                    <span className="tag" data-truncate-item>
+                      PVP Faction
+                    </span>
+                    <span
+                      className="tag game-card-tag--more"
+                      data-truncate-more
+                      style={{ display: "none" }}
+                    >
+                      +0
+                    </span>
+                  </div>
+                  <div className="serveur-stats">
+                    <div className="serveur-stat">
+                      <div className="serveur-stat-left">
+                        <Icon
+                          icon="hugeicons:user-multiple"
+                          className="serveur-stat-icon"
+                        />
+                        <strong>415 / 2000</strong>
+                      </div>
+                      <div className="serveur-stat-right">
+                        <div className="live" />
+                      </div>
+                    </div>
+                    <div className="serveur-stat">
+                      <div className="serveur-stat-left">
+                        <Icon
+                          icon="hugeicons:link-04"
+                          className="serveur-stat-icon"
+                        />
+                        <strong>MC.HYPING.FR</strong>
+                      </div>
+                      <div className="serveur-stat-right">
+                        <Button
+                          aria-label="Copier l'url du serveur"
+                          icon="hugeicons:copy-01"
+                          variant="tertiary"
+                          data-copy="MC.HYPING.FR"
+                          iconOnly
+                        >
+                          <Icon
+                            icon="hugeicons:checkmark-circle-02"
+                            className="btn-icon btn-icon-swap"
+                          />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
           {Array.from({ length: 10 }).map((_, index) => (
             <div
               key={index}
@@ -247,8 +336,14 @@ export default function Page() {
                         aria-label="Copier l'url du serveur"
                         icon="hugeicons:copy-01"
                         variant="tertiary"
+                        data-copy="MC.HYPING.FR"
                         iconOnly
-                      />
+                      >
+                        <Icon
+                          icon="hugeicons:checkmark-circle-02"
+                          className="btn-icon btn-icon-swap"
+                        />
+                      </Button>
                     </div>
                   </div>
                   <div className="serveur-stat">

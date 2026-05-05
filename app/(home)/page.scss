@@ -209,7 +209,7 @@
 }
 
 .game-card-tags {
-  --size: calc(9px + 2 * (100vw - 320px) / 1080);
+  --size: calc(9px + 1 * (100vw - 320px) / 1080);
   --padding-y: 0.5em;
   --padding-x: 1em;
   font-size: var(--size);
@@ -217,7 +217,6 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  overflow: hidden;
   gap: .33em;
   margin-top: var(--card-gap);
   width: 100%;

@@ -10,6 +10,11 @@ $responsive: 700px;
   border-radius: var(--radius-primary);
   color: var(--premium-color);
 
+  &.sponso-serveur-item {
+    background: linear-gradient(var(--direction, to left), oklch(from var(--premium-color) l c h / .15) 0%, oklch(from var(--premium-color) l c h / .05) 100%);
+    background-color: var(--bg-primary);
+  }
+
   .tag {
     color: var(--premium-color);
     background-color: oklch(from var(--premium-color) l c h / .15);
@@ -105,6 +110,15 @@ $responsive: 700px;
     gap: calc(var(--serveur-padding) * .5);
   }
 
+  .serveur-image {
+    @include max($responsive) {
+      width: 150px;
+    }
+
+    @include max(420px) {
+      width: 100px;
+    }
+  }
 
   &::before {
     content: "";
@@ -211,12 +225,9 @@ $responsive: 700px;
   width: 100%;
   aspect-ratio: 2 / 1;
 
-  @include max($responsive) {
-    width: 150px;
-  }
+  @include max($responsive) {}
 
   @include max(420px) {
-    width: 100px;
     align-self: flex-start;
     border-radius: var(--radius-secondary);
   }
@@ -309,5 +320,75 @@ $responsive: 700px;
     100% {
       box-shadow: 0 0 0 .5em oklch(from var(--success) l c h / 0);
     }
+  }
+}
+
+.sponso-serveur {
+  display: flex;
+  gap: var(--main-padding);
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.sponso-serveur-item {
+  --serveur-padding: calc(16px + 2 * (100vw - 320px) / 1080);
+  text-align: center;
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-primary);
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--serveur-padding);
+  padding: var(--serveur-padding);
+  min-width: 250px;
+}
+
+.sponso-serveur-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  position: relative;
+
+  .serveur-image {
+    max-width: calc(150px + 24 * (100vw - 320px) / 1080);
+  }
+
+  .stars-list {
+    position: absolute;
+    bottom: 0;
+    transform: translate(-50%, 40%);
+    left: 50%;
+    font-size: 1.1em;
+    padding: .2em .3em;
+    border-radius: var(--radius-rounded);
+    background-color: oklch(from var(--bg-primary) l c h / .75);
+    backdrop-filter: blur(8px);
+  }
+}
+
+.sponso-serveur-bottom {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  gap: calc(var(--serveur-padding) / 1.5);
+  flex: 1;
+  min-width: 200px;
+
+  .serveur-item-title {
+    font-size: calc(16px + 1 * (100vw - 320px) / 1080);
+    line-height: 1;
+    @include clamp(2);
+  }
+
+  .tags-list {
+    justify-content: center;
+    font-size: calc(10px + 1 * (100vw - 320px) / 1080);
+  }
+
+  .serveur-stats {
+    font-size: calc(10px + 1 * (100vw - 320px) / 1080);
   }
 }

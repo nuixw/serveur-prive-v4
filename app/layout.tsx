@@ -5,6 +5,7 @@ import { MetadataSeo } from "@/lib/metadata"
 import "@/styles/globals.scss"
 import type { LayoutProps } from "@/types/layout"
 import { ThemeProvider } from "next-themes"
+import { Suspense } from "react"
 import { fonts } from "./fonts"
 
 export const metadata = MetadataSeo({
@@ -23,7 +24,9 @@ export default function RootLayout({ children }: LayoutProps) {
       <body className={fonts}>
         <ThemeProvider>
           <Main>{children}</Main>
-          <DomInteractions />
+          <Suspense fallback={null}>
+            <DomInteractions />
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>

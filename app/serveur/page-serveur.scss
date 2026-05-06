@@ -64,6 +64,7 @@ $banner-responsive: 950px;
     height: var(--size-height);
     padding: 0 var(--size-padding-x);
     gap: var(--size-padding-x);
+    backdrop-filter: blur(8px);
 
     .btn {
       --btn-background: oklch(from var(--black-medium) l c h / 0.75);

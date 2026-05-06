@@ -54,7 +54,7 @@
   align-items: flex-start;
   width: 100%;
   background-color: var(--field-background, var(--bg-secondary));
-  border-radius: calc(var(--radius-primary) * 1.2);
+  border-radius: var(--radius-input);
   box-shadow: 0 0 0 2px var(--box-shadow, transparent) inset;
 }
 

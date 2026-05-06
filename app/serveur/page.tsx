@@ -5,6 +5,7 @@ import { Button } from "@/components/button"
 import { VotesHistoryChart } from "@/components/charts/votes-history"
 import { Textarea } from "@/components/form"
 import { Socials } from "@/components/socials"
+import { StarsRatingInput } from "@/components/stars/rating-input"
 import { Stars } from "@/components/stars"
 import { Wrapper } from "@/components/wrapper"
 import { Icon } from "@iconify/react"
@@ -411,6 +412,7 @@ export default function Page() {
               <Icon icon="hugeicons:star" /> Laissez un avis
             </h2>
             <form className="form" action="">
+              <StarsRatingInput />
               <Textarea
                 id="comment"
                 icon="hugeicons:pen-01"

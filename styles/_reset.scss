@@ -102,6 +102,10 @@ input[type="search"] {
   }
 }
 
+fieldset {
+  all: unset;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -116,6 +120,7 @@ address {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

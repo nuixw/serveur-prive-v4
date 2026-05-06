@@ -81,6 +81,7 @@
   --radius-rounded: 999px;
   --radius-primary: var(--size-6);
   --radius-secondary: var(--size-4);
+  --radius-input: calc(var(--radius-primary) * 1.2);
 
   /* main */
   --main-padding: var(--size-6);

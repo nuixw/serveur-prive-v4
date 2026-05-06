@@ -5,11 +5,10 @@ import { ReactNode } from "react"
 import { Icon } from "../icon"
 import { Link } from "../link"
 
-export interface ButtonProps {
+interface BaseButtonProps {
   children?: ReactNode
   icon?: string
   iconPosition?: "left" | "right"
-  href?: string
   className?: string
   disabled?: boolean
   variant?: "primary" | "secondary" | "tertiary"
@@ -18,6 +17,18 @@ export interface ButtonProps {
   iconOnly?: boolean
   onClick?: () => void
 }
+
+interface LinkButtonProps extends BaseButtonProps {
+  href: string
+  type?: never
+}
+
+interface NativeButtonProps extends BaseButtonProps {
+  href?: undefined
+  type?: "button" | "submit" | "reset"
+}
+
+export type ButtonProps = LinkButtonProps | NativeButtonProps
 
 export const Button = ({
   children,
@@ -31,6 +42,7 @@ export const Button = ({
   border = false,
   transparent = false,
   iconOnly = false,
+  type,
   ...props
 }: ButtonProps) => {
   const Content = (
@@ -75,6 +87,7 @@ export const Button = ({
       <button
         {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
         {...attrs}
+        type={type ?? "button"}
       >
         {Content}
       </button>

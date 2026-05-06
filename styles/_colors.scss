@@ -37,6 +37,13 @@
   --shadow-aside-hidden: 0 0 200px transparent;
   --shadow-aside: 0 0 200px oklch(from var(--black-dark) l c h / 0.5);
 
+  /* charts */
+  --chart-votes-line: var(--primary);
+  --chart-votes-grid: var(--border-primary);
+  --chart-votes-tick: oklch(from var(--text-secondary) l c h / 0.82);
+  --chart-votes-fill-start: oklch(from var(--chart-votes-line) l c h / 0.32);
+  --chart-votes-fill-end: oklch(from var(--chart-votes-line) l c h / 0);
+
   /* socials */
   --discord: oklch(0.62 0.19 274);
   --twitter: oklch(0.66 0.16 239);

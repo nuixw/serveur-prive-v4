@@ -168,6 +168,7 @@ export default function Page() {
                   "sponso-serveur-item",
                   (index === 0 || index === 2) && "serveur-premium"
                 )}
+                data-link
               >
                 <div className="sponso-serveur-top">
                   <img
@@ -177,6 +178,7 @@ export default function Page() {
                     loading="lazy"
                     draggable="false"
                     className="serveur-image"
+                    alt="Nom du serveur"
                   />
                   <Stars note={4} />
                 </div>
@@ -264,6 +266,7 @@ export default function Page() {
                   height={100}
                   loading="lazy"
                   draggable="false"
+                  alt="Nom du serveur"
                 />
                 <div className="serveur-item-left-bottom">
                   <div className="serveur-item-rating">

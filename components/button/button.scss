@@ -68,7 +68,7 @@
 
     .btn-icon {
       margin: 0;
-      transform: scale(1.75);
+      transform: scale(1.5);
     }
   }
 
@@ -107,7 +107,6 @@
 
 [data-theme="dark"] {
   .btn {
-
     &.secondary {
       --btn-color: var(--white);
       --btn-background: var(--black-light);

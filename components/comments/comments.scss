@@ -1,0 +1,137 @@
+@use "@/styles/mixins" as *;
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--content-padding) / 3);
+}
+
+.comment {
+  --avatar-size: calc(var(--comment-left) - var(--comment-gap));
+  --comment-padding: calc(var(--content-padding) * .75);
+  --comment-gap: calc(var(--comment-padding) / 2);
+  --comment-left: calc(56px + 24 * (100vw - 320px) / 1080);
+  --comment-background: var(--body);
+  display: flex;
+  align-items: flex-start;
+}
+
+.comment-left {
+  width: var(--comment-left);
+  min-width: var(--comment-left);
+  position: relative;
+  padding-top: var(--size-1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: calc(var(--comment-left) / 2.5);
+    height: calc(var(--comment-left) / 2.5);
+    background-color: var(--comment-background);
+    top: 0;
+    right: 0;
+    z-index: 0;
+    @include mask(radial-gradient(100% 100% at 0 100%,
+        transparent 0,
+        transparent 100%,
+        #000 100%));
+  }
+
+  @include max(600px) {
+    display: none;
+  }
+}
+
+.comment-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--comment-padding) / 2);
+  background-color: var(--comment-background);
+  border-radius: 0 var(--radius-primary) var(--radius-primary) var(--radius-primary);
+  padding: var(--comment-padding);
+
+  .paragraph {
+    width: 100%;
+    font-size: 1em;
+  }
+}
+
+.comment-right-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--comment-padding) / 2);
+  font-size: calc(.75em + 2 * (100vw - 320px) / 1080);
+
+  .stars-list {
+    --star-color-active: var(--gold);
+    font-size: 1.75em;
+  }
+
+}
+
+.comment-date {
+  color: var(--text-tertiary);
+  line-height: 1;
+  text-align: right;
+
+  a {
+    font-weight: bold;
+    color: var(--primary);
+    transition: color var(--transition-link);
+
+    &:hover {
+      color: var(--primary-light);
+    }
+  }
+}
+
+.comment-reply-form {
+  --field-background: var(--bg-secondary);
+  width: 100%;
+  font-size: inherit;
+  --size-padding-x: 1.75rem;
+  --size-padding-y: 1.25rem;
+  --size-height: calc(1.2rem + var(--size-padding-y) * 2);
+
+  &[open] {
+    .comment-add-reply {
+      span {
+        display: none;
+      }
+
+      &::before {
+        content: attr(data-close);
+      }
+    }
+  }
+
+  .form {
+    margin-top: var(--comment-gap);
+  }
+}
+
+.comment-add-reply {
+  all: unset;
+  font-weight: bold;
+  transition: color var(--transition-link);
+  width: auto;
+  display: inline-block;
+  color: var(--primary);
+  cursor: pointer;
+  @include user-select;
+
+  &:hover {
+    color: var(--primary-light);
+  }
+}
+
+.comment-reply {
+  --comment-background: var(--bg-secondary);
+  --comment-padding: calc(var(--content-padding) * .6);
+  --comment-left: calc(40px + 24 * (100vw - 320px) / 1080);
+  font-size: .8em;
+}

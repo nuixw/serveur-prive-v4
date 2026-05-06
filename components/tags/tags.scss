@@ -8,8 +8,8 @@
 
 .tag {
   font-weight: 600;
-  color: var(--text-secondary);
-  background-color: light-dark(var(--bg-secondary), var(--black-darkest));
+  color: var(--tag-color, var(--text-secondary));
+  background-color: var(--tag-background, light-dark(var(--bg-secondary), var(--black-darkest)));
   padding: .5em .85em;
   line-height: 1;
   display: inline-flex;
@@ -22,7 +22,7 @@
   &[href] {
     &:hover {
       color: var(--white);
-      background-color: var(--primary);
+      background-color: var(--tag-background-hover, var(--primary));
     }
   }
 }

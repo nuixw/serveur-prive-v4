@@ -20,6 +20,28 @@ h6 {
   font-size: 0.95em;
 }
 
+.intro,
+.paragraph {
+  &>*+* {
+    margin-top: .75em;
+  }
+
+  ul,
+  ol {
+    li {
+      &::before {
+        content: "•";
+        margin-right: .5em;
+        color: var(--primary);
+      }
+    }
+
+    &>*+* {
+      margin-top: .25em;
+    }
+  }
+}
+
 .logo {
   font-style: italic;
   font-weight: 500;
@@ -42,4 +64,20 @@ h6 {
 
 .color-primary {
   color: var(--primary);
+}
+
+.video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-primary);
+
+  iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
 }

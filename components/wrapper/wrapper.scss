@@ -11,7 +11,11 @@ $responsive-aside: 1150px;
   padding: var(--bloc-padding);
   display: flex;
   flex-direction: column;
-  gap: calc(var(--bloc-padding) / 1.25);
+  gap: calc(var(--bloc-padding) / 1.5);
+}
+
+.bloc-no-padding {
+  padding: 0;
 }
 
 .bloc-section {
@@ -36,6 +40,7 @@ $responsive-aside: 1150px;
 
 .wrapper {
   --wrapper-gap: var(--main-padding);
+  --field-background: light-dark(var(--bg-secondary), var(--body));
   display: flex;
   align-items: flex-start;
   gap: var(--wrapper-gap);
@@ -45,6 +50,12 @@ $responsive-aside: 1150px;
     display: inline-flex;
     align-items: center;
     gap: .75em;
+  }
+
+  .paragraph {
+    font-size: 1.05em;
+    line-height: 1.5;
+    color: var(--text-secondary);
   }
 }
 
@@ -86,6 +97,7 @@ $responsive-aside: 1150px;
 
   .bloc {
     --bloc-padding: calc(var(--content-padding) * .65);
+    gap: calc(var(--bloc-padding) / 1.25);
   }
 
   .tag {

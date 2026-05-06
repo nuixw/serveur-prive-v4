@@ -23,8 +23,9 @@
 @use "../components/form/form";
 @use "../components/presentation/presentation";
 @use "../app/(home)/page";
-@use "../app/[game]/page-jeu";
 @use "../app/serveur/page-serveur";
+@use "../app/[game]/page-jeu";
+@use "../app/connexion/page-login";
 
 html {
   background-color: var(--body);

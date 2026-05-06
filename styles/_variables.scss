@@ -108,6 +108,12 @@
   --aside-width: calc(280px + 32 * (100vw - 320px) / 1080);
   --aside-spacing-top: var(--size-8);
 
+  /* Field */
+  --field-padding-x: var(--size-padding-x);
+  --field-padding-y: var(--size-padding-y);
+  --field-size-height: var(--size-height);
+  --field-transition: 0.25s var(--cubic);
+
   @include max(600px) {
     --container-max: 100%;
     --main-padding: var(--size-4);

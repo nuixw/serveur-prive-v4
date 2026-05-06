@@ -1,5 +1,6 @@
 import { Icon } from "@/components/icon"
 import clsx from "clsx"
+import { ReactNode } from "react"
 
 interface InputProps {
   icon?: string
@@ -15,6 +16,7 @@ interface InputProps {
   disabled?: boolean
   onChange?: (value: string) => void
   rows?: number
+  right?: ReactNode
 }
 
 export const Input = ({
@@ -29,7 +31,8 @@ export const Input = ({
   label,
   required,
   disabled,
-  onChange
+  onChange,
+  right
 }: InputProps) => {
   return (
     <div className={clsx("field", classNameField)}>
@@ -50,6 +53,7 @@ export const Input = ({
           disabled={disabled}
           onChange={onChange ? (e) => onChange(e.target.value) : undefined}
         />
+        {right && <div className="field-right">{right}</div>}
       </div>
     </div>
   )

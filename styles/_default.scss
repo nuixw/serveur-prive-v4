@@ -40,6 +40,16 @@ h6 {
       margin-top: .25em;
     }
   }
+
+  a {
+    color: var(--primary);
+    transition: color var(--transition-link);
+    font-weight: bold;
+
+    &:hover {
+      color: var(--primary-light);
+    }
+  }
 }
 
 .logo {

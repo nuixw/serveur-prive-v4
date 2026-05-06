@@ -142,3 +142,15 @@
     }
   }
 }
+
+[data-password-toggle] {
+  &[aria-pressed="true"] {
+    .btn-icon-swap {
+      display: block;
+    }
+
+    .btn-icon:not(.btn-icon-swap) {
+      display: none;
+    }
+  }
+}

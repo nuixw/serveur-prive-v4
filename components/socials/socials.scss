@@ -36,6 +36,26 @@
   --color: var(--telegram);
 }
 
+[data-social="spotify"] {
+  --color: var(--spotify);
+}
+
+[data-social="github"] {
+  --color: var(--github);
+}
+
+[data-social="microsoft"] {
+  --color: var(--microsoft);
+}
+
+[data-social="google"] {
+  --color: var(--google);
+}
+
+[data-social="apple"] {
+  --color: var(--apple);
+}
+
 .socials {
   display: flex;
   gap: var(--size-2);

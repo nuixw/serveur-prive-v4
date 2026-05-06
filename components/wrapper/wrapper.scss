@@ -6,6 +6,7 @@ $responsive-aside: 1150px;
 
 .bloc {
   --bloc-padding: var(--content-padding);
+  --field-background: light-dark(var(--bg-secondary), var(--body));
   background-color: var(--bg-primary);
   border-radius: var(--radius-primary);
   padding: var(--bloc-padding);
@@ -40,7 +41,6 @@ $responsive-aside: 1150px;
 
 .wrapper {
   --wrapper-gap: var(--main-padding);
-  --field-background: light-dark(var(--bg-secondary), var(--body));
   display: flex;
   align-items: flex-start;
   gap: var(--wrapper-gap);

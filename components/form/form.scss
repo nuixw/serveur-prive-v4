@@ -23,10 +23,6 @@
 }
 
 .field {
-  --field-padding-x: var(--size-padding-x);
-  --field-padding-y: var(--size-padding-y);
-  --field-size-height: var(--size-height);
-  --field-transition: 0.25s var(--cubic);
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -63,6 +59,19 @@
   padding: var(--field-padding-y) var(--field-padding-x);
   font-weight: 500;
   font-family: var(--font-main);
+  border-radius: inherit;
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-primary);
+    -webkit-box-shadow: 0 0 0 1000px var(--field-background, var(--bg-secondary)) inset;
+    box-shadow: 0 0 0 1000px var(--field-background, var(--bg-secondary)) inset;
+    border-radius: inherit;
+    transition: background-color 9999s ease-out 0s;
+    caret-color: var(--text-primary);
+  }
 
   &::placeholder {
     color: oklch(from var(--text-secondary) l c h / 0.5);
@@ -93,6 +102,26 @@
   }
 }
 
+.field-right {
+  --field-right-padding: calc(var(--field-size-height) / 7);
+  height: var(--field-size-height);
+  display: flex;
+  align-items: center;
+  padding-right: var(--field-right-padding);
+
+  .btn {
+    --btn-background: light-dark(oklch(from var(--black-dark) l c h / 0.1), oklch(from var(--white-dark) l c h / 0.05));
+    --btn-color: var(--text-secondary);
+    --btn-border-color: transparent;
+    --btn-hover-background: var(--primary);
+    --btn-hover-border-color: transparent;
+    --btn-hover-color: var(--white);
+    --btn-radius: var(--radius-input);
+    --btn-padding-x: calc(var(--field-size-height) / 5);
+    --btn-padding-y: calc(var(--field-size-height) / 5);
+  }
+}
+
 .field-label {
   font-size: .95em;
   color: var(--text-secondary);
@@ -101,4 +130,68 @@
 
 .field-label-required {
   color: var(--danger);
+}
+
+.field-checkbox {
+  --field-checkbox-size: 1.35em;
+  display: flex;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--size-1);
+
+  input {
+    appearance: none;
+    width: var(--field-checkbox-size);
+    height: var(--field-checkbox-size);
+    min-width: var(--field-checkbox-size);
+    border: 2px solid var(--border-primary);
+    border-radius: calc(var(--field-checkbox-size) / 3);
+    background: var(--field-background, var(--bg-secondary));
+    transition: border-color var(--field-transition), background-color var(--field-transition), box-shadow var(--field-transition), outline-color var(--field-transition);
+    cursor: pointer;
+    position: relative;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    margin-right: .5em;
+
+    &[type='radio'] {
+      border-radius: 50%;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+      border-color: var(--primary);
+    }
+
+    &:checked {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    &:checked::after {
+      content: '';
+      display: block;
+      width: 0.6em;
+      height: 0.6em;
+      border-radius: 2px;
+      margin: auto;
+      background: var(--white);
+      box-shadow: 0 1px 2px oklch(from var(--black-dark) l c h / 0.14);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      background: var(--border-primary);
+    }
+  }
+
+  label,
+  span,
+  & {
+    cursor: pointer;
+    user-select: none;
+  }
 }

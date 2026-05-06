@@ -50,11 +50,11 @@ export default function Page() {
         <div className="login-left">
           <h1>
             Gérez vos serveurs privés, voter en toute simplicité en vous
-            connectant à serveur-prive.net
+            inscrivant à serveur-prive.net
           </h1>
         </div>
         <div className="bloc login-right">
-          <h2>Se connecter</h2>
+          <h2>Créer un compte</h2>
           <div className="providers">
             {providers.map((provider) => (
               <button
@@ -77,15 +77,23 @@ export default function Page() {
           />
           <form className="form" action="">
             <Input
-              id="connexion-email"
-              label="Votre adresse e-mail ou nom d'utilisateur"
+              id="inscription-username"
+              label="Votre pseudonyme"
               icon="hugeicons:user"
+              type="text"
+              name="username"
+              placeholder="Nom d'utilisateur"
+            />
+            <Input
+              id="inscription-email"
+              label="Votre adresse e-mail"
+              icon="hugeicons:mail-01"
               type="email"
               name="email"
               placeholder="johndoe@gmail.com"
             />
             <Input
-              id="connexion-password"
+              id="inscription-password"
               label="Votre mot de passe"
               icon="hugeicons:lock-password"
               type="password"
@@ -98,15 +106,22 @@ export default function Page() {
                   aria-pressed="false"
                   icon="hugeicons:view"
                   iconOnly
-                  passwordToggleTargetId="connexion-password"
-                >
-                  <Icon icon="hugeicons:view-off" className="btn-icon-swap" />
-                </Button>
+                  passwordToggleTargetId="inscription-password"
+                />
               }
             />
-            <label htmlFor="remember" className="field-checkbox">
-              <input type="checkbox" id="remember" name="remember" />
-              Se souvenir de moi
+            <label htmlFor="inscription-terms" className="field-checkbox">
+              <input
+                type="checkbox"
+                id="inscription-terms"
+                name="terms"
+                required
+              />
+              <span>
+                En créant un compte, vous confirmez avoir lu et accepté les{" "}
+                <Link href="/default">Conditions d&apos;utilisation</Link> et
+                les <Link href="/default">Conditions de vente</Link>
+              </span>
             </label>
             <div className="login-form-bottom">
               <div className="cloudflare">
@@ -116,17 +131,14 @@ export default function Page() {
                   data-size="normal"
                 />
               </div>
-              <Button type="submit" icon="hugeicons:login-circle-01">
-                Se connecter
+              <Button type="submit" icon="hugeicons:add-circle">
+                S&apos;inscrire
               </Button>
             </div>
           </form>
           <div className="login-right-bottom">
             <span>
-              <Link href="/mot-de-passe-oublie">Mot de passe oublié ?</Link>
-            </span>
-            <span>
-              Pas inscrit ? <Link href="/inscription">Créer un compte</Link>
+              Déjà inscrit ? <Link href="/connexion">Se connecter</Link>
             </span>
           </div>
         </div>

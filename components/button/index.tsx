@@ -16,6 +16,8 @@ interface BaseButtonProps {
   transparent?: boolean
   iconOnly?: boolean
   onClick?: () => void
+  /** Rattache le bouton à un champ mot de passe (`id`) pour le script global `DomInteractions`. */
+  passwordToggleTargetId?: string
 }
 
 interface LinkButtonProps extends BaseButtonProps {
@@ -43,6 +45,7 @@ export const Button = ({
   transparent = false,
   iconOnly = false,
   type,
+  passwordToggleTargetId,
   ...props
 }: ButtonProps) => {
   const Content = (
@@ -72,6 +75,14 @@ export const Button = ({
     disabled
   }
 
+  const passwordToggleAttrs =
+    passwordToggleTargetId && !href
+      ? {
+          "data-password-toggle": "",
+          "data-password-target": passwordToggleTargetId
+        }
+      : {}
+
   if (href) {
     return (
       <Link
@@ -86,6 +97,7 @@ export const Button = ({
     return (
       <button
         {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+        {...passwordToggleAttrs}
         {...attrs}
         type={type ?? "button"}
       >

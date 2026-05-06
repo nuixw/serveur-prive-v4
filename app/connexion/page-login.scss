@@ -1,0 +1,210 @@
+@use "@/styles/mixins" as *;
+
+$responsive: 1084px;
+
+.login {
+  --login-right: calc(400px + 150 * (100vw - 320px) / 1080);
+  min-height: 60vh;
+  background-color: var(--bg-secondary);
+  margin-bottom: calc(var(--main-margin-4) * -1 + var(--main-padding));
+  border-radius: var(--radius-primary);
+  display: flex;
+  align-items: center;
+  padding: calc(40px + 24 * (100vw - 320px) / 1080) 0;
+  position: relative;
+  background:
+    linear-gradient(153deg, oklch(from var(--black-dark) l c h / 0.75) 26.55%, oklch(from var(--black-medium) l c h / 0.75) 67.14%),
+    url("/img/login-background.webp") lightgray 50% / cover no-repeat;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, oklch(from var(--black-dark) l c h / 0.75) 0%, oklch(from var(--black-medium) l c h / 0.75) 100%);
+    border-radius: inherit;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    gap: calc(40px + 32 * (100vw - 320px) / 1080);
+
+    @include max($responsive) {
+      flex-direction: column;
+      gap: calc(var(--main-padding) * 2);
+      text-align: center;
+    }
+  }
+}
+
+.login-left {
+  flex: 1;
+
+  h1 {
+    font-size: calc(24px + 12 * (100vw - 320px) / 1080);
+    width: 80%;
+    text-wrap: balance;
+    color: var(--white);
+
+    @include max(1250px) {
+      width: 100%;
+    }
+
+    @include max($responsive) {
+      font-size: calc(20px + 8 * (100vw - 320px) / 1080);
+    }
+  }
+}
+
+.login-right {
+  width: var(--login-right);
+  max-width: calc(100% - var(--main-padding) * 2);
+  text-align: center;
+  padding-inline: calc(var(--bloc-padding) + (24 * (100vw - 500px) / 1080));
+
+  @include max($responsive) {
+    padding: calc(var(--bloc-padding) / 1.5);
+  }
+
+  h2 {
+    font-size: calc(20px + 8 * (100vw - 320px) / 1080);
+  }
+
+  .intro {
+    color: var(--text-secondary);
+    line-height: 1.45;
+    max-width: 36em;
+    margin-inline: auto;
+    font-weight: 500;
+  }
+
+  .field-checkbox a {
+    color: var(--primary);
+    font-weight: 800;
+    transition: color var(--transition-link);
+
+    &:hover {
+      color: var(--primary-light);
+    }
+  }
+
+  .form {
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--content-padding) / 2);
+  }
+
+  .field-label {
+    text-align: center;
+    width: 100%;
+    margin-bottom: var(--size-1-5);
+  }
+}
+
+.login-right-bottom {
+  font-size: .95em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--form-gap) / 2);
+  width: 100%;
+  flex-wrap: wrap;
+  white-space: nowrap;
+  color: var(--text-secondary);
+
+  a {
+    color: var(--primary);
+    transition: color var(--transition-link);
+    font-weight: bold;
+
+    &:hover {
+      color: var(--primary-light);
+    }
+  }
+
+  span+span {
+    &::before {
+      content: "•";
+      margin-inline: .5em;
+      opacity: .25;
+    }
+  }
+}
+
+.cloudflare {
+  border: 1px solid var(--border-primary);
+  overflow: hidden;
+  border-radius: var(--radius-input);
+  height: var(--size-height);
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+
+  &>* {
+    transform: scale(1.01);
+    width: calc(100% + 2px);
+  }
+}
+
+.login-form-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--form-gap) / 2);
+  width: 100%;
+  flex-wrap: wrap;
+
+  .btn {
+    flex: 1;
+
+  }
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  width: 100%;
+  color: var(--text-tertiary);
+  font-size: .9em;
+  line-height: 1;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    position: relative;
+    top: 1px;
+    background-color: var(--border-primary);
+  }
+}
+
+.providers {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: calc(4px + 8 * (100vw - 320px) / 1080);
+}
+
+.provider {
+  flex: 1;
+  aspect-ratio: 1/1;
+  border-radius: var(--radius-secondary);
+  background-color: var(--field-background);
+  display: grid;
+  place-items: center;
+  color: var(--color);
+  transition: background-color var(--transition-link), color var(--transition-link);
+
+  &:hover {
+    background-color: var(--color);
+    color: var(--lightningcss-light, var(--white)) var(--lightningcss-dark, var(--black));
+  }
+
+  svg {
+    width: 45%;
+    stroke: var(--color);
+  }
+}

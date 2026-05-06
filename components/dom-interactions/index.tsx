@@ -8,6 +8,7 @@ const ASIDE_OPEN_CLASS = "aside-responsive-left-open"
 const ASIDE_SELECTOR = ".aside-responsive-left"
 const ASIDE_TOGGLE_SELECTOR = ".btn-aside-responsive-left"
 const CARD_LINK_SELECTOR = "[data-link]"
+const PASSWORD_TOGGLE_SELECTOR = "[data-password-toggle]"
 const COPY_TRIGGER_SELECTOR = "[data-copy]"
 const COUNTER_SELECTOR = "[data-footer-counter]"
 const TRUNCATE_CONTAINER_SELECTOR = "[data-truncate]"
@@ -251,6 +252,31 @@ async function onDocumentClick(event: MouseEvent) {
     }
   } else if (isAsideOpen && !aside) {
     document.body.classList.remove(ASIDE_OPEN_CLASS)
+  }
+
+  const passwordToggle = target.closest<HTMLElement>(PASSWORD_TOGGLE_SELECTOR)
+  if (passwordToggle) {
+    const targetId = passwordToggle.getAttribute("data-password-target")
+    if (targetId) {
+      const input = document.getElementById(targetId)
+      if (
+        input instanceof HTMLInputElement &&
+        (input.type === "password" || input.type === "text")
+      ) {
+        const nextIsHidden = input.type === "text"
+        input.type = nextIsHidden ? "password" : "text"
+        passwordToggle.setAttribute(
+          "aria-label",
+          nextIsHidden ? "Afficher le mot de passe" : "Masquer le mot de passe"
+        )
+        passwordToggle.setAttribute(
+          "aria-pressed",
+          nextIsHidden ? "false" : "true"
+        )
+      }
+    }
+    event.preventDefault()
+    return
   }
 
   if (target.closest(INTERACTIVE_SELECTOR)) return

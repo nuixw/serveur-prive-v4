@@ -140,6 +140,7 @@ export default function Page() {
           </div>
         </div>
         <div className="banner-aside">
+          <div className="serveur-position">1</div>
           <img
             src="https://placehold.co/200x100"
             width={200}

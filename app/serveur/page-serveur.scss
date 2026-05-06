@@ -33,11 +33,22 @@ $banner-responsive: 950px;
     align-items: stretch;
     justify-content: flex-start;
     gap: calc(var(--banner-padding) / 2.5);
+  }
 
-    .serveur-banner-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+  .serveur-banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .serveur-position {
+    color: light-dark(var(--black-dark), var(--white));
+    left: calc(var(--banner-padding) * .25);
+    padding-top: .45em;
+
+    @include max($banner-responsive) {
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 }

@@ -6,6 +6,7 @@
 
 import { Icon } from '@/components/icon'
 import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 function disableTransitionsTemporarily() {
   const style = document.createElement('style')
@@ -21,8 +22,14 @@ function disableTransitionsTemporarily() {
 
 export function Switch() {
   const { theme, setTheme } = useTheme()
-  const isLight = theme === 'light'
-  const isDark = theme === 'dark'
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  const isLight = isMounted && theme === 'light'
+  const isDark = isMounted && theme === 'dark'
 
   function handleSetTheme(nextTheme: 'light' | 'dark') {
     disableTransitionsTemporarily()

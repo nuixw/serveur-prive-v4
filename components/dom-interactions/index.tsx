@@ -10,7 +10,7 @@ const ASIDE_TOGGLE_SELECTOR = ".btn-aside-responsive-left"
 const CARD_LINK_SELECTOR = "[data-link]"
 const PASSWORD_TOGGLE_SELECTOR = "[data-password-toggle]"
 const COPY_TRIGGER_SELECTOR = "[data-copy]"
-const COUNTER_SELECTOR = "[data-footer-counter]"
+const COUNTER_SELECTOR = "[data-counter]"
 const TRUNCATE_CONTAINER_SELECTOR = "[data-truncate]"
 const TRUNCATE_ITEM_SELECTOR = "[data-truncate-item]"
 const TRUNCATE_STATIC_SELECTOR = "[data-truncate-static]"
@@ -21,41 +21,42 @@ const DEFAULT_COPY_TIMEOUT_MS = 2000
 
 const copyTimeoutByElement = new WeakMap<HTMLElement, number>()
 
-interface CounterParts {
-  days: number
-  hours: number
-  minutes: number
-  seconds: number
-}
-
 function pad2(value: number): string {
   return String(value).padStart(2, "0")
 }
 
-function getCounterParts(remainingMs: number): CounterParts {
+function renderCounter(counter: HTMLElement, remainingMs: number) {
   const clampedMs = Math.max(remainingMs, 0)
   const totalSeconds = Math.floor(clampedMs / 1000)
 
-  const days = Math.floor(totalSeconds / 86400)
-  const hours = Math.floor((totalSeconds % 86400) / 3600)
-  const minutes = Math.floor((totalSeconds % 3600) / 60)
-  const seconds = totalSeconds % 60
-
-  return { days, hours, minutes, seconds }
-}
-
-function renderCounter(counter: HTMLElement, parts: CounterParts) {
   const days = counter.querySelector<HTMLElement>("[data-counter-days]")
   const hours = counter.querySelector<HTMLElement>("[data-counter-hours]")
   const minutes = counter.querySelector<HTMLElement>("[data-counter-minutes]")
   const seconds = counter.querySelector<HTMLElement>("[data-counter-seconds]")
 
-  if (!days || !hours || !minutes || !seconds) return
+  let remaining = totalSeconds
 
-  days.textContent = pad2(parts.days)
-  hours.textContent = pad2(parts.hours)
-  minutes.textContent = pad2(parts.minutes)
-  seconds.textContent = pad2(parts.seconds)
+  if (days) {
+    const value = Math.floor(remaining / 86400)
+    days.textContent = pad2(value)
+    remaining -= value * 86400
+  }
+
+  if (hours) {
+    const value = Math.floor(remaining / 3600)
+    hours.textContent = pad2(value)
+    remaining -= value * 3600
+  }
+
+  if (minutes) {
+    const value = Math.floor(remaining / 60)
+    minutes.textContent = pad2(value)
+    remaining -= value * 60
+  }
+
+  if (seconds) {
+    seconds.textContent = pad2(remaining)
+  }
 }
 
 function tickCounters() {
@@ -65,13 +66,13 @@ function tickCounters() {
   )
 
   counters.forEach((counter) => {
-    const targetRaw = counter.dataset.counterTarget
+    const targetRaw = counter.dataset.counter
     if (!targetRaw) return
 
     const targetMs = Date.parse(targetRaw)
     if (Number.isNaN(targetMs)) return
 
-    renderCounter(counter, getCounterParts(targetMs - now))
+    renderCounter(counter, targetMs - now)
   })
 }
 
@@ -284,10 +285,7 @@ async function onDocumentClick(event: MouseEvent) {
   const card = target.closest<HTMLElement>(CARD_LINK_SELECTOR)
   if (!card) return
 
-  const link = card.querySelector<HTMLAnchorElement>("a[href]")
-  if (!link) return
-
-  const href = link.getAttribute("href")
+  const href = card.getAttribute("data-link")
   if (!href) return
 
   window.location.assign(href)

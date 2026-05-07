@@ -114,8 +114,24 @@
   --field-size-height: var(--size-height);
   --field-transition: 0.25s var(--cubic);
 
-  @include max(600px) {
+  /* Button */
+  --btn-background: var(--primary);
+  --btn-color: var(--white);
+  --btn-radius: var(--radius-rounded);
+  --btn-padding-x: var(--size-padding-x);
+  --btn-padding-y: var(--size-padding-y);
+  --btn-border-color: var(--primary);
+  --btn-hover-background: var(--primary-light);
+  --btn-hover-border-color: var(--primary-light);
+  --btn-hover-color: var(--white);
+
+  /* Location serveur */
+  --location-serveur-marge: 32px;
+  --location-serveur-spacing: calc(var(--aside-spacing-top) + var(--main-padding) + var(--location-serveur-marge));
+
+  @include max(700px) {
     --container-max: 100%;
     --main-padding: var(--size-4);
+    --content-padding: calc(28px + 12 * (100vw - 320px) / 1080);
   }
 }

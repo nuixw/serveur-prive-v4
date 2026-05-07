@@ -1,0 +1,89 @@
+@use "@/styles/mixins" as *;
+
+.table {
+  --table-radius: var(--radius-primary);
+  --table-spacing: var(--size-2);
+  --table-padding: 1em;
+  border-spacing: 0 var(--table-spacing);
+  border-collapse: separate;
+
+  td {
+    background-color: var(--body);
+    padding: var(--table-padding);
+
+    &:first-child {
+      border-top-left-radius: var(--table-radius);
+      border-bottom-left-radius: var(--table-radius);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--table-radius);
+      border-bottom-right-radius: var(--table-radius);
+    }
+  }
+
+  [data-rank="1"] {
+    background-color: var(--gold);
+  }
+
+  [data-rank="2"] {
+    background-color: var(--silver);
+  }
+
+  [data-rank="3"] {
+    background-color: var(--bronze);
+  }
+
+  .avatar {
+    --avatar-size: 2em;
+    margin: calc(var(--table-padding) * -.5);
+  }
+
+  .icon {
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  .crown {
+    margin-right: .75em;
+    transform: scale(1.25);
+  }
+
+  .table-spacing-before {
+    border-top-right-radius: var(--table-radius);
+    border-bottom-right-radius: var(--table-radius);
+  }
+
+  .table-spacing {
+    padding: 0;
+    width: var(--table-spacing);
+    min-width: var(--table-spacing);
+    background-color: transparent;
+
+    &+td {
+      border-top-left-radius: var(--table-radius);
+      border-bottom-left-radius: var(--table-radius);
+    }
+  }
+}
+
+.table-actions {
+  width: 0;
+  white-space: nowrap;
+}
+
+.table-actions-link {
+  font-size: 0.85em;
+  color: var(--primary);
+  transition: color var(--transition-link);
+
+  &:hover {
+    color: var(--primary-light);
+  }
+
+  svg {
+    margin-left: 0.5em;
+    position: relative;
+    top: -0.1em;
+  }
+}

@@ -1,12 +1,19 @@
+"use client"
+
 import { Container } from "@/components/container"
 import { Icon } from "@/components/icon"
 import { Link } from "@/components/link"
 import { Socials } from "@/components/socials"
+import { useEffect, useState } from "react"
 
 const menus = [
   {
     title: "Informations",
     links: [
+      {
+        title: "Actualités",
+        href: "/actualite"
+      },
       {
         title: "Conditions d'utilisation",
         href: "/default"
@@ -71,7 +78,17 @@ const socials = [
   }
 ]
 
+const DEFAULT_COUNTER_TARGET = "2026-05-15T00:00:00.000Z"
+
 export const Footer = () => {
+  const [counterTarget, setCounterTarget] = useState(DEFAULT_COUNTER_TARGET)
+
+  useEffect(() => {
+    setCounterTarget(
+      new Date(Date.now() + 8 * 24 * 60 * 60 * 1000).toISOString()
+    )
+  }, [])
+
   return (
     <footer className="footer">
       <Container>
@@ -106,13 +123,7 @@ export const Footer = () => {
         </section>
         <section className="footer-counter">
           <h2>Prochain reset des classements & votes dans</h2>
-          <div
-            className="footer-counter-value"
-            data-footer-counter
-            data-counter-target={new Date(
-              Date.now() + 8 * 24 * 60 * 60 * 1000
-            ).toISOString()}
-          >
+          <div className="footer-counter-value" data-counter={counterTarget}>
             <span>
               <strong data-counter-days>8</strong> jours
             </span>{" "}

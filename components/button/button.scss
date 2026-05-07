@@ -1,16 +1,6 @@
 @use "@/styles/mixins" as *;
 
 .btn {
-  --btn-background: var(--primary);
-  --btn-color: var(--white);
-  --btn-radius: var(--radius-rounded);
-  --btn-padding-x: var(--size-padding-x);
-  --btn-padding-y: var(--size-padding-y);
-  --btn-border-color: var(--primary);
-  --btn-hover-background: var(--primary-light);
-  --btn-hover-border-color: var(--primary-light);
-  --btn-hover-color: var(--white);
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -59,6 +49,18 @@
     --btn-hover-background: var(--primary);
     --btn-hover-border-color: var(--primary);
     --btn-hover-color: var(--white);
+  }
+
+  &.premium {
+
+
+    --btn-background: var(--gold);
+    --btn-color: var(--white);
+    --btn-border-color: var(--gold);
+    --btn-hover-background: var(--gold-light);
+    --btn-hover-border-color: var(--gold-light);
+    --btn-hover-color: var(--white);
+
   }
 
   &.icon-only {
@@ -152,5 +154,12 @@
     .btn-icon:not(.btn-icon-swap) {
       display: none;
     }
+  }
+}
+
+.btn-right {
+  .avatar {
+    transform: scale(1.75);
+    margin-left: 0.25em;
   }
 }

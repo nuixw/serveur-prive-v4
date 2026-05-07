@@ -27,6 +27,31 @@
   &.banner-is-aside {
     padding: 0;
   }
+
+  h1 {
+    font-size: calc(24px + 8 * (100vw - 320px) / 1080);
+  }
+
+  .btn {
+    backdrop-filter: blur(8px);
+  }
+}
+
+.not-found-banner {
+  text-align: center;
+  margin-bottom: calc(var(--main-margin-4) * -1 + var(--main-padding));
+
+  .paragraph {
+    color: var(--white);
+  }
+
+  .banner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-4);
+  }
 }
 
 .banner-bottom {
@@ -50,8 +75,9 @@
   gap: .75em;
   white-space: nowrap;
 
-  svg {
+  .icon {
     transform: scale(1.1);
+    color: var(--primary);
   }
 }
 

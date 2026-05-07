@@ -22,10 +22,16 @@
 @use "../components/layout/footer/footer";
 @use "../components/form/form";
 @use "../components/presentation/presentation";
+@use "../components/pagination/pagination";
+@use "../components/table/table";
 @use "../app/(home)/page";
 @use "../app/serveur/page-serveur";
 @use "../app/[game]/page-jeu";
 @use "../app/connexion/page-login";
+@use "../app/actualite/page-actualite";
+@use "../app/profil/page-profil";
+@use "../app/vote/page-vote";
+@use "../app/location-serveur/page-location";
 
 html {
   background-color: var(--body);
@@ -35,6 +41,10 @@ html {
   overflow-x: clip;
   @include no-scrollbar;
   @include selection(oklch(from var(--primary) l c h / 0.85), var(--white));
+
+  @include max(390px) {
+    font-size: 14px;
+  }
 
   #nprogress {
     .bar {
@@ -72,4 +82,21 @@ strong {
 
 .main {
   padding-inline: var(--main-padding);
+}
+
+.tester {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  font-size: 10px;
+  background-color: var(--black-dark);
+  border-top-left-radius: var(--radius-secondary);
+  color: var(--white);
+  z-index: 100;
+  padding: .5em;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--primary);
+  }
 }

@@ -5,6 +5,7 @@ import { BannerStat } from "@/components/banner/stat"
 import { Button } from "@/components/button"
 import { Icon } from "@/components/icon"
 import { Link } from "@/components/link"
+import { Pagination } from "@/components/pagination"
 import { Stars } from "@/components/stars"
 import { Wrapper } from "@/components/wrapper"
 import clsx from "clsx"
@@ -146,7 +147,11 @@ export default function Page() {
               </div>
             ))}
           </div>
-          <Button href="/default" icon="hugeicons:cloud" variant="secondary">
+          <Button
+            href="/location-serveur"
+            icon="hugeicons:cloud"
+            variant="secondary"
+          >
             Louer un serveur
           </Button>
           <Button
@@ -168,7 +173,7 @@ export default function Page() {
                   "sponso-serveur-item",
                   (index === 0 || index === 2) && "serveur-premium"
                 )}
-                data-link
+                data-link="/serveur"
               >
                 <div className="sponso-serveur-top">
                   <img
@@ -255,7 +260,7 @@ export default function Page() {
             <div
               key={index}
               className={clsx("serveur-item", index === 1 && "serveur-premium")}
-              data-link
+              data-link="/serveur"
             >
               <div className="serveur-item-left">
                 <div className="serveur-position">{index + 1}</div>
@@ -283,7 +288,11 @@ export default function Page() {
                     <span>
                       <strong>15,650</strong> votes
                     </span>
-                    <Button variant="secondary" icon="hugeicons:download-02">
+                    <Button
+                      href="/vote"
+                      variant="secondary"
+                      icon="hugeicons:download-02"
+                    >
                       Voter
                     </Button>
                   </div>
@@ -365,6 +374,7 @@ export default function Page() {
               </div>
             </div>
           ))}
+          <Pagination />
         </div>
         <Button
           className="btn-aside-responsive-left"

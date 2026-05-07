@@ -7,7 +7,8 @@
   background-size: 60%;
   position: relative;
   border-radius: var(--avatar-radius, var(--radius-rounded));
-  background-color: oklch(from var(--text-primary) l c h / 0.05);
+  background-color: var(--avatar-background, oklch(from var(--text-primary) l c h / 0.075));
+  backdrop-filter: blur(8px);
 
   img {
     position: absolute;

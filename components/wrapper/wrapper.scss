@@ -83,6 +83,7 @@ $responsive-aside: 1150px;
   display: flex;
   flex-direction: column;
   gap: calc(var(--wrapper-gap) / 1.5);
+  margin-top: var(--main-padding);
 
   &>.btn+.btn {
     margin-top: calc(var(--wrapper-gap) * -.25);
@@ -100,7 +101,8 @@ $responsive-aside: 1150px;
     gap: calc(var(--bloc-padding) / 1.25);
   }
 
-  .tag {
+  .tag,
+  .tag-checkbox {
     font-size: .9em;
   }
 
@@ -108,6 +110,92 @@ $responsive-aside: 1150px;
     font-size: calc(10px + 2 * (100vw - 320px) / 1080);
     justify-content: center;
   }
+
+  .bloc-author {
+    --avatar-size: calc(56px + 4 * (100vw - 320px) / 1080);
+    display: flex;
+    padding: calc(var(--content-padding) * .5);
+    align-items: center;
+    gap: calc(var(--bloc-padding) / 1.75);
+    flex-direction: row;
+  }
+
+  .bloc-author-text {
+    display: flex;
+    flex-direction: column;
+    gap: .25em;
+
+    span {
+      color: var(--text-tertiary);
+    }
+
+    a {
+      font-family: var(--font-heading);
+      font-size: calc(16px + 4 * (100vw - 320px) / 1080);
+      transition: color var(--transition-link);
+
+      &:hover {
+        color: var(--primary);
+      }
+    }
+  }
+
+  .bloc-nav {
+    --bloc-padding: calc(var(--content-padding) * .33);
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--bloc-padding) / 2);
+    align-items: stretch;
+  }
+
+  .bloc-nav-link {
+    --color: var(--primary);
+    transition: background-color var(--transition-link), color var(--transition-link);
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    border-radius: calc(var(--radius-secondary) * .9);
+    min-height: calc(var(--size-height) * .9);
+    background-color: var(--body);
+    padding: 0 calc(var(--bloc-padding) * .8);
+
+    svg {
+      transition: color var(--transition-link);
+      color: var(--text-secondary);
+    }
+
+    &:hover {
+      background-color: var(--color);
+      color: var(--white);
+
+      svg {
+        color: var(--white);
+      }
+    }
+  }
+
+  .bloc-nav-link-active {
+    color: var(--color);
+    background-color: oklch(from var(--color) l c h / 0.15);
+
+    svg {
+      color: var(--color);
+    }
+  }
+
+  .bloc-nav-link-gold {
+    --color: var(--gold);
+
+    svg {
+      color: var(--gold);
+    }
+  }
+}
+
+.aside-nav {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--wrapper-gap) / 1.5);
 }
 
 .aside-relative {
@@ -143,7 +231,7 @@ $responsive-aside: 1150px;
   --btn-border-color: transparent;
   display: none;
   position: fixed;
-  bottom: calc(var(--main-padding) * 1.5);
+  bottom: var(--main-padding);
   right: var(--main-padding);
   z-index: 100;
   backdrop-filter: blur(32px);

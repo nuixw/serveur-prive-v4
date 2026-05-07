@@ -7,6 +7,7 @@
   align-items: flex-start;
   gap: var(--form-gap);
   width: 100%;
+  position: relative;
 }
 
 .field-group {
@@ -28,12 +29,13 @@
   flex-direction: column;
   width: 100%;
   gap: calc(var(--field-padding-y) / 2);
+  color: var(--field-color, var(--text-primary));
 
   &:has(.field-input:focus) {
     --box-shadow: oklch(from var(--text-primary) l c h / 0.05);
 
     .field-icon {
-      color: var(--primary);
+      color: var(--field-color-icon-focus, var(--primary));
     }
   }
 
@@ -65,7 +67,7 @@
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
-    -webkit-text-fill-color: var(--text-primary);
+    -webkit-text-fill-color: var(--field-color, var(--text-primary));
     -webkit-box-shadow: 0 0 0 1000px var(--field-background, var(--bg-secondary)) inset;
     box-shadow: 0 0 0 1000px var(--field-background, var(--bg-secondary)) inset;
     border-radius: inherit;
@@ -74,7 +76,7 @@
   }
 
   &::placeholder {
-    color: oklch(from var(--text-secondary) l c h / 0.5);
+    color: oklch(from var(--field-color, var(--text-secondary)) l c h / 0.5);
   }
 
   &:disabled {
@@ -119,6 +121,40 @@
     --btn-radius: var(--radius-input);
     --btn-padding-x: calc(var(--field-size-height) / 5);
     --btn-padding-y: calc(var(--field-size-height) / 5);
+  }
+}
+
+.field-select {
+  cursor: pointer;
+  border-radius: var(--radius-rounded);
+  min-height: var(--field-size-height);
+  background-color: light-dark(oklch(from var(--black-medium) l c h / 0.06), oklch(from var(--white-dark) l c h / 0.08));
+
+  .field-icon {
+    color: var(--text-secondary);
+    align-self: center;
+  }
+}
+
+.field-select-input {
+  appearance: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding-right: 0;
+}
+
+.field-select-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: var(--text-secondary);
+  padding-right: 1em;
+
+  .icon {
+    width: 1.1em;
+    height: 1.1em;
   }
 }
 

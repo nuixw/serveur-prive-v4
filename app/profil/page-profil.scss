@@ -1,0 +1,200 @@
+@use "@/styles/mixins" as *;
+
+.profil-banner {
+  --banner-padding: calc(var(--aside-spacing-top) + var(--main-padding));
+  --banner-mask: linear-gradient(35deg, oklch(from var(--black-dark) l c h / 0.82) 34%, oklch(from var(--black-medium) l c h / 0.6) 100%);
+
+  .banner-container {
+    padding: var(--banner-padding) var(--content-padding);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--banner-padding) * 1);
+  }
+
+  .banner-bottom {
+    flex-wrap: wrap;
+
+    @include max(700px) {
+      font-size: .75em;
+    }
+  }
+}
+
+.profil-solde {
+  background-color: var(--primary);
+  color: var(--white);
+
+  h2 {
+    color: var(--white);
+  }
+}
+
+.profil-avatar-wrapper {
+  --avatar-size: calc(88px + 32 * (100vw - 320px) / 1080);
+  --avatar-background: oklch(from var(--black-darkest) l c h / 0.65);
+  position: relative;
+
+  @include max(700px) {
+    display: none;
+  }
+}
+
+.profil-avatar-badge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: calc(var(--avatar-size) * .25);
+  height: calc(var(--avatar-size) * .25);
+  border-radius: var(--radius-rounded);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  color: var(--white);
+  font-weight: 700;
+  font-size: calc(var(--avatar-size) * .15);
+}
+
+.profil-banner-texts {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--banner-padding) * .4);
+  flex: 1;
+
+  h1 {
+    line-height: 1;
+  }
+}
+
+.profil-banner-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-2);
+}
+
+.profil-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  background-color: oklch(from var(--black-darkest) l c h / 0.65);
+  padding: 0.8em 1.3em;
+  border-radius: var(--radius-rounded);
+  font-size: .93em;
+  backdrop-filter: blur(8px);
+
+  svg {
+    color: var(--primary);
+  }
+}
+
+.profil-content {
+  gap: var(--main-padding);
+}
+
+.profil-level {
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: .4em;
+    flex-wrap: wrap;
+  }
+
+  .paragraph {
+    display: inline-flex;
+    align-items: center;
+    gap: .5em;
+    font-size: .95em;
+  }
+}
+
+.profil-progress {
+  width: 100%;
+  height: var(--size-5);
+  padding: 2px;
+  background-color: oklch(from var(--text-primary) l c h / 0.12);
+  border-radius: var(--radius-rounded);
+  overflow: hidden;
+
+  .profil-progress-bar {
+    display: block;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: inherit;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: repeating-linear-gradient(120deg,
+          oklch(from var(--white) l c h / 0.20) 0 18px,
+          transparent 18px 36px);
+      animation: profil-progress-stripes-move 2s linear infinite;
+    }
+  }
+
+  @keyframes profil-progress-stripes-move {
+    0% {
+      background-position-x: 0;
+    }
+
+    100% {
+      background-position-x: 36px;
+    }
+  }
+}
+
+.profil-start {
+  gap: calc(var(--content-padding) * .5);
+}
+
+.profil-start-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--size-3);
+  flex-wrap: wrap;
+}
+
+.profil-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(300px + 100 * (100vw - 320px) / 1080), 1fr));
+  gap: var(--size-4);
+}
+
+.profil-card {
+  --card-padding: calc(var(--content-padding) * .75);
+  background-color: var(--body);
+  border-radius: var(--radius-primary);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--card-padding) / 2);
+  position: relative;
+  padding-right: calc(var(--card-padding) * 2.5);
+
+  h3 {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75em;
+    font-family: var(--font-heading);
+    font-size: 1.1em;
+
+    svg {
+      color: var(--primary);
+      transform: scale(1.25);
+    }
+  }
+
+  .btn {
+    font-size: .85em;
+    position: absolute;
+    right: calc(var(--card-padding) / 2);
+    bottom: calc(var(--card-padding) / 2);
+  }
+}

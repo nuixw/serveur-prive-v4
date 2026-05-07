@@ -1,8 +1,12 @@
+"use client"
+
 import { Button } from "@/components/button"
 import { Container } from "@/components/container"
 import { Input } from "@/components/form"
 import { Icon } from "@/components/icon"
 import { Link } from "@/components/link"
+import { useAppStore } from "@/stores/app"
+import { redirect } from "next/navigation"
 import Script from "next/script"
 
 const providers = [
@@ -44,6 +48,8 @@ const providers = [
 ]
 
 export default function Page() {
+  const { setConnected } = useAppStore()
+
   return (
     <div className="login">
       <Container>
@@ -116,7 +122,13 @@ export default function Page() {
                   data-size="normal"
                 />
               </div>
-              <Button type="submit" icon="hugeicons:login-circle-01">
+              <Button
+                icon="hugeicons:login-circle-01"
+                onClick={() => {
+                  setConnected(true)
+                  redirect("/profil")
+                }}
+              >
                 Se connecter
               </Button>
             </div>

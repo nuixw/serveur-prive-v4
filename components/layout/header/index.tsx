@@ -2,9 +2,12 @@ import { Button } from "@/components/button"
 import { Input } from "@/components/form"
 import { Link } from "@/components/link"
 import { games } from "@/lib/games"
+import { useAppStore } from "@/stores/app"
 import { Switch } from "./switch"
 
 export const Header = () => {
+  const { isConnected } = useAppStore()
+
   return (
     <header className="header">
       <div className="header-left">
@@ -68,15 +71,27 @@ export const Header = () => {
       </div>
       <div className="header-right">
         <Switch />
-        <Button
-          href="/connexion"
-          icon="hugeicons:login-circle-01"
-          variant="secondary"
-          aria-label="Se connecter"
-          border
-        >
-          Se connecter
-        </Button>
+        {isConnected ? (
+          <Button
+            href="/profil"
+            variant="secondary"
+            icon="hugeicons:user"
+            aria-label="Profil"
+            border
+          >
+            Nicobel0
+          </Button>
+        ) : (
+          <Button
+            href="/connexion"
+            icon="hugeicons:login-circle-01"
+            variant="secondary"
+            aria-label="Se connecter"
+            border
+          >
+            Se connecter
+          </Button>
+        )}
         <Button
           href="/"
           icon="hugeicons:add-circle"

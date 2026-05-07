@@ -63,7 +63,7 @@ export default function HomePage() {
               <div
                 key={game.id}
                 className="game-card"
-                data-link
+                data-link={`/${game.id}`}
                 aria-label={"Serveurs privés " + game.nom}
               >
                 <div className="game-card-content">

@@ -39,7 +39,7 @@ $mobile: 950px;
 }
 
 .presentation-bloc {
-  --paragraph-color: var(--black-lighter);
+  --paragraph-color: oklch(from var(--white) l c h / 0.75);
   position: relative;
   flex: 1;
   display: flex;
@@ -87,6 +87,10 @@ $mobile: 950px;
     }
   }
 
+  @include max($mobile) {
+    padding-top: calc(var(--presentation-padding) * 2);
+  }
+
   h2 {
     font-size: calc(24px + 6 * (100vw - 320px) / 1080);
 
@@ -108,4 +112,10 @@ $mobile: 950px;
   border-radius: inherit;
   @include mask(linear-gradient(-140deg, #000 20%, transparent 50%));
   mix-blend-mode: soft-light;
+}
+
+.presentation-bg-left {
+  @include mask(linear-gradient(to bottom, #000 10%, transparent 80%));
+  width: 100%;
+  mix-blend-mode: lighten;
 }

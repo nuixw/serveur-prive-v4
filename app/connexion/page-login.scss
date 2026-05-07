@@ -193,8 +193,9 @@ $responsive: 1084px;
   aspect-ratio: 1/1;
   border-radius: var(--radius-secondary);
   background-color: var(--field-background);
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color);
   transition: background-color var(--transition-link), color var(--transition-link);
 

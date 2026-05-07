@@ -1,15 +1,20 @@
+"use client"
+
 import { Avatar } from "@/components/avatar"
 import { Banner } from "@/components/banner"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { Button } from "@/components/button"
 import { VotesHistoryChart } from "@/components/charts/votes-history"
 import { Textarea } from "@/components/form"
+import { Pagination } from "@/components/pagination"
 import { Socials } from "@/components/socials"
-import { StarsRatingInput } from "@/components/stars/rating-input"
 import { Stars } from "@/components/stars"
+import { StarsRatingInput } from "@/components/stars/rating-input"
 import { Wrapper } from "@/components/wrapper"
+import { useAppStore } from "@/stores/app"
 import { Icon } from "@iconify/react"
 import Link from "next/link"
+import { useEffect } from "react"
 
 const categories = [
   {
@@ -58,13 +63,46 @@ const socials = [
 ]
 
 export default function Page() {
+  const { type, setType, isConnected } = useAppStore()
+
+  useEffect(() => {
+    const root = document.documentElement
+
+    if (type !== "premium") {
+      root.style.removeProperty("--primary")
+      root.style.removeProperty("--primary-light")
+      return
+    }
+
+    root.style.setProperty("--primary", "oklch(0.7857 0.1313 222.87)")
+    root.style.setProperty("--primary-light", "oklch(0.8214 0.1176 217.54)")
+
+    return () => {
+      root.style.removeProperty("--primary")
+      root.style.removeProperty("--primary-light")
+    }
+  }, [type])
+
   return (
     <>
+      <select
+        name="type"
+        id="type"
+        value={type}
+        onChange={(e) => setType(e.target.value as "default" | "premium")}
+        className="tester"
+      >
+        <option value="default">Default</option>
+        <option value="premium">Premium</option>
+      </select>
       <Banner
         className="banner-is-aside serveur-banner"
         style={
           {
-            "--bg-url": `url(/img/games/banner/minecraft-cover.webp)`
+            "--bg-url":
+              type === "premium"
+                ? `url(/img/banner-premium_test_minecraft.webp)`
+                : `url(/img/games/banner/minecraft-cover.webp)`
           } as React.CSSProperties
         }
       >
@@ -141,7 +179,14 @@ export default function Page() {
           </div>
         </div>
         <div className="banner-aside">
-          <div className="serveur-position">1</div>
+          <div className="serveur-position-wrapper">
+            <div className="serveur-position">1</div>
+            {type === "premium" && (
+              <div className="serveur-position serveur-position-premium">
+                <Icon icon="hugeicons:police-badge" />
+              </div>
+            )}
+          </div>
           <img
             src="https://placehold.co/200x100"
             width={200}
@@ -160,7 +205,7 @@ export default function Page() {
               iconOnly
             />
             <Button
-              href="/voter"
+              href="/vote"
               className="btn-vote"
               icon="hugeicons:download-02"
             >
@@ -178,6 +223,13 @@ export default function Page() {
       </Banner>
       <Wrapper>
         <aside className="aside aside-relative aside-responsive-left">
+          <div className="bloc bloc-author">
+            <Avatar />
+            <div className="bloc-author-text">
+              <span>Proposé par</span>
+              <Link href="/serveur">Nicobel0</Link>
+            </div>
+          </div>
           <div className="bloc">
             <div className="bloc-section bloc-section-flex">
               <h2>
@@ -328,7 +380,7 @@ export default function Page() {
                       <Textarea
                         id="comment"
                         name="comment"
-                        placeholder="Ajouter une réponse..."
+                        placeholder="Ajouter une réponse…"
                       />
                       <Button type="submit" icon="hugeicons:navigation-03">
                         Poster ma réponse
@@ -352,7 +404,7 @@ export default function Page() {
                           réguliers, des staffs réactifs. Je joue depuis environ
                           3 mois et il est toujours aussi addictif et
                           intéressant, aucun moyen de s'ennuyer avec les quêtes,
-                          les évents, les classements, les jobs...
+                          les évents, les classements, les jobs…
                         </p>
                       </div>
                     </div>
@@ -396,7 +448,7 @@ export default function Page() {
                       <Textarea
                         id="comment"
                         name="comment"
-                        placeholder="Ajouter une réponse..."
+                        placeholder="Ajouter une réponse…"
                       />
                       <Button type="submit" icon="hugeicons:navigation-03">
                         Poster ma réponse
@@ -405,6 +457,7 @@ export default function Page() {
                   </details>
                 </div>
               </div>
+              <Pagination />
             </div>
           </div>
           <div className="bloc">
@@ -417,11 +470,24 @@ export default function Page() {
                 id="comment"
                 icon="hugeicons:pen-01"
                 name="comment"
-                placeholder="Votre avis en quelques mots..."
+                placeholder="Votre avis en quelques mots…"
               />
               <Button type="submit" icon="hugeicons:navigation-03">
                 Envoyer mon avis
               </Button>
+              {!isConnected && (
+                <div className="message-blured">
+                  <Icon icon="hugeicons:square-lock-02" />
+                  <p>
+                    Pour commenter, vous devez{" "}
+                    <Link href="/connexion">être connecté</Link> et vous devez
+                    avoir cumulé plus de 10 votes pour le serveur.
+                  </p>
+                  <p className="color-primary">
+                    Vous avez cumulé <strong>0</strong> votes.
+                  </p>
+                </div>
+              )}
             </form>
           </div>
         </div>

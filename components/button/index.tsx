@@ -11,12 +11,12 @@ interface BaseButtonProps {
   iconPosition?: "left" | "right"
   className?: string
   disabled?: boolean
-  variant?: "primary" | "secondary" | "tertiary"
+  variant?: "primary" | "secondary" | "tertiary" | "premium"
   border?: boolean
   transparent?: boolean
   iconOnly?: boolean
   onClick?: () => void
-  /** Rattache le bouton à un champ mot de passe (`id`) pour le script global `DomInteractions`. */
+  right?: ReactNode
   passwordToggleTargetId?: string
 }
 
@@ -46,6 +46,7 @@ export const Button = ({
   iconOnly = false,
   type,
   passwordToggleTargetId,
+  right,
   ...props
 }: ButtonProps) => {
   const Content = (
@@ -57,6 +58,7 @@ export const Button = ({
       {icon && iconPosition == "right" && (
         <Icon icon={icon} className="btn-icon" />
       )}
+      {right && <span className="btn-right">{right}</span>}
     </>
   )
 

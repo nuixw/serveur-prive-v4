@@ -16,6 +16,11 @@
   transition: background-color var(--transition-link), border-color var(--transition-link), color var(--transition-link), transform var(--transition-scale);
   @include user-select;
 
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   &:active {
     transform: scale(0.95);
   }
@@ -52,15 +57,12 @@
   }
 
   &.premium {
-
-
     --btn-background: var(--gold);
     --btn-color: var(--white);
     --btn-border-color: var(--gold);
     --btn-hover-background: var(--gold-light);
     --btn-hover-border-color: var(--gold-light);
     --btn-hover-color: var(--white);
-
   }
 
   &.icon-only {

@@ -7,6 +7,13 @@
   border-spacing: 0 var(--table-spacing);
   border-collapse: separate;
 
+  th {
+    text-align: left;
+    padding: calc(var(--table-padding) * 0.6) var(--table-padding);
+    font-size: 0.9em;
+    color: var(--text-tertiary);
+  }
+
   td {
     background-color: var(--body);
     padding: var(--table-padding);
@@ -63,6 +70,56 @@
     &+td {
       border-top-left-radius: var(--table-radius);
       border-bottom-left-radius: var(--table-radius);
+    }
+  }
+
+  &.table-responsive {
+    @include max(700px) {
+      thead {
+        display: none;
+      }
+
+      tbody {
+        display: flex;
+        flex-direction: column;
+        gap: var(--table-spacing);
+      }
+
+      tr {
+        display: block;
+        background-color: var(--body);
+        border-radius: var(--table-radius);
+        overflow: hidden;
+        padding: .75em;
+      }
+
+      td {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: var(--size-3);
+        width: 100%;
+        border-radius: 0;
+        padding: calc(var(--table-padding) * 0.7) var(--table-padding);
+
+        &::before {
+          content: attr(data-th);
+          color: var(--text-tertiary);
+          font-size: 0.85em;
+          font-weight: 600;
+          padding-top: 0.1em;
+          flex-shrink: 0;
+        }
+
+        &:first-child,
+        &:last-child {
+          border-radius: 0;
+        }
+      }
+
+      .table-actions {
+        width: auto;
+      }
     }
   }
 }

@@ -32,6 +32,7 @@
 @use "../app/profil/page-profil";
 @use "../app/vote/page-vote";
 @use "../app/location-serveur/page-location";
+@use "../app/default/page-default";
 
 html {
   background-color: var(--body);

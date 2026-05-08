@@ -168,11 +168,15 @@ $location-offers-break: 900px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(calc(300px + 100 * (100vw - 320px) / 1080), 1fr));
   gap: var(--wrapper-gap);
-  max-width: var(--container-max);
   overflow: clip;
 
   @include max($location-offers-break) {
     grid-template-columns: 1fr;
+  }
+
+  @include max(950px) {
+
+    max-width: var(--container-max);
   }
 }
 

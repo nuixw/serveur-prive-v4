@@ -185,9 +185,12 @@ $location-offers-break: 900px;
   position: relative;
   background: var(--card-bg);
   color: var(--text-secondary);
+  border: 2px solid var(--card-border, transparent);
 
   @include min($responsive-bottom) {
     &:hover {
+      --card-border: var(--primary);
+
       z-index: 5;
       border-bottom-color: transparent;
       border-bottom-left-radius: 0;
@@ -258,15 +261,6 @@ $location-offers-break: 900px;
   .location-card-fonctionnalite:not(.location-card-fonctionnalite-disabled) {
     svg {
       color: var(--gold);
-    }
-  }
-
-  @include min($responsive-bottom) {
-    .location-card-bottom {
-      border: 2px solid var(--gold);
-      border-top: 0;
-      left: -2px;
-      width: calc(100% + 4px);
     }
   }
 
@@ -430,7 +424,7 @@ $location-offers-break: 900px;
 
 .location-badges {
   width: 100%;
-  top: 0;
+  top: -2px;
   left: 0;
   position: absolute;
   display: flex;
@@ -484,7 +478,10 @@ $location-offers-break: 900px;
     display: none;
     position: absolute;
     top: 100%;
-    width: 100%;
+    border: 2px solid var(--primary);
+    border-top: 0;
+    left: -2px;
+    width: calc(100% + 4px);
     box-shadow: 0 24px 32px -10px rgba(0, 0, 0, 0.1);
     background: var(--card-bg);
     border-radius: 0 0 var(--radius-primary) var(--radius-primary);

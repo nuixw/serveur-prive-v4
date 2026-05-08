@@ -269,19 +269,21 @@ export default function Page() {
                   name="username"
                   placeholder="Votre pseudonyme"
                 />
-                <div className="field field-captcha">
-                  <div className="field-content">
-                    <Icon icon="hugeicons:robot-01" className="field-icon" />
-                    <div className="field-captcha-iframe">
-                      <iframe
-                        id="mtcaptcha-iframe-1"
-                        src="https://service.mtcaptcha.com/mtcv1/client/iframe.html?v=2026-05-04.21.37.11&amp;sitekey=MTPublic-42pXmytZe&amp;iframeId=mtcaptcha-iframe-1&amp;widgetSize=mini&amp;custom=true&amp;widgetInstance=mtcaptcha&amp;challengeType=standard&amp;theme=basic&amp;lang=fr&amp;action=&amp;autoFadeOuterText=true&amp;host=https%3A%2F%2Fserveur-prive.net&amp;hostname=serveur-prive.net&amp;serviceDomain=service.mtcaptcha.com&amp;textLength=0&amp;lowFrictionInvisible=&amp;enableMouseFlow=false&amp;miniFormWidth=0&amp;miniFormHeight=45"
-                        title="MTCaptcha"
-                        sandbox=" allow-forms allow-popups allow-same-origin allow-scripts allow-modals allow-popups-to-escape-sandbox"
-                      />
+                {!isPremium && (
+                  <div className="field field-captcha">
+                    <div className="field-content">
+                      <Icon icon="hugeicons:robot-01" className="field-icon" />
+                      <div className="field-captcha-iframe">
+                        <iframe
+                          id="mtcaptcha-iframe-1"
+                          src="https://service.mtcaptcha.com/mtcv1/client/iframe.html?v=2026-05-04.21.37.11&amp;sitekey=MTPublic-42pXmytZe&amp;iframeId=mtcaptcha-iframe-1&amp;widgetSize=mini&amp;custom=true&amp;widgetInstance=mtcaptcha&amp;challengeType=standard&amp;theme=basic&amp;lang=fr&amp;action=&amp;autoFadeOuterText=true&amp;host=https%3A%2F%2Fserveur-prive.net&amp;hostname=serveur-prive.net&amp;serviceDomain=service.mtcaptcha.com&amp;textLength=0&amp;lowFrictionInvisible=&amp;enableMouseFlow=false&amp;miniFormWidth=0&amp;miniFormHeight=45"
+                          title="MTCaptcha"
+                          sandbox=" allow-forms allow-popups allow-same-origin allow-scripts allow-modals allow-popups-to-escape-sandbox"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
                 <div className="form-vote-bottom">
                   <div className="form-vote-bottom-title">
                     <span>

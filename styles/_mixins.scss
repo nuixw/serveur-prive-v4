@@ -87,6 +87,11 @@
 }
 
 // Text
+@mixin text-stroke($color, $width: 1px) {
+  -webkit-text-stroke: $width $color;
+  text-stroke: $width $color;
+}
+
 @mixin ellipsis {
   white-space: nowrap;
   overflow: hidden;

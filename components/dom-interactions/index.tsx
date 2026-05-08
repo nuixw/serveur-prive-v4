@@ -16,8 +16,16 @@ const TRUNCATE_ITEM_SELECTOR = "[data-truncate-item]"
 const TRUNCATE_STATIC_SELECTOR = "[data-truncate-static]"
 const TRUNCATE_MORE_SELECTOR = "[data-truncate-more]"
 const INTERACTIVE_SELECTOR = "a, button, input, select, textarea, label"
+const HEADER_GAMES_SELECTOR = ".header-games"
+const HEADER_GAMES_TOGGLE_SELECTOR = ".header-games .btn"
+const HEADER_GAMES_NAV_SELECTOR = ".header-games-nav"
+const HEADER_GAMES_SHOW_CLASS = "show"
+const HEADER_SEARCH_SELECTOR = ".header-search"
+const HEADER_SEARCH_INPUT_SELECTOR = `${HEADER_SEARCH_SELECTOR} input[type="search"]`
+const HOVER_POINTER_QUERY = "(hover: hover) and (pointer: fine)"
 const COPY_CLASS = "copied"
 const DEFAULT_COPY_TIMEOUT_MS = 2000
+const HEADER_GAMES_CLOSE_DELAY_MS = 180
 
 const copyTimeoutByElement = new WeakMap<HTMLElement, number>()
 
@@ -180,6 +188,20 @@ function syncBodyFixClass() {
   document.body.classList.toggle(BODY_FIX_CLASS, window.scrollY > 0)
 }
 
+function canUseHoverInteraction() {
+  return window.matchMedia(HOVER_POINTER_QUERY).matches
+}
+
+function toggleHeaderGamesVisibility(force?: boolean) {
+  const headerGames = document.querySelector<HTMLElement>(HEADER_GAMES_SELECTOR)
+  if (!headerGames) return
+  const nextValue =
+    typeof force === "boolean"
+      ? force
+      : !headerGames.classList.contains(HEADER_GAMES_SHOW_CLASS)
+  headerGames.classList.toggle(HEADER_GAMES_SHOW_CLASS, nextValue)
+}
+
 async function copyTextToClipboard(text: string) {
   if (navigator.clipboard?.writeText) {
     await navigator.clipboard.writeText(text)
@@ -241,6 +263,28 @@ async function onDocumentClick(event: MouseEvent) {
     return
   }
 
+  const gamesToggleButton = target.closest<HTMLElement>(HEADER_GAMES_TOGGLE_SELECTOR)
+  const clickedInsideGamesMenu = target.closest<HTMLElement>(HEADER_GAMES_SELECTOR)
+  const clickedGamesNavLink = target.closest<HTMLElement>(
+    `${HEADER_GAMES_NAV_SELECTOR} a`
+  )
+  if (gamesToggleButton) {
+    if (!canUseHoverInteraction()) {
+      event.preventDefault()
+      event.stopPropagation()
+      toggleHeaderGamesVisibility()
+    }
+    return
+  }
+
+  if (clickedGamesNavLink) {
+    toggleHeaderGamesVisibility(false)
+    return
+  }
+
+  if (!canUseHoverInteraction() && !clickedInsideGamesMenu)
+    toggleHeaderGamesVisibility(false)
+
   const isAsideOpen = document.body.classList.contains(ASIDE_OPEN_CLASS)
   const aside = document.querySelector<HTMLElement>(ASIDE_SELECTOR)
   if (isAsideOpen && aside) {
@@ -291,6 +335,21 @@ async function onDocumentClick(event: MouseEvent) {
   window.location.assign(href)
 }
 
+function onDocumentFocusOut(event: FocusEvent) {
+  const target = event.target
+  if (!(target instanceof HTMLInputElement)) return
+  if (!target.matches(HEADER_SEARCH_INPUT_SELECTOR)) return
+
+  const searchContainer = target.closest<HTMLElement>(HEADER_SEARCH_SELECTOR)
+  if (!searchContainer) return
+
+  const nextFocused = event.relatedTarget
+  if (nextFocused instanceof Node && searchContainer.contains(nextFocused)) return
+
+  target.value = ""
+  target.dispatchEvent(new Event("input", { bubbles: true }))
+}
+
 export function DomInteractions() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -309,9 +368,56 @@ export function DomInteractions() {
       window.requestAnimationFrame(runTagsTruncate)
     }
 
+    let headerGamesCloseTimeout: number | null = null
+
+    const clearHeaderGamesCloseTimeout = () => {
+      if (headerGamesCloseTimeout === null) return
+      window.clearTimeout(headerGamesCloseTimeout)
+      headerGamesCloseTimeout = null
+    }
+
+    const scheduleHeaderGamesClose = () => {
+      clearHeaderGamesCloseTimeout()
+      headerGamesCloseTimeout = window.setTimeout(() => {
+        toggleHeaderGamesVisibility(false)
+        headerGamesCloseTimeout = null
+      }, HEADER_GAMES_CLOSE_DELAY_MS)
+    }
+
+    const onHeaderGamesEnter = () => {
+      clearHeaderGamesCloseTimeout()
+      if (canUseHoverInteraction()) toggleHeaderGamesVisibility(true)
+    }
+
+    const onHeaderGamesLeave = () => {
+      if (canUseHoverInteraction()) scheduleHeaderGamesClose()
+    }
+
+    const onHeaderGamesNavEnter = () => {
+      clearHeaderGamesCloseTimeout()
+      if (canUseHoverInteraction()) toggleHeaderGamesVisibility(true)
+    }
+
+    const onHeaderGamesNavLeave = () => {
+      if (canUseHoverInteraction()) toggleHeaderGamesVisibility(false)
+    }
+
+    const syncHeaderGamesByViewport = () => {
+      if (canUseHoverInteraction()) toggleHeaderGamesVisibility(false)
+    }
+
+    const headerGames = document.querySelector<HTMLElement>(HEADER_GAMES_SELECTOR)
+    const headerGamesNav = document.querySelector<HTMLElement>(HEADER_GAMES_NAV_SELECTOR)
+
     document.addEventListener("click", onDocumentClick, true)
+    document.addEventListener("focusout", onDocumentFocusOut, true)
     window.addEventListener("scroll", syncBodyFixClass, { passive: true })
     window.addEventListener("resize", scheduleTagsTruncate, { passive: true })
+    window.addEventListener("resize", syncHeaderGamesByViewport, { passive: true })
+    headerGames?.addEventListener("mouseenter", onHeaderGamesEnter)
+    headerGames?.addEventListener("mouseleave", onHeaderGamesLeave)
+    headerGamesNav?.addEventListener("mouseenter", onHeaderGamesNavEnter)
+    headerGamesNav?.addEventListener("mouseleave", onHeaderGamesNavLeave)
 
     syncBodyFixClass()
     tickCounters()
@@ -323,8 +429,15 @@ export function DomInteractions() {
 
     return () => {
       document.removeEventListener("click", onDocumentClick, true)
+      document.removeEventListener("focusout", onDocumentFocusOut, true)
       window.removeEventListener("scroll", syncBodyFixClass)
       window.removeEventListener("resize", scheduleTagsTruncate)
+      window.removeEventListener("resize", syncHeaderGamesByViewport)
+      headerGames?.removeEventListener("mouseenter", onHeaderGamesEnter)
+      headerGames?.removeEventListener("mouseleave", onHeaderGamesLeave)
+      headerGamesNav?.removeEventListener("mouseenter", onHeaderGamesNavEnter)
+      headerGamesNav?.removeEventListener("mouseleave", onHeaderGamesNavLeave)
+      clearHeaderGamesCloseTimeout()
       window.clearInterval(counterInterval)
     }
   }, [])

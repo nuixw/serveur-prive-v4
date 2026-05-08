@@ -1,3 +1,5 @@
+@use "mixins" as *;
+
 h1,
 h2,
 h3,
@@ -162,9 +164,12 @@ h6 {
     overflow-wrap: break-word;
   }
 
-  &:hover::before {
-    opacity: 1;
-    transform: translate(-50%, -8px);
-    visibility: visible;
+  @include is-hover {
+
+    &:hover::before {
+      opacity: 1;
+      transform: translate(-50%, -8px);
+      visibility: visible;
+    }
   }
 }

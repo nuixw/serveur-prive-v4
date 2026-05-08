@@ -1,9 +1,11 @@
 import { Button } from "@/components/button"
 import { Input } from "@/components/form"
 import { Link } from "@/components/link"
+import { Stars } from "@/components/stars"
 import { games } from "@/lib/games"
 import { useAppStore } from "@/stores/app"
 import { Switch } from "./switch"
+import clsx from "clsx"
 
 export const Header = () => {
   const { isConnected } = useAppStore()
@@ -67,6 +69,59 @@ export const Header = () => {
             name="search"
             placeholder="Rechercher un serveur privé..."
           />
+          <div className="search-results">
+            <div className="serveur-small-list">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <div
+                  key={index}
+                  className={clsx(
+                    "serveur-item serveur-small",
+                    index === 0 && "serveur-premium"
+                  )}
+                  data-link="/serveur"
+                >
+                  <img
+                    className="serveur-image"
+                    src="https://placehold.co/200x100"
+                    width={200}
+                    height={100}
+                    loading="lazy"
+                    draggable="false"
+                    alt="Nom du serveur"
+                  />
+                  <div className="serveur-small-content">
+                    <Link href="/serveur" className="serveur-item-title">
+                      HYPING - LE MEILLEUR SERVEUR MINECRAFT DE 2026
+                    </Link>
+                    <div className="serveur-small-stats">
+                      <Stars note={4} />
+                      <div className="tags-list" data-truncate>
+                        <span className="tag" data-truncate-item>
+                          Survie
+                        </span>
+                        <span className="tag" data-truncate-item>
+                          PVP
+                        </span>
+                        <span className="tag" data-truncate-item>
+                          Vanilla
+                        </span>
+                        <span className="tag" data-truncate-item>
+                          PVP Faction
+                        </span>
+                        <span
+                          className="tag"
+                          data-truncate-more
+                          style={{ display: "none" }}
+                        >
+                          +0
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       <div className="header-right">

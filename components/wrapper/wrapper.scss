@@ -13,6 +13,7 @@ $responsive-aside: 1150px;
   display: flex;
   flex-direction: column;
   gap: calc(var(--bloc-padding) / 1.5);
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.02);
 }
 
 .bloc-no-padding {

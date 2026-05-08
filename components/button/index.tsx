@@ -16,6 +16,8 @@ interface BaseButtonProps {
   transparent?: boolean
   iconOnly?: boolean
   onClick?: () => void
+  target?: string
+  rel?: string
   right?: ReactNode
   passwordToggleTargetId?: string
 }
@@ -46,6 +48,8 @@ export const Button = ({
   iconOnly = false,
   type,
   passwordToggleTargetId,
+  target,
+  rel,
   right,
   ...props
 }: ButtonProps) => {
@@ -91,6 +95,8 @@ export const Button = ({
         {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         {...attrs}
         href={href}
+        rel={rel}
+        target={target}
       >
         {Content}
       </Link>

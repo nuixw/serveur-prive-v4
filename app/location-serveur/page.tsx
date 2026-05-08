@@ -59,7 +59,7 @@ const featureOptions: {
   { value: "anti-ddos", label: "Anti DDoS" },
   { value: "backups", label: "Backups" },
   { value: "ip-dedie", label: "IP Dédié" },
-  { value: "fichiers", label: "Gestion fichiers", defaultChecked: true },
+  { value: "fichiers", label: "Gestion fichiers" },
   { value: "offre-evolutive", label: "Offre évolutive" },
   { value: "sous-domaine", label: "Sous domaine" },
   { value: "setup-instant", label: "Setup instant" },
@@ -71,7 +71,7 @@ const featureOptions: {
 ]
 
 const durationOptions = [
-  { value: "all", label: "Toutes les durées" },
+  { value: "all", label: "Toutes les durées", defaultChecked: true },
   { value: "1m", label: "1 mois" },
   { value: "3m", label: "3 mois" },
   { value: "6m", label: "6 mois" },
@@ -125,7 +125,7 @@ export default function LocationServeurPage() {
               />
             </div>
             <div className="banner-bottom">
-              <BannerStat icon="hugeicons:server-stack-01">
+              <BannerStat icon="hugeicons:cloud">
                 <strong>5</strong> hébergeurs
               </BannerStat>
               <BannerStat icon="hugeicons:server-stack-03">
@@ -198,9 +198,10 @@ export default function LocationServeurPage() {
                     <li key={item.value}>
                       <label className="tag-checkbox tag-checkbox-text">
                         <input
-                          type="checkbox"
+                          type="radio"
                           name="duree"
                           value={item.value}
+                          defaultChecked={item.defaultChecked}
                         />
                         {item.label}
                       </label>

@@ -38,8 +38,8 @@
   font-weight: 600;
   font-size: 0.9em;
   line-height: 1;
-  color: var(--text-secondary);
-  background-color: light-dark(oklch(from var(--black-medium) l c h / 0.05), oklch(from var(--white-dark) l c h / 0.15));
+  color: var(--tag-color, var(--text-secondary));
+  background-color: var(--tag-background, light-dark(var(--bg-secondary), var(--black-darkest)));
   padding: 0.5em 0.75em 0.5em 0.45em;
   display: inline-flex;
   align-items: center;

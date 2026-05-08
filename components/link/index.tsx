@@ -13,6 +13,8 @@ interface LinkProps extends Omit<NextLinkProps, "href"> {
   onClick?: (event: MouseEvent<HTMLAnchorElement | HTMLDivElement>) => void
   isActive?: boolean
   activeClassName?: string
+  target?: string
+  rel?: string
 }
 
 export const Link = forwardRef<HTMLAnchorElement | HTMLDivElement, LinkProps>(
@@ -25,6 +27,8 @@ export const Link = forwardRef<HTMLAnchorElement | HTMLDivElement, LinkProps>(
       children,
       isActive,
       activeClassName,
+      target,
+      rel,
       ...props
     },
     ref
@@ -76,6 +80,8 @@ export const Link = forwardRef<HTMLAnchorElement | HTMLDivElement, LinkProps>(
         onClick={handleClick}
         href={href}
         title={title}
+        target={target}
+        rel={rel}
         className={clsx(className, isCurrentActive && activeClassName)}
         {...props}
         {...attr}

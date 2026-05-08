@@ -127,3 +127,44 @@ h6 {
     color: var(--message-blured-icon-color, var(--primary));
   }
 }
+
+/* Tooltip */
+
+[data-tooltip] {
+  --transition: .15s var(--cubic);
+  position: relative;
+  cursor: help;
+
+  &::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    font-size: calc(10px + 1 * (100vw - 320px) / 1080);
+    color: light-dark(var(--white), var(--black));
+    background-color: light-dark(oklch(from var(--black) l c h / 0.75), oklch(from var(--white) l c h / 0.75));
+    padding: .65em .75em;
+    border-radius: 1em;
+    opacity: 0;
+    left: 50%;
+    visibility: hidden;
+    transform: translateX(-50%);
+    transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+    pointer-events: none;
+    backdrop-filter: blur(8px);
+    width: max-content;
+    min-width: 0;
+    max-width: min(250px, 90vw);
+    line-height: 1.1;
+    will-change: opacity, transform;
+    box-sizing: border-box;
+    white-space: pre-line;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  &:hover::before {
+    opacity: 1;
+    transform: translate(-50%, -8px);
+    visibility: visible;
+  }
+}

@@ -13,14 +13,7 @@ import {
   TableRow
 } from "@/components/table"
 import { Wrapper } from "@/components/wrapper"
-import { MetadataSeo } from "@/lib/metadata"
 import clsx from "clsx"
-
-export const metadata = MetadataSeo({
-  title: "Kit UI par défaut | Serveur Privé",
-  description:
-    "Page de démonstration des composants de base : typographies, boutons et champs de formulaire."
-})
 
 const asideNav = [
   {
@@ -94,10 +87,7 @@ export default function DefaultPage() {
             ]}
           />
           <h1>Kit Default - éléments de base</h1>
-          <p className="intro">
-            Une page de référence pour visualiser rapidement la mise en forme
-            globale, les boutons et les champs de formulaire.
-          </p>
+          <p className="intro">Page kit et composants du site</p>
         </div>
       </Banner>
       <Wrapper>

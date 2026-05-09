@@ -1,11 +1,17 @@
 @use "mixins" as *;
 
 h1,
+.h1,
 h2,
+.h2,
 h3,
+.h3,
 h4,
+.h4,
 h5,
-h6 {
+.h5,
+h6,
+.h6 {
   font-weight: 700;
   font-family: var(--font-heading);
 }
@@ -29,8 +35,12 @@ h6 {
   }
 
   ul,
-  ol {
-    li {
+  .ul,
+  ol,
+  .ol {
+
+    li,
+    .li {
       &::before {
         content: "•";
         margin-right: .5em;
@@ -43,7 +53,8 @@ h6 {
     }
   }
 
-  a {
+  a,
+  .a {
     color: var(--primary);
     transition: color var(--transition-link);
     font-weight: bold;
@@ -164,12 +175,13 @@ h6 {
     overflow-wrap: break-word;
   }
 
-  @include is-hover {
-
-    &:hover::before {
-      opacity: 1;
-      transform: translate(-50%, -8px);
-      visibility: visible;
+  @include min(750px) {
+    @include is-hover {
+      &:hover::before {
+        opacity: 1;
+        transform: translate(-50%, -8px);
+        visibility: visible;
+      }
     }
   }
 }

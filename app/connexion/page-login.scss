@@ -154,9 +154,16 @@ $responsive: 1084px;
   width: 100%;
   flex-wrap: wrap;
 
+  @include max(480px) {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
   .btn {
     flex: 1;
-
   }
 }
 

@@ -107,7 +107,7 @@ $responsive: 900px;
   font-weight: normal;
   letter-spacing: -0.025em;
   color: var(--primary);
-  font-size: calc(24px + 2 * (100vw - 320px) / 1080);
+  font-size: calc(20px + 4 * (100vw - 320px) / 1080);
 
   span {
     white-space: nowrap;

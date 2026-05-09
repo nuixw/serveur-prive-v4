@@ -135,8 +135,8 @@ export const Footer = () => {
             </span>{" "}
             <span>
               <strong data-counter-seconds>56</strong> secondes
+              <Icon icon="svg-spinners:clock" />
             </span>
-            <Icon icon="svg-spinners:clock" />
           </div>
         </section>
         <section className="footer-bottom">

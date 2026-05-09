@@ -454,6 +454,41 @@ export default function DefaultPage() {
                   l&apos;envoi.
                 </p>
               </div>
+              <p className="paragraph">
+                Variante compacte (inline-flex) :{' '}
+                <span className="message message-success message-inline">
+                  <Icon icon="hugeicons:checkmark-circle-02" />
+                  <span>Enregistré</span>
+                </span>{' '}
+                <span className="message message-warning message-inline">
+                  <Icon icon="hugeicons:alert-01" />
+                  <span>3 jours restants</span>
+                </span>
+              </p>
+              <div className="message message-warning">
+                <Icon icon="hugeicons:alert-01" />
+                <div className="paragraph">
+                  <p>
+                    Liste à puces dans une alerte (même rythme que .paragraph,
+                    couleurs alignées sur le ton du message) :
+                  </p>
+                  <ul>
+                    <li>Vérifier votre adresse email</li>
+                    <li>Confirmer le numéro de téléphone</li>
+                    <li>Accepter les conditions mises à jour</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="message message-danger">
+                <Icon icon="hugeicons:cancel-circle" />
+                <div className="paragraph">
+                  <p>Erreurs de validation :</p>
+                  <ul>
+                    <li>Le champ « Nom » est obligatoire</li>
+                    <li>Format d&apos;email invalide</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </section>
 

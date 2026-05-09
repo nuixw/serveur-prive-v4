@@ -4,6 +4,7 @@
   --table-radius: var(--radius-primary);
   --table-spacing: var(--size-2);
   --table-padding: 1em;
+  --tag-background: light-dark(var(--bg-secondary), var(--bg-primary));
   border-spacing: 0 var(--table-spacing);
   border-collapse: separate;
 

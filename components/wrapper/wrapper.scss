@@ -236,6 +236,9 @@ $responsive-aside: 1150px;
   right: var(--main-padding);
   z-index: 100;
   backdrop-filter: blur(32px);
+  min-width: var(--size-height);
+  width: var(--size-height);
+  height: var(--size-height);
 
   @include max($responsive-aside) {
     display: inline-flex;

@@ -128,7 +128,6 @@
   cursor: pointer;
   border-radius: var(--radius-rounded);
   min-height: var(--field-size-height);
-  background-color: light-dark(oklch(from var(--black-medium) l c h / 0.06), oklch(from var(--white-dark) l c h / 0.08));
 
   .field-icon {
     color: var(--text-secondary);

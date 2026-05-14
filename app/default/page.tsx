@@ -76,6 +76,27 @@ const selectPriority = [
   { value: "urgent", label: "Urgente" }
 ]
 
+const selectKitMonths = [
+  { value: "1", label: "Janvier" },
+  { value: "2", label: "Février" },
+  { value: "3", label: "Mars" },
+  { value: "4", label: "Avril" },
+  { value: "5", label: "Mai" },
+  { value: "6", label: "Juin" },
+  { value: "7", label: "Juillet" },
+  { value: "8", label: "Août" },
+  { value: "9", label: "Septembre" },
+  { value: "10", label: "Octobre" },
+  { value: "11", label: "Novembre" },
+  { value: "12", label: "Décembre" }
+]
+
+const selectKitYears = Array.from({ length: 9 }, (_, index) => {
+  const year = 2022 + index
+  const value = String(year)
+  return { value, label: value }
+})
+
 const selectGamesSearchableDemo = [
   { value: "minecraft", label: "Minecraft" },
   { value: "minecraft-bedrock", label: "Minecraft Bedrock" },
@@ -580,17 +601,47 @@ export default function DefaultPage() {
                   showLabel
                 />
               </div>
-              <Select
-                id="kit-game"
-                name="game"
-                icon="hugeicons:server-stack-03"
-                label="Jeu"
-                options={selectGamesSearchableDemo}
-                showLabel
-                searchable
-                searchPlaceholder="Rechercher un jeu…"
-                defaultValue="minecraft"
-              />
+              <div className="field-group">
+                <Select
+                  id="kit-game"
+                  name="game"
+                  icon="hugeicons:server-stack-03"
+                  label="Jeu"
+                  options={selectGamesSearchableDemo}
+                  showLabel
+                  searchable
+                  searchPlaceholder="Rechercher un jeu…"
+                  defaultValue="minecraft"
+                />
+                <div className="field field-select-dual-wrap">
+                  <div className="field-label" id="kit-period-label">
+                    Mois et année
+                  </div>
+                  <div
+                    className="field-select-dual"
+                    role="group"
+                    aria-labelledby="kit-period-label"
+                  >
+                    <Select
+                      embedded
+                      id="kit-month"
+                      name="month"
+                      label="Mois"
+                      icon="hugeicons:calendar-01"
+                      options={selectKitMonths}
+                      defaultValue="5"
+                    />
+                    <Select
+                      embedded
+                      id="kit-year"
+                      name="year"
+                      label="Année"
+                      options={selectKitYears}
+                      defaultValue="2026"
+                    />
+                  </div>
+                </div>
+              </div>
               <DominantColorExample />
               <Textarea
                 id="kit-description"

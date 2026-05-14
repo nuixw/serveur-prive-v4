@@ -44,6 +44,26 @@
       opacity: .5;
     }
   }
+
+  &.field-select-dual-wrap {
+    width: 100%;
+
+    .field-select-dual {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      background-color: var(--field-background, var(--bg-secondary));
+      border-radius: var(--radius-input);
+
+      >.field-content {
+        flex: 1 1 0;
+        min-width: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+    }
+  }
 }
 
 .field-content {
@@ -170,6 +190,12 @@
     align-self: center;
   }
 
+  &:has(.field-icon) {
+    .field-select-trigger {
+      padding-left: 0;
+    }
+  }
+
   &--custom {
     position: relative;
     flex-wrap: nowrap;
@@ -194,139 +220,140 @@
       min-height: 0;
     }
 
-  .field-select-trigger {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-self: stretch;
-    justify-content: space-between;
-    gap: var(--size-2);
-    margin: 0;
-    padding: var(--field-padding-y) 0;
-    font: inherit;
-    font-weight: 600;
-    color: var(--field-color, var(--text-secondary));
-    text-align: left;
-    background: transparent;
-    border: 0;
-    border-radius: inherit;
-    cursor: pointer;
-    transition: color var(--field-transition);
-
-    @include is-hover {
-      &:not(:disabled) {
-        color: var(--text-primary);
-      }
-    }
-
-    &:focus-visible {
-      outline: none;
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-
-    .field-select-trigger-value {
+    .field-select-trigger {
       flex: 1;
       min-width: 0;
-      @include user-select(none);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .field-select-chevron {
-      flex-shrink: 0;
-      align-self: center;
-    }
-  }
-
-  .field-select-dropdown {
-    display: none;
-
-    &--open {
-      position: absolute;
-      top: calc(100% + var(--size-1));
-      left: 0;
-      right: 0;
-      z-index: 150;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      align-items: center;
+      align-self: stretch;
+      justify-content: space-between;
       gap: var(--size-2);
-      padding: var(--size-2);
-      max-height: min(22rem, 70vh);
-      background: linear-gradient(to bottom, var(--field-background, var(--bg-secondary)), var(--field-background, var(--bg-secondary)) 100%), var(--bg-primary);
-      border-radius: var(--radius-input);
-      box-shadow:
-        0 var(--size-3) var(--size-8) oklch(from var(--black-dark) l c h / 0.12);
-    }
-  }
-
-  .field-select-search-wrap {
-    flex-shrink: 0;
-  }
-
-  .field-select-search {
-    width: 100%;
-    padding: var(--size-3) var(--size-5);
-    font: inherit;
-    font-weight: 500;
-    color: var(--field-color, var(--text-primary));
-    background: light-dark(oklch(from var(--black-dark) l c h / 0.04), oklch(from var(--white-dark) l c h / 0.06));
-    border: 0;
-    border-radius: var(--radius-input);
-
-    &::placeholder {
-      color: oklch(from var(--field-search-select, var(--text-secondary)) l c h / 0.5);
-    }
-
-    &:focus {
-      outline: 2px solid var(--field-search-select, var(--primary));
-      outline-offset: 0;
-    }
-  }
-
-  .field-select-listbox {
-    list-style: none;
-    margin: 0;
-    padding: var(--size-1);
-    overflow-y: auto;
-    @include no-scrollbar;
-
-    li[role="option"] {
-      padding: var(--size-2) var(--size-3);
       margin: 0;
-      font-weight: 500;
-      font-size: 0.95em;
-      color: var(--text-primary);
-      border-radius: var(--radius-input);
+      padding: var(--field-padding-y) 0;
+      padding-left: var(--field-padding-x);
+      font: inherit;
+      font-weight: 600;
+      color: var(--field-color, var(--text-secondary));
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-radius: inherit;
       cursor: pointer;
-      transition: background-color var(--field-transition), color var(--field-transition);
-
-      &[aria-selected="true"] {
-        background: oklch(from var(--field-background-selected, var(--primary)) l c h / 0.12);
-        color: var(--field-color-selected, var(--primary));
-        font-weight: 600;
-      }
+      transition: color var(--field-transition);
 
       @include is-hover {
-        &:not([hidden]) {
-          background: light-dark(oklch(from var(--black-dark) l c h / 0.06), oklch(from var(--white-dark) l c h / 0.08));
+        &:not(:disabled) {
+          color: var(--text-primary);
+        }
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .field-select-trigger-value {
+        flex: 1;
+        min-width: 0;
+        @include user-select(none);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .field-select-chevron {
+        flex-shrink: 0;
+        align-self: center;
+      }
+    }
+
+    .field-select-dropdown {
+      display: none;
+
+      &--open {
+        position: absolute;
+        top: calc(100% + var(--size-1));
+        left: 0;
+        right: 0;
+        z-index: 150;
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-2);
+        padding: var(--size-2);
+        max-height: min(22rem, 70vh);
+        background: linear-gradient(to bottom, var(--field-background, var(--bg-secondary)), var(--field-background, var(--bg-secondary)) 100%), var(--bg-primary);
+        border-radius: var(--radius-input);
+        box-shadow:
+          0 var(--size-3) var(--size-8) oklch(from var(--black-dark) l c h / 0.12);
+      }
+    }
+
+    .field-select-search-wrap {
+      flex-shrink: 0;
+    }
+
+    .field-select-search {
+      width: 100%;
+      padding: var(--size-3) var(--size-5);
+      font: inherit;
+      font-weight: 500;
+      color: var(--field-color, var(--text-primary));
+      background: light-dark(oklch(from var(--black-dark) l c h / 0.04), oklch(from var(--white-dark) l c h / 0.06));
+      border: 0;
+      border-radius: var(--radius-input);
+
+      &::placeholder {
+        color: oklch(from var(--field-search-select, var(--text-secondary)) l c h / 0.5);
+      }
+
+      &:focus {
+        outline: 2px solid var(--field-search-select, var(--primary));
+        outline-offset: 0;
+      }
+    }
+
+    .field-select-listbox {
+      list-style: none;
+      margin: 0;
+      padding: var(--size-1);
+      overflow-y: auto;
+      @include no-scrollbar;
+
+      li[role="option"] {
+        padding: var(--size-2) var(--size-3);
+        margin: 0;
+        font-weight: 500;
+        font-size: 0.95em;
+        color: var(--text-primary);
+        border-radius: var(--radius-input);
+        cursor: pointer;
+        transition: background-color var(--field-transition), color var(--field-transition);
+
+        &[aria-selected="true"] {
+          background: oklch(from var(--field-background-selected, var(--primary)) l c h / 0.12);
+          color: var(--field-color-selected, var(--primary));
+          font-weight: 600;
+        }
+
+        @include is-hover {
+          &:not([hidden]) {
+            background: light-dark(oklch(from var(--black-dark) l c h / 0.06), oklch(from var(--white-dark) l c h / 0.08));
+          }
         }
       }
     }
-  }
 
-  .field-select-empty {
-    padding: var(--size-3);
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    text-align: center;
-  }
+    .field-select-empty {
+      padding: var(--size-3);
+      font-size: 0.9em;
+      color: var(--text-secondary);
+      text-align: center;
+    }
   }
 
   &-input {

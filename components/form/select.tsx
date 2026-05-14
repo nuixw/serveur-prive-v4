@@ -12,7 +12,8 @@ export interface SelectOption {
 interface SelectProps {
   id?: string
   name?: string
-  icon: string
+  /** Icône à gauche du déclencheur ; si absent, aucune icône n’est affichée. */
+  icon?: string
   label: string
   options: SelectOption[]
   defaultValue?: string
@@ -23,6 +24,10 @@ interface SelectProps {
   classNameField?: string
   showLabel?: boolean
   chevronIcon?: string
+  /** Affiche la chevron à droite du déclencheur (défaut : oui). */
+  showChevron?: boolean
+  /** Pas de wrapper `.field` : obligatoire à l’intérieur d’un parent `.field.field-select-dual-wrap` (ou autre `.field`) pour éviter `.field` imbriqués. */
+  embedded?: boolean
   form?: string
   autoComplete?: string
   onChange?: (value: string) => void
@@ -45,6 +50,8 @@ export function Select({
   classNameField,
   showLabel,
   chevronIcon = "hugeicons:arrow-down-01",
+  showChevron = true,
+  embedded = false,
   form,
   autoComplete,
   onChange,
@@ -83,100 +90,119 @@ export function Select({
     onChange: handleSelectChange
   }
 
-  return (
-    <div className={clsx("field", classNameField)}>
-      {showLabel && label && (
-        <label className="field-label" htmlFor={triggerId}>
-          {label} {required && <span className="field-label-required">*</span>}
-        </label>
+  const labelNode =
+    showLabel && label ? (
+      <label className="field-label" htmlFor={triggerId}>
+        {label} {required && <span className="field-label-required">*</span>}
+      </label>
+    ) : null
+
+  const contentNode = (
+    <div
+      className={clsx(
+        "field-content",
+        "field-select",
+        "field-select--custom",
+        embedded && classNameField
       )}
-      <div
+      data-custom-select
+      {...(searchable ? { "data-search": "" as const } : {})}
+    >
+      {icon ? <Icon icon={icon} className="field-icon" aria-hidden /> : null}
+      <select
         className={clsx(
-          "field-content",
-          "field-select",
-          "field-select--custom"
+          "field-input",
+          "field-select-input",
+          "field-select-native-hidden",
+          className
         )}
-        data-custom-select
-        {...(searchable ? { "data-search": "" as const } : {})}
+        tabIndex={-1}
+        aria-hidden
+        aria-label={label}
+        {...selectProps}
       >
-        <Icon icon={icon} className="field-icon" aria-hidden />
-        <select
-          className={clsx(
-            "field-input",
-            "field-select-input",
-            "field-select-native-hidden",
-            className
-          )}
-          tabIndex={-1}
-          aria-hidden
-          aria-label={label}
-          {...selectProps}
-        >
-          {options.map((opt) => (
-            <option key={opt.value || opt.label} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-        <button
-          type="button"
-          id={triggerId}
-          className="field-select-trigger"
-          data-custom-select-trigger
-          aria-haspopup="listbox"
-          aria-expanded="false"
-          aria-controls={listboxId}
-          disabled={disabled}
-        >
-          <span data-custom-select-value className="field-select-trigger-value">
-            {selectedLabel}
-          </span>
+        {options.map((opt) => (
+          <option key={opt.value || opt.label} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      <button
+        type="button"
+        id={triggerId}
+        className="field-select-trigger"
+        data-custom-select-trigger
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls={listboxId}
+        disabled={disabled}
+      >
+        <span data-custom-select-value className="field-select-trigger-value">
+          {selectedLabel}
+        </span>
+        {showChevron ? (
           <span className="field-right field-select-chevron" aria-hidden>
             <Icon icon={chevronIcon} />
           </span>
-        </button>
-        <div className="field-select-dropdown" data-custom-select-dropdown>
+        ) : null}
+      </button>
+      <div className="field-select-dropdown" data-custom-select-dropdown>
+        {searchable ? (
+          <div className="field-select-search-wrap">
+            <input
+              type="search"
+              className="field-select-search"
+              data-custom-select-search
+              placeholder={searchPlaceholder}
+              autoComplete="off"
+              aria-label={searchPlaceholder}
+            />
+          </div>
+        ) : null}
+        <ul
+          id={listboxId}
+          className="field-select-listbox"
+          role="listbox"
+          data-custom-select-listbox
+        >
+          {options.map((opt) => (
+            <li
+              key={opt.value || opt.label}
+              role="option"
+              data-value={opt.value}
+              aria-selected={opt.value === effectiveValue}
+            >
+              {opt.label}
+            </li>
+          ))}
           {searchable ? (
-            <div className="field-select-search-wrap">
-              <input
-                type="search"
-                className="field-select-search"
-                data-custom-select-search
-                placeholder={searchPlaceholder}
-                autoComplete="off"
-                aria-label={searchPlaceholder}
-              />
-            </div>
+            <li
+              role="presentation"
+              className="field-select-empty"
+              hidden
+              data-custom-select-empty
+            >
+              Aucun résultat
+            </li>
           ) : null}
-          <ul
-            id={listboxId}
-            className="field-select-listbox"
-            role="listbox"
-            data-custom-select-listbox
-          >
-            {options.map((opt) => (
-              <li
-                key={opt.value || opt.label}
-                role="option"
-                data-value={opt.value}
-                aria-selected={opt.value === effectiveValue}
-              >
-                {opt.label}
-              </li>
-            ))}
-            {searchable ? (
-              <li
-                role="presentation"
-                className="field-select-empty"
-                hidden
-                data-custom-select-empty
-              >
-                Aucun résultat
-              </li>
-            ) : null}
-          </ul>
-        </div>
+        </ul>
       </div>
+      </div>
+  )
+
+  if (embedded) {
+    return (
+      <>
+        {labelNode}
+        {contentNode}
+      </>
+    )
+  }
+
+  return (
+    <div className={clsx("field", classNameField)}>
+      {labelNode}
+      {contentNode}
     </div>
   )
 }

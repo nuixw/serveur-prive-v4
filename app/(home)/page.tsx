@@ -11,39 +11,41 @@ import { games } from "@/lib/games"
 export default function HomePage() {
   return (
     <>
-      <Banner className="home-banner">
-        <div className="home-banner-left">
-          <h1>
-            Trouvez ou référencez{" "}
-            <span>
-              un serveur <strong>privé</strong> de jeu
-            </span>{" "}
-            sur nos classements gratuits.
-          </h1>
-          <div className="banner-bottom home-banner-bottom">
-            <Button href="/" icon="hugeicons:add-circle">
-              Ajouter mon serveur
-            </Button>
-            <BannerStat icon="hugeicons:left-to-right-list-dash">
-              <strong>11,754</strong> serveurs
-            </BannerStat>
-            <BannerStat icon="hugeicons:download-02">
-              <strong>487,954</strong> votes
-            </BannerStat>
+      <div className="home-banner-wrapper">
+        <Banner className="home-banner">
+          <div className="home-banner-left">
+            <h1>
+              Trouvez ou référencez{" "}
+              <span>
+                un serveur <strong>privé</strong> de jeu
+              </span>{" "}
+              sur nos classements gratuits.
+            </h1>
+            <div className="banner-bottom home-banner-bottom">
+              <Button href="/" icon="hugeicons:add-circle">
+                Ajouter mon serveur
+              </Button>
+              <BannerStat icon="hugeicons:left-to-right-list-dash">
+                <strong>11,754</strong> serveurs
+              </BannerStat>
+              <BannerStat icon="hugeicons:download-02">
+                <strong>487,954</strong> votes
+              </BannerStat>
+            </div>
           </div>
-        </div>
-        <div className="home-banner-right">
-          <img
-            className="home-banner-right-image"
-            src="/img/home/home-banner-characters.webp"
-            alt="Banner right"
-            loading="lazy"
-            draggable="false"
-            width={1342}
-            height={804}
-          />
-        </div>
-      </Banner>
+          <div className="home-banner-right">
+            <img
+              className="home-banner-right-image"
+              src="/img/home/home-banner-characters.webp"
+              alt="Banner right"
+              loading="lazy"
+              draggable="false"
+              width={1342}
+              height={804}
+            />
+          </div>
+        </Banner>
+      </div>
       <Container>
         <section>
           <div className="home-top">
@@ -79,7 +81,7 @@ export default function HomePage() {
                     <strong>8,963</strong> serveurs
                   </div>
                   <div className="game-card-tags" data-truncate>
-                    <span className="game-card-tag" data-truncate-static>
+                    <span className="game-card-tag" data-truncate-item>
                       {game.nom}
                     </span>
                     {game.tags.map((tag) => (

@@ -1,0 +1,50 @@
+@use "@/styles/mixins" as *;
+
+.modal {
+  --modal-backdrop: light-dark(oklch(from var(--black) l c h / 0.45), oklch(0 0 0 / 0.25));
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--main-padding);
+  background: var(--modal-backdrop);
+  overflow-y: auto;
+  overscroll-behavior: none;
+  @include no-scrollbar;
+
+  &[aria-hidden="true"] {
+    pointer-events: none;
+  }
+
+  &.modal-opened {
+    display: flex;
+    pointer-events: auto;
+  }
+
+  &-panel {
+    --bloc-padding: calc(32px + 8 * (100vw - 320px) / 1080);
+    position: relative;
+    width: min(100%, var(--modal-width, calc(400px + 100 * (100vw - 320px) / 1080)));
+    overflow: auto;
+    margin: auto;
+
+    &.modal-panel-center {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &-close {
+    font-size: 10px;
+    position: absolute;
+    top: calc(var(--bloc-padding) / 2.5);
+    right: calc(var(--bloc-padding) / 2.5);
+  }
+}
+
+body.modal-is-open {
+  overflow: hidden;
+}

@@ -1,7 +1,25 @@
 "use client"
 
-import { useEffect } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
+import { useEffect } from "react"
+
+import {
+  cancelCustomSelectMutationDebounce,
+  createCustomSelectMutationObserver,
+  handleCustomSelectClick,
+  handleCustomSelectInput,
+  handleCustomSelectKeydown,
+  syncAllCustomSelectTriggers
+} from "@/components/dom-interactions/custom-select"
+import {
+  createDataTooltipListeners,
+  isTooltipTapMode
+} from "@/components/dom-interactions/data-tooltip"
+import {
+  handleModalClick,
+  initModalListeners,
+  modal
+} from "@/components/dom-interactions/modal"
 
 const BODY_FIX_CLASS = "fix"
 const ASIDE_OPEN_CLASS = "aside-responsive-left-open"
@@ -13,7 +31,6 @@ const COPY_TRIGGER_SELECTOR = "[data-copy]"
 const COUNTER_SELECTOR = "[data-counter]"
 const TRUNCATE_CONTAINER_SELECTOR = "[data-truncate]"
 const TRUNCATE_ITEM_SELECTOR = "[data-truncate-item]"
-const TRUNCATE_STATIC_SELECTOR = "[data-truncate-static]"
 const TRUNCATE_MORE_SELECTOR = "[data-truncate-more]"
 const INTERACTIVE_SELECTOR = "a, button, input, select, textarea, label"
 const HEADER_GAMES_SELECTOR = ".header-games"
@@ -22,10 +39,8 @@ const HEADER_GAMES_NAV_SELECTOR = ".header-games-nav"
 const HEADER_GAMES_SHOW_CLASS = "show"
 const HEADER_SEARCH_SELECTOR = ".header-search"
 const HEADER_SEARCH_INPUT_SELECTOR = `${HEADER_SEARCH_SELECTOR} input[type="search"]`
-const HOVER_POINTER_QUERY = "(hover: hover) and (pointer: fine)"
 const COPY_CLASS = "copied"
 const DEFAULT_COPY_TIMEOUT_MS = 2000
-const HEADER_GAMES_CLOSE_DELAY_MS = 180
 
 const copyTimeoutByElement = new WeakMap<HTMLElement, number>()
 
@@ -85,19 +100,15 @@ function tickCounters() {
 }
 
 function truncateTagsContainer(container: HTMLElement) {
-  const staticItems = Array.from(
-    container.querySelectorAll<HTMLElement>(TRUNCATE_STATIC_SELECTOR)
-  )
   const manualItems = Array.from(
     container.querySelectorAll<HTMLElement>(TRUNCATE_ITEM_SELECTOR)
   )
   const allChildren = Array.from(container.children).filter(
     (child): child is HTMLElement => child instanceof HTMLElement
   )
-  const truncateItems = (manualItems.length > 0 ? manualItems : allChildren).filter(
-    (item) =>
-      !item.matches(TRUNCATE_STATIC_SELECTOR) && !item.matches(TRUNCATE_MORE_SELECTOR)
-  )
+  const truncateItems = (
+    manualItems.length > 0 ? manualItems : allChildren
+  ).filter((item) => !item.matches(TRUNCATE_MORE_SELECTOR))
 
   if (truncateItems.length === 0) return
 
@@ -111,9 +122,6 @@ function truncateTagsContainer(container: HTMLElement) {
     more = moreElement
   }
 
-  staticItems.forEach((item) => {
-    item.style.display = ""
-  })
   truncateItems.forEach((item) => {
     item.style.display = ""
   })
@@ -129,13 +137,15 @@ function truncateTagsContainer(container: HTMLElement) {
 
   function getVisibleItemsWidth(items: HTMLElement[]): number {
     const visibleItems = items.filter((item) => item.style.display !== "none")
-    const itemsWidth = visibleItems.reduce((acc, item) => acc + item.offsetWidth, 0)
+    const itemsWidth = visibleItems.reduce(
+      (acc, item) => acc + item.offsetWidth,
+      0
+    )
     const gapsWidth = Math.max(visibleItems.length - 1, 0) * gap
     return itemsWidth + gapsWidth
   }
 
-  const visibleWithoutMore = [...staticItems, ...truncateItems]
-  const contentWidthWithoutMore = getVisibleItemsWidth(visibleWithoutMore)
+  const contentWidthWithoutMore = getVisibleItemsWidth(truncateItems)
   if (contentWidthWithoutMore <= availableWidth + epsilon) return
 
   let bestK = -1
@@ -151,7 +161,7 @@ function truncateTagsContainer(container: HTMLElement) {
       item.style.display = index < k ? "" : "none"
     })
 
-    const currentWidth = getVisibleItemsWidth([...staticItems, ...truncateItems, more])
+    const currentWidth = getVisibleItemsWidth([...truncateItems, more])
     if (currentWidth <= availableWidth + epsilon) {
       bestK = k
       bestHidden = hiddenCount
@@ -186,10 +196,6 @@ function truncateGameCardTags() {
 
 function syncBodyFixClass() {
   document.body.classList.toggle(BODY_FIX_CLASS, window.scrollY > 0)
-}
-
-function canUseHoverInteraction() {
-  return window.matchMedia(HOVER_POINTER_QUERY).matches
 }
 
 function toggleHeaderGamesVisibility(force?: boolean) {
@@ -243,6 +249,10 @@ async function onDocumentClick(event: MouseEvent) {
   const target = event.target
   if (!(target instanceof Element)) return
 
+  if (handleModalClick(event)) return
+
+  if (handleCustomSelectClick(event)) return
+
   const copyTrigger = target.closest<HTMLElement>(COPY_TRIGGER_SELECTOR)
   if (copyTrigger) {
     const valueToCopy = copyTrigger.getAttribute("data-copy")
@@ -263,17 +273,19 @@ async function onDocumentClick(event: MouseEvent) {
     return
   }
 
-  const gamesToggleButton = target.closest<HTMLElement>(HEADER_GAMES_TOGGLE_SELECTOR)
-  const clickedInsideGamesMenu = target.closest<HTMLElement>(HEADER_GAMES_SELECTOR)
+  const gamesToggleButton = target.closest<HTMLElement>(
+    HEADER_GAMES_TOGGLE_SELECTOR
+  )
+  const clickedInsideGamesMenu = target.closest<HTMLElement>(
+    HEADER_GAMES_SELECTOR
+  )
   const clickedGamesNavLink = target.closest<HTMLElement>(
     `${HEADER_GAMES_NAV_SELECTOR} a`
   )
   if (gamesToggleButton) {
-    if (!canUseHoverInteraction()) {
-      event.preventDefault()
-      event.stopPropagation()
-      toggleHeaderGamesVisibility()
-    }
+    event.preventDefault()
+    event.stopPropagation()
+    toggleHeaderGamesVisibility()
     return
   }
 
@@ -282,8 +294,7 @@ async function onDocumentClick(event: MouseEvent) {
     return
   }
 
-  if (!canUseHoverInteraction() && !clickedInsideGamesMenu)
-    toggleHeaderGamesVisibility(false)
+  if (!clickedInsideGamesMenu) toggleHeaderGamesVisibility(false)
 
   const isAsideOpen = document.body.classList.contains(ASIDE_OPEN_CLASS)
   const aside = document.querySelector<HTMLElement>(ASIDE_SELECTOR)
@@ -326,6 +337,8 @@ async function onDocumentClick(event: MouseEvent) {
 
   if (target.closest(INTERACTIVE_SELECTOR)) return
 
+  if (isTooltipTapMode() && target.closest("[data-tooltip]")) return
+
   const card = target.closest<HTMLElement>(CARD_LINK_SELECTOR)
   if (!card) return
 
@@ -344,7 +357,8 @@ function onDocumentFocusOut(event: FocusEvent) {
   if (!searchContainer) return
 
   const nextFocused = event.relatedTarget
-  if (nextFocused instanceof Node && searchContainer.contains(nextFocused)) return
+  if (nextFocused instanceof Node && searchContainer.contains(nextFocused))
+    return
 
   target.value = ""
   target.dispatchEvent(new Event("input", { bubbles: true }))
@@ -368,57 +382,30 @@ export function DomInteractions() {
       window.requestAnimationFrame(runTagsTruncate)
     }
 
-    let headerGamesCloseTimeout: number | null = null
-
-    const clearHeaderGamesCloseTimeout = () => {
-      if (headerGamesCloseTimeout === null) return
-      window.clearTimeout(headerGamesCloseTimeout)
-      headerGamesCloseTimeout = null
-    }
-
-    const scheduleHeaderGamesClose = () => {
-      clearHeaderGamesCloseTimeout()
-      headerGamesCloseTimeout = window.setTimeout(() => {
-        toggleHeaderGamesVisibility(false)
-        headerGamesCloseTimeout = null
-      }, HEADER_GAMES_CLOSE_DELAY_MS)
-    }
-
-    const onHeaderGamesEnter = () => {
-      clearHeaderGamesCloseTimeout()
-      if (canUseHoverInteraction()) toggleHeaderGamesVisibility(true)
-    }
-
-    const onHeaderGamesLeave = () => {
-      if (canUseHoverInteraction()) scheduleHeaderGamesClose()
-    }
-
-    const onHeaderGamesNavEnter = () => {
-      clearHeaderGamesCloseTimeout()
-      if (canUseHoverInteraction()) toggleHeaderGamesVisibility(true)
-    }
-
-    const onHeaderGamesNavLeave = () => {
-      if (canUseHoverInteraction()) toggleHeaderGamesVisibility(false)
-    }
-
     const syncHeaderGamesByViewport = () => {
-      if (canUseHoverInteraction()) toggleHeaderGamesVisibility(false)
+      toggleHeaderGamesVisibility(false)
     }
 
-    const headerGames = document.querySelector<HTMLElement>(HEADER_GAMES_SELECTOR)
-    const headerGamesNav = document.querySelector<HTMLElement>(HEADER_GAMES_NAV_SELECTOR)
+    const onCustomSelectInput = (event: Event) => {
+      handleCustomSelectInput(event)
+    }
+
+    const onCustomSelectKeydown = (event: KeyboardEvent) => {
+      handleCustomSelectKeydown(event)
+    }
+
+    syncAllCustomSelectTriggers()
+    const customSelectObserver = createCustomSelectMutationObserver()
 
     document.addEventListener("click", onDocumentClick, true)
+    document.addEventListener("input", onCustomSelectInput, true)
+    document.addEventListener("keydown", onCustomSelectKeydown, true)
     document.addEventListener("focusout", onDocumentFocusOut, true)
     window.addEventListener("scroll", syncBodyFixClass, { passive: true })
     window.addEventListener("resize", scheduleTagsTruncate, { passive: true })
-    window.addEventListener("resize", syncHeaderGamesByViewport, { passive: true })
-    headerGames?.addEventListener("mouseenter", onHeaderGamesEnter)
-    headerGames?.addEventListener("mouseleave", onHeaderGamesLeave)
-    headerGamesNav?.addEventListener("mouseenter", onHeaderGamesNavEnter)
-    headerGamesNav?.addEventListener("mouseleave", onHeaderGamesNavLeave)
-
+    window.addEventListener("resize", syncHeaderGamesByViewport, {
+      passive: true
+    })
     syncBodyFixClass()
     tickCounters()
     window.requestAnimationFrame(() =>
@@ -426,18 +413,21 @@ export function DomInteractions() {
     )
 
     const counterInterval = window.setInterval(tickCounters, 1000)
+    const cleanupDataTooltips = createDataTooltipListeners()
+    const cleanupModals = initModalListeners()
 
     return () => {
+      cleanupModals()
+      cleanupDataTooltips()
+      cancelCustomSelectMutationDebounce()
+      customSelectObserver.disconnect()
       document.removeEventListener("click", onDocumentClick, true)
+      document.removeEventListener("input", onCustomSelectInput, true)
+      document.removeEventListener("keydown", onCustomSelectKeydown, true)
       document.removeEventListener("focusout", onDocumentFocusOut, true)
       window.removeEventListener("scroll", syncBodyFixClass)
       window.removeEventListener("resize", scheduleTagsTruncate)
       window.removeEventListener("resize", syncHeaderGamesByViewport)
-      headerGames?.removeEventListener("mouseenter", onHeaderGamesEnter)
-      headerGames?.removeEventListener("mouseleave", onHeaderGamesLeave)
-      headerGamesNav?.removeEventListener("mouseenter", onHeaderGamesNavEnter)
-      headerGamesNav?.removeEventListener("mouseleave", onHeaderGamesNavLeave)
-      clearHeaderGamesCloseTimeout()
       window.clearInterval(counterInterval)
     }
   }, [])
@@ -445,7 +435,12 @@ export function DomInteractions() {
   useEffect(() => {
     syncBodyFixClass()
     tickCounters()
-    window.requestAnimationFrame(() => window.requestAnimationFrame(truncateGameCardTags))
+    syncAllCustomSelectTriggers()
+    toggleHeaderGamesVisibility(false)
+    modal.closeAll()
+    window.requestAnimationFrame(() =>
+      window.requestAnimationFrame(truncateGameCardTags)
+    )
   }, [pathname, searchParams])
 
   return null

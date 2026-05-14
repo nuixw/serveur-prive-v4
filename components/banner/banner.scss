@@ -35,6 +35,38 @@
   .btn {
     backdrop-filter: blur(8px);
   }
+
+  &-bottom {
+    --bottom-gap: var(--size-2);
+    display: flex;
+    align-items: stretch;
+    gap: var(--bottom-gap);
+
+    @include max(1084px) {
+      --bottom-gap: var(--size-1);
+    }
+  }
+
+  &-stat {
+    background-color: oklch(from var(--black-dark) l c h / 0.75);
+    backdrop-filter: blur(16px);
+    display: inline-flex;
+    align-items: center;
+    padding: 1em 1.5em;
+    border-radius: var(--radius-rounded);
+    gap: .75em;
+    white-space: nowrap;
+
+    .icon {
+      transform: scale(1.1);
+      color: var(--primary);
+    }
+  }
+
+  &-aside {
+    width: var(--aside-width);
+    min-width: var(--aside-width);
+  }
 }
 
 .not-found-banner {
@@ -52,36 +84,4 @@
     justify-content: center;
     gap: var(--size-4);
   }
-}
-
-.banner-bottom {
-  --bottom-gap: var(--size-2);
-  display: flex;
-  align-items: stretch;
-  gap: var(--bottom-gap);
-
-  @include max(1084px) {
-    --bottom-gap: var(--size-1);
-  }
-}
-
-.banner-stat {
-  background-color: oklch(from var(--black-dark) l c h / 0.75);
-  backdrop-filter: blur(16px);
-  display: inline-flex;
-  align-items: center;
-  padding: 1em 1.5em;
-  border-radius: var(--radius-rounded);
-  gap: .75em;
-  white-space: nowrap;
-
-  .icon {
-    transform: scale(1.1);
-    color: var(--primary);
-  }
-}
-
-.banner-aside {
-  width: var(--aside-width);
-  min-width: var(--aside-width);
 }

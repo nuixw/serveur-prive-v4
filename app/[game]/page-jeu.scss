@@ -95,4 +95,15 @@ $banner-responsive: 950px;
     text-shadow: var(--shadow-text);
     font-size: calc(12px + 2 * (100vw - 500px) / 1080);
   }
+
+  .tag {
+    --tag-background: oklch(from var(--primary) l c h / 0.25);
+    --tag-color: var(--primary);
+    align-self: flex-end;
+    backdrop-filter: blur(8px);
+
+    @include max($banner-responsive) {
+      align-self: center;
+    }
+  }
 }

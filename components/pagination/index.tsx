@@ -14,6 +14,7 @@ export function Pagination() {
             href="/"
             className="pagination-link pagination-link-icon"
             aria-label="Aller à la page précédente"
+            aria-hidden="true"
           >
             <Icon icon="hugeicons:arrow-left-01" aria-hidden="true" />
           </Link>

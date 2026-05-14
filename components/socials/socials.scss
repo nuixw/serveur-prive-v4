@@ -59,30 +59,30 @@
 .socials {
   display: flex;
   gap: var(--size-2);
-}
 
-.socials-link {
-  --size: var(--size-height);
-  transition: background-color var(--transition-link), color var(--transition-link);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--size);
-  height: var(--size);
-  border-radius: var(--radius-rounded);
-  border: 1px solid var(--border-primary);
-  color: var(--color);
+  &-link {
+    --size: var(--size-height);
+    transition: background-color var(--transition-link), color var(--transition-link);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size);
+    height: var(--size);
+    border-radius: var(--radius-rounded);
+    border: 1px solid var(--border-primary);
+    color: var(--color);
 
-  &:hover {
-    background-color: var(--color);
-    color: light-dark(var(--white), var(--black));
-  }
+    &:hover {
+      background-color: var(--color);
+      color: light-dark(var(--white), var(--black));
+    }
 
-  svg {
-    font-size: 1.75em;
+    svg {
+      font-size: 1.75em;
 
-    &>* {
-      stroke-width: 1;
+      &>* {
+        stroke-width: 1;
+      }
     }
   }
 }

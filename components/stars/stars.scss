@@ -1,36 +1,92 @@
 @use "@/styles/mixins" as *;
 
-.stars-list {
-  display: flex;
-  align-items: center;
+.stars {
+  &-list {
+    display: flex;
+    align-items: center;
 
-  &[data-rate="1"] {
-    .star:nth-child(-n + 1) {
-      --star-color: var(--star-color-active, var(--text-secondary));
+    &[data-rate="1"] {
+      .star:nth-child(-n + 1) {
+        --star-color: var(--star-color-active, var(--text-secondary));
+      }
+    }
+
+    &[data-rate="2"] {
+      .star:nth-child(-n + 2) {
+        --star-color: var(--star-color-active, var(--text-secondary));
+      }
+    }
+
+    &[data-rate="3"] {
+      .star:nth-child(-n + 3) {
+        --star-color: var(--star-color-active, var(--text-secondary));
+      }
+    }
+
+    &[data-rate="4"] {
+      .star:nth-child(-n + 4) {
+        --star-color: var(--star-color-active, var(--text-secondary));
+      }
+    }
+
+    &[data-rate="5"] {
+      .star:nth-child(-n + 5) {
+        --star-color: var(--star-color-active, var(--text-secondary));
+      }
+    }
+
+    &-input {
+      flex-direction: row-reverse;
+
+      .star-option {
+        display: inline-flex;
+        cursor: pointer;
+        line-height: 0;
+        font-size: 1.75em;
+      }
+
+      input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        width: 1px;
+        height: 1px;
+      }
+
+      input:checked+.star-option .star *,
+      input:checked~.star-option .star * {
+        fill: var(--star-color-active, var(--text-secondary));
+      }
+
+      &:hover .star-option .star * {
+        fill: var(--star-color, oklch(from var(--text-tertiary) l c h / 0.25));
+      }
+
+      .star-option:hover .star *,
+      .star-option:hover~.star-option .star * {
+        fill: var(--star-color-active, var(--text-secondary));
+      }
     }
   }
 
-  &[data-rate="2"] {
-    .star:nth-child(-n + 2) {
-      --star-color: var(--star-color-active, var(--text-secondary));
-    }
-  }
+  &-rating {
+    --star-color-active: var(--gold);
+    background-color: var(--field-background, var(--bg-secondary));
+    display: flex;
+    border-radius: var(--radius-input);
+    align-items: center;
+    flex-direction: row;
+    padding-inline: var(--size-padding-x);
+    height: var(--size-height);
+    gap: var(--size-padding-x);
+    justify-content: space-between;
 
-  &[data-rate="3"] {
-    .star:nth-child(-n + 3) {
-      --star-color: var(--star-color-active, var(--text-secondary));
+    @include max(600px) {
+      width: 100%;
     }
-  }
 
-  &[data-rate="4"] {
-    .star:nth-child(-n + 4) {
-      --star-color: var(--star-color-active, var(--text-secondary));
-    }
-  }
-
-  &[data-rate="5"] {
-    .star:nth-child(-n + 5) {
-      --star-color: var(--star-color-active, var(--text-secondary));
+    &-title {
+      color: var(--text-tertiary);
     }
   }
 }
@@ -43,59 +99,5 @@
   * {
     stroke-width: 0;
     fill: var(--star-color, oklch(from var(--text-tertiary) l c h / 0.25));
-  }
-}
-
-.stars-rating {
-  --star-color-active: var(--gold);
-  background-color: var(--field-background, var(--bg-secondary));
-  display: flex;
-  border-radius: var(--radius-input);
-  align-items: center;
-  flex-direction: row;
-  padding-inline: var(--size-padding-x);
-  height: var(--size-height);
-  gap: var(--size-padding-x);
-  justify-content: space-between;
-
-  @include max(600px) {
-    width: 100%;
-  }
-}
-
-.stars-rating-title {
-  color: var(--text-tertiary);
-}
-
-.stars-list-input {
-  flex-direction: row-reverse;
-
-  .star-option {
-    display: inline-flex;
-    cursor: pointer;
-    line-height: 0;
-    font-size: 1.75em;
-  }
-
-  input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    width: 1px;
-    height: 1px;
-  }
-
-  input:checked+.star-option .star *,
-  input:checked~.star-option .star * {
-    fill: var(--star-color-active, var(--text-secondary));
-  }
-
-  &:hover .star-option .star * {
-    fill: var(--star-color, oklch(from var(--text-tertiary) l c h / 0.25));
-  }
-
-  .star-option:hover .star *,
-  .star-option:hover~.star-option .star * {
-    fill: var(--star-color-active, var(--text-secondary));
   }
 }

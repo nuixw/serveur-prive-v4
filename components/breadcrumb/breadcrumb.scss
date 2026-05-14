@@ -2,32 +2,32 @@
 
 .breadcrumb {
   width: 100%;
-}
 
-.breadcrumb-list {
-  font-size: 0.85em;
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.breadcrumb-item {
-  display: flex;
-  align-items: center;
-
-  &:not(:first-child)::before {
-    content: "/";
-    margin-inline: .65em;
-    opacity: .5;
+  &-list {
+    font-size: 0.85em;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
   }
-}
 
-.breadcrumb-link {
-  color: oklch(from var(--white) l c h / 0.85);
-  text-decoration: none;
-  transition: color var(--transition-link);
+  &-item {
+    display: flex;
+    align-items: center;
 
-  &:hover {
-    color: var(--primary);
+    &:not(:first-child)::before {
+      content: "/";
+      margin-inline: .65em;
+      opacity: .5;
+    }
+  }
+
+  &-link {
+    color: oklch(from var(--white) l c h / 0.85);
+    text-decoration: none;
+    transition: color var(--transition-link);
+
+    &:hover {
+      color: var(--primary);
+    }
   }
 }

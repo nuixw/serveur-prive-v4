@@ -1,5 +1,15 @@
 @use "@/styles/mixins" as *;
 
+.home-banner-wrapper {
+  overflow: hidden;
+  padding: var(--main-padding);
+  padding-bottom: 0;
+  width: calc(100% + var(--main-padding) * 2);
+  position: relative;
+  left: calc(var(--main-padding) * -1);
+  margin-top: calc(var(--main-padding) * -1);
+}
+
 .home-banner-left {
   display: flex;
   flex-direction: column;

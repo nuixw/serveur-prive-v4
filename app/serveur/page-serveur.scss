@@ -19,6 +19,11 @@ $banner-responsive: 950px;
       padding-inline: var(--content-padding);
       gap: calc(var(--banner-padding) * .5);
       text-align: center;
+
+      .serveur-position-wrapper {
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
   }
 
@@ -50,11 +55,6 @@ $banner-responsive: 950px;
     color: light-dark(var(--black-dark), var(--white));
     padding-top: .45em;
     position: static;
-  }
-
-  @include max($banner-responsive) {
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
 

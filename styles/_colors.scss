@@ -4,15 +4,29 @@
   --white-medium: oklch(0.9821 0 0);
   --white-light: oklch(1 0 0);
 
-  --black-darkest: oklch(0.2376 0.0083 169.59);
+  --black-darkest: oklch(0.229 0.0083 169.59);
   --black-darker: oklch(0.273 0.0113 167.78);
   --black-dark: oklch(0.2771 0.0113 167.8);
   --black-medium: oklch(0.4137 0.0196 171.69);
   --black-light: oklch(0.5951 0.0208 171.03);
   --black-lighter: oklch(0.6435 0.0231 170.2);
 
-  --primary: oklch(0.6692 0.2141 19.77);
-  --primary-light: oklch(0.7206 0.1756 16.29);
+  --color-red: oklch(0.6692 0.2141 19.77);
+  --color-pink: oklch(0.82 0.09 350);
+  --color-magenta: oklch(0.62 0.27 328);
+  --color-violet: oklch(0.52 0.24 292);
+  --color-indigo: oklch(0.48 0.22 275);
+  --color-blue: oklch(0.52 0.24 264);
+  --color-sky: oklch(0.74 0.12 244);
+  --color-cyan: oklch(0.78 0.12 200);
+  --color-teal: oklch(0.72 0.11 175);
+  --color-lime: oklch(0.82 0.22 132);
+  --color-chartreuse: oklch(0.86 0.18 118);
+  --color-amber: oklch(0.82 0.16 82);
+  --color-orange: oklch(0.72 0.19 48);
+  --color-brown: oklch(0.52 0.07 55);
+
+  --primary: var(--color-red);
 
   --gold: oklch(0.7601 0.1638 70.84);
   --gold-light: oklch(0.815 0.1287 70.84);
@@ -65,6 +79,10 @@
   --apple: oklch(0.522 0.1771 255.83);
   --linkedin: oklch(0.65 0.24 292);
   --youtube: oklch(0.628 0.2577 29.23);
+}
+
+html {
+  --primary-light: oklch(from var(--primary) calc(l + 0.08) c h);
 }
 
 /* theme */

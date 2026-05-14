@@ -35,98 +35,119 @@ $responsive: 1084px;
       text-align: center;
     }
   }
-}
 
-.login-left {
-  flex: 1;
+  &-left {
+    flex: 1;
 
-  h1 {
-    font-size: calc(24px + 12 * (100vw - 320px) / 1080);
-    width: 80%;
-    text-wrap: balance;
-    color: var(--white);
+    h1 {
+      font-size: calc(24px + 12 * (100vw - 320px) / 1080);
+      width: 80%;
+      text-wrap: balance;
+      color: var(--white);
 
-    @include max(1250px) {
-      width: 100%;
+      @include max(1250px) {
+        width: 100%;
+      }
+
+      @include max($responsive) {
+        font-size: calc(20px + 8 * (100vw - 320px) / 1080);
+      }
     }
+  }
+
+  &-right {
+    width: var(--login-right);
+    max-width: calc(100% - var(--main-padding) * 2);
+    text-align: center;
+    padding-inline: calc(var(--bloc-padding) + (24 * (100vw - 500px) / 1080));
 
     @include max($responsive) {
+      padding: calc(var(--bloc-padding) / 1.5);
+    }
+
+    h2 {
       font-size: calc(20px + 8 * (100vw - 320px) / 1080);
     }
-  }
-}
 
-.login-right {
-  width: var(--login-right);
-  max-width: calc(100% - var(--main-padding) * 2);
-  text-align: center;
-  padding-inline: calc(var(--bloc-padding) + (24 * (100vw - 500px) / 1080));
+    .intro {
+      color: var(--text-secondary);
+      line-height: 1.45;
+      max-width: 36em;
+      margin-inline: auto;
+      font-weight: 500;
+    }
 
-  @include max($responsive) {
-    padding: calc(var(--bloc-padding) / 1.5);
-  }
+    .field-checkbox a {
+      color: var(--primary);
+      font-weight: 800;
+      transition: color var(--transition-link);
 
-  h2 {
-    font-size: calc(20px + 8 * (100vw - 320px) / 1080);
-  }
+      &:hover {
+        color: var(--primary-light);
+      }
+    }
 
-  .intro {
-    color: var(--text-secondary);
-    line-height: 1.45;
-    max-width: 36em;
-    margin-inline: auto;
-    font-weight: 500;
-  }
+    .form {
+      justify-content: center;
+      align-items: center;
+      gap: calc(var(--content-padding) / 2);
+    }
 
-  .field-checkbox a {
-    color: var(--primary);
-    font-weight: 800;
-    transition: color var(--transition-link);
+    .field-label {
+      text-align: center;
+      width: 100%;
+      margin-bottom: var(--size-1-5);
+    }
 
-    &:hover {
-      color: var(--primary-light);
+    &-bottom {
+      font-size: .95em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: calc(var(--form-gap) / 2);
+      width: 100%;
+      flex-wrap: wrap;
+      white-space: nowrap;
+      color: var(--text-secondary);
+
+      a {
+        color: var(--primary);
+        transition: color var(--transition-link);
+        font-weight: bold;
+
+        &:hover {
+          color: var(--primary-light);
+        }
+      }
+
+      span+span {
+        &::before {
+          content: "•";
+          margin-inline: .5em;
+          opacity: .25;
+        }
+      }
     }
   }
 
-  .form {
-    justify-content: center;
+  &-form-bottom {
+    display: flex;
     align-items: center;
-    gap: calc(var(--content-padding) / 2);
-  }
-
-  .field-label {
-    text-align: center;
+    justify-content: center;
+    gap: calc(var(--form-gap) / 2);
     width: 100%;
-    margin-bottom: var(--size-1-5);
-  }
-}
+    flex-wrap: wrap;
 
-.login-right-bottom {
-  font-size: .95em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: calc(var(--form-gap) / 2);
-  width: 100%;
-  flex-wrap: wrap;
-  white-space: nowrap;
-  color: var(--text-secondary);
+    @include max(480px) {
+      flex-direction: column;
 
-  a {
-    color: var(--primary);
-    transition: color var(--transition-link);
-    font-weight: bold;
-
-    &:hover {
-      color: var(--primary-light);
+      .btn {
+        width: 100%;
+      }
     }
-  }
 
-  span+span {
-    &::before {
-      content: "•";
-      margin-inline: .5em;
-      opacity: .25;
+    .btn {
+      flex: 1;
     }
   }
 }
@@ -143,27 +164,6 @@ $responsive: 1084px;
   &>* {
     transform: scale(1.01);
     width: calc(100% + 2px);
-  }
-}
-
-.login-form-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: calc(var(--form-gap) / 2);
-  width: 100%;
-  flex-wrap: wrap;
-
-  @include max(480px) {
-    flex-direction: column;
-
-    .btn {
-      width: 100%;
-    }
-  }
-
-  .btn {
-    flex: 1;
   }
 }
 

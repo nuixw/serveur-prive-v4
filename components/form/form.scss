@@ -10,20 +10,20 @@
   position: relative;
 }
 
-.field-group {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: var(--form-gap);
-  width: 100%;
-
-  &>* {
-    flex: 1;
-    min-width: 250px;
-  }
-}
-
 .field {
+  &-group {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--form-gap);
+    width: 100%;
+
+    &>* {
+      flex: 1;
+      min-width: 250px;
+    }
+  }
+
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -92,6 +92,43 @@
   word-break: break-word;
 }
 
+.field-input-file {
+  align-self: center;
+  width: 100%;
+  height: var(--field-size-height);
+  padding: calc(var(--field-padding-y) / 2) 0;
+  font-size: 0.9em;
+  cursor: pointer;
+
+  &::file-selector-button {
+    margin-right: var(--size-3);
+    padding: var(--size-2) var(--size-3);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    background: light-dark(oklch(from var(--black-dark) l c h / 0.06), oklch(from var(--white-dark) l c h / 0.08));
+    border: 0;
+    border-radius: var(--radius-input);
+    cursor: pointer;
+    transition: color var(--field-transition), background-color var(--field-transition), border-color var(--field-transition);
+  }
+
+  &:hover::file-selector-button {
+    background-color: var(--field-file-hover, var(--primary));
+    color: var(--white);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible::file-selector-button {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
 .field-icon {
   transition: color var(--field-transition);
   height: var(--field-size-height);
@@ -127,33 +164,199 @@
 .field-select {
   cursor: pointer;
   border-radius: var(--radius-rounded);
-  min-height: var(--field-size-height);
+  height: var(--field-size-height);
 
   .field-icon {
-    color: var(--text-secondary);
     align-self: center;
+  }
+
+  &--custom {
+    position: relative;
+    flex-wrap: nowrap;
+    align-items: stretch;
+
+    .field-icon {
+      align-self: center;
+    }
+
+    .field-select-native-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+      pointer-events: none;
+      flex: 0 0 0;
+      min-height: 0;
+    }
+
+  .field-select-trigger {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: stretch;
+    justify-content: space-between;
+    gap: var(--size-2);
+    margin: 0;
+    padding: var(--field-padding-y) 0;
+    font: inherit;
+    font-weight: 600;
+    color: var(--field-color, var(--text-secondary));
+    text-align: left;
+    background: transparent;
+    border: 0;
+    border-radius: inherit;
+    cursor: pointer;
+    transition: color var(--field-transition);
+
+    @include is-hover {
+      &:not(:disabled) {
+        color: var(--text-primary);
+      }
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .field-select-trigger-value {
+      flex: 1;
+      min-width: 0;
+      @include user-select(none);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .field-select-chevron {
+      flex-shrink: 0;
+      align-self: center;
+    }
+  }
+
+  .field-select-dropdown {
+    display: none;
+
+    &--open {
+      position: absolute;
+      top: calc(100% + var(--size-1));
+      left: 0;
+      right: 0;
+      z-index: 150;
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-2);
+      padding: var(--size-2);
+      max-height: min(22rem, 70vh);
+      background: linear-gradient(to bottom, var(--field-background, var(--bg-secondary)), var(--field-background, var(--bg-secondary)) 100%), var(--bg-primary);
+      border-radius: var(--radius-input);
+      box-shadow:
+        0 var(--size-3) var(--size-8) oklch(from var(--black-dark) l c h / 0.12);
+    }
+  }
+
+  .field-select-search-wrap {
+    flex-shrink: 0;
+  }
+
+  .field-select-search {
+    width: 100%;
+    padding: var(--size-3) var(--size-5);
+    font: inherit;
+    font-weight: 500;
+    color: var(--field-color, var(--text-primary));
+    background: light-dark(oklch(from var(--black-dark) l c h / 0.04), oklch(from var(--white-dark) l c h / 0.06));
+    border: 0;
+    border-radius: var(--radius-input);
+
+    &::placeholder {
+      color: oklch(from var(--field-search-select, var(--text-secondary)) l c h / 0.5);
+    }
+
+    &:focus {
+      outline: 2px solid var(--field-search-select, var(--primary));
+      outline-offset: 0;
+    }
+  }
+
+  .field-select-listbox {
+    list-style: none;
+    margin: 0;
+    padding: var(--size-1);
+    overflow-y: auto;
+    @include no-scrollbar;
+
+    li[role="option"] {
+      padding: var(--size-2) var(--size-3);
+      margin: 0;
+      font-weight: 500;
+      font-size: 0.95em;
+      color: var(--text-primary);
+      border-radius: var(--radius-input);
+      cursor: pointer;
+      transition: background-color var(--field-transition), color var(--field-transition);
+
+      &[aria-selected="true"] {
+        background: oklch(from var(--field-background-selected, var(--primary)) l c h / 0.12);
+        color: var(--field-color-selected, var(--primary));
+        font-weight: 600;
+      }
+
+      @include is-hover {
+        &:not([hidden]) {
+          background: light-dark(oklch(from var(--black-dark) l c h / 0.06), oklch(from var(--white-dark) l c h / 0.08));
+        }
+      }
+    }
+  }
+
+  .field-select-empty {
+    padding: var(--size-3);
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+  }
+
+  &-input {
+    appearance: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding-right: 0;
+  }
+
+  &-chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    color: var(--text-secondary);
+    padding-right: 1em;
+
+    .icon {
+      width: 1.1em;
+      height: 1.1em;
+    }
   }
 }
 
-.field-select-input {
-  appearance: none;
-  cursor: pointer;
-  font-weight: 600;
-  color: var(--text-secondary);
-  padding-right: 0;
-}
+.field:has(.field-select-trigger:focus-visible) {
+  --box-shadow: oklch(from var(--text-primary) l c h / 0.05);
 
-.field-select-chevron {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  color: var(--text-secondary);
-  padding-right: 1em;
-
-  .icon {
-    width: 1.1em;
-    height: 1.1em;
+  .field-icon {
+    color: var(--field-color-icon-focus, var(--primary));
   }
 }
 
@@ -161,6 +364,20 @@
   font-size: .95em;
   color: var(--text-secondary);
   padding-left: calc(var(--field-padding-x) / 1.5);
+
+  [data-tooltip] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    background-color: var(--body);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    vertical-align: middle;
+    position: relative;
+    top: -.05em;
+  }
 }
 
 .field-label-required {
@@ -228,5 +445,152 @@
   & {
     cursor: pointer;
     user-select: none;
+  }
+}
+
+.field-color-radio {
+  --field-color-radio-size: calc(24px + 4 * (100vw - 320px) / 1080);
+  --field-color-radio-size-active: var(--field-color-radio-size);
+
+  .field-color-radio-content {
+    padding: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    align-self: stretch;
+  }
+
+  .field-icon {
+    align-self: flex-start;
+  }
+
+  .field-color-radio-list {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(6px + 1 * (100vw - 320px) / 1080);
+    min-width: 0;
+    padding: var(--field-padding-y) 0;
+    padding-right: var(--field-padding-x);
+    margin: -10px 0;
+  }
+
+  .field-color-radio-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: var(--field-color-radio-size-active);
+    height: var(--field-color-radio-size-active);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border: 2px solid var(--color-red);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    @include is-hover {
+      &:has(.field-color-radio-input:not(:disabled)):not(.field-color-radio-item-selected) {
+        &::before {
+          opacity: .5;
+        }
+      }
+    }
+  }
+
+  .field-color-radio-item-selected {
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  .field-color-radio-input {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.001;
+    cursor: inherit;
+
+    &:focus-visible+.field-color-radio-swatch {
+      outline: 2px solid var(--color-red);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .field-color-radio-swatch {
+    width: var(--field-color-radio-size);
+    height: var(--field-color-radio-size);
+    border-radius: 50%;
+    background-color: var(--field-color-radio-swatch, var(--text-secondary));
+    box-shadow:
+      0 0 0 2px oklch(from var(--black-dark) l c h / 0.08) inset,
+      0 1px 3px oklch(from var(--black-dark) l c h / 0.2);
+    transition:
+      width 0.2s ease,
+      height 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .field-color-radio-item-selected .field-color-radio-swatch {
+    width: var(--field-color-radio-size-active);
+    height: var(--field-color-radio-size-active);
+    box-shadow:
+      0 0 0 2px oklch(from var(--white-light) l c h / 0.35) inset,
+      0 2px 8px oklch(from var(--black-dark) l c h / 0.25);
+  }
+
+  .field-color-radio-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  &:has(.field-color-radio-input:disabled) {
+    opacity: 0.65;
+  }
+}
+
+.field-premium {
+  --field-color: var(--gold);
+  --field-color-icon-focus: var(--gold);
+  --field-background: oklch(from var(--gold) l c h / 0.05);
+  --box-shadow: oklch(from var(--gold) l c h / 0.75);
+  --field-file-hover: var(--gold);
+  --field-background-selected: var(--gold);
+  --field-color-selected: var(--gold);
+  --field-search-select: var(--gold);
+
+  &:has(.field-input:disabled) {
+    .field-icon {
+      opacity: .75;
+    }
+  }
+
+  &:has(.field-input:focus) {
+    --box-shadow: var(--gold);
+  }
+
+  .field-label {
+    color: var(--field-color);
   }
 }

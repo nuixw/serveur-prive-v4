@@ -23,6 +23,7 @@
 @use "../components/form/form";
 @use "../components/presentation/presentation";
 @use "../components/pagination/pagination";
+@use "../components/dom-interactions/modal";
 @use "../components/table/table";
 @use "../app/(home)/page";
 @use "../app/serveur/page-serveur";
@@ -57,7 +58,6 @@ html {
 [data-selection-black] {
   @include selection(oklch(from var(--black-dark) l c h / 0.85), var(--white));
 }
-
 
 body {
   font-weight: 500;

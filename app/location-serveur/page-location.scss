@@ -168,7 +168,6 @@ $location-offers-break: 900px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(calc(300px + 100 * (100vw - 320px) / 1080), 1fr));
   gap: var(--wrapper-gap);
-  overflow: clip;
 
   @include max($location-offers-break) {
     grid-template-columns: 1fr;
@@ -256,11 +255,6 @@ $location-offers-break: 900px;
 
   .location-badge {
     background-color: var(--gold);
-    color: var(--white);
-  }
-
-  [data-tooltip]::before {
-    background-color: oklch(from var(--gold) l c h / .85);
     color: var(--white);
   }
 
@@ -524,4 +518,10 @@ $location-offers-break: 900px;
   @include max($responsive-bottom) {
     display: none;
   }
+}
+
+/* Tooltip global (body) : thème or si l’ancre est dans une carte sponsor */
+#global-data-tooltip.global-data-tooltip[data-variant="sponso"] {
+  background-color: oklch(from var(--gold) l c h / .85);
+  color: var(--white);
 }

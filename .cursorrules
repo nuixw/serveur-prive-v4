@@ -33,7 +33,8 @@ rules:
 
   UI and Styling
 
-  - Use SASS with custom CSS variables, mixins for reusability, and BEM for class naming.
+  - Use SASS with custom CSS variables, mixins for reusability, and simple kebab-case class names (no BEM `__` / `--`).
+  - Group related selectors with Sass nesting and `&-suffix` when they share one class prefix and nesting stays shallow (typically 2–3 levels); avoid deep nesting that hurts grep and reviews.
   - Import CSS Modules with `import s from './component.module.scss'` and use classes as `s.className`.
   - Keep styles scoped to components using CSS Modules pattern.
   - Use `clsx` for combining multiple classes or conditional class application: `className={clsx(s.base, isActive && s.active, variant && s[variant])}`.

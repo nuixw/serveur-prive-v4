@@ -2,7 +2,7 @@ import { Avatar } from "@/components/avatar"
 import { Banner } from "@/components/banner"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { Button } from "@/components/button"
-import { Input, Select, Textarea } from "@/components/form"
+import { FileInput, Input, Select, Textarea } from "@/components/form"
 import { Icon } from "@/components/icon"
 import { Link } from "@/components/link"
 import {
@@ -14,6 +14,7 @@ import {
 } from "@/components/table"
 import { Wrapper } from "@/components/wrapper"
 import clsx from "clsx"
+import { DominantColorExample } from "./dominant-color-example"
 
 const asideNav = [
   {
@@ -73,6 +74,31 @@ const selectPriority = [
   { value: "normal", label: "Normale" },
   { value: "important", label: "Importante" },
   { value: "urgent", label: "Urgente" }
+]
+
+const selectGamesSearchableDemo = [
+  { value: "minecraft", label: "Minecraft" },
+  { value: "minecraft-bedrock", label: "Minecraft Bedrock" },
+  { value: "rust", label: "Rust" },
+  { value: "gmod", label: "Garry's Mod" },
+  { value: "ark", label: "ARK: Survival Evolved" },
+  { value: "dayz", label: "DayZ" },
+  { value: "scum", label: "SCUM" },
+  { value: "palworld", label: "Palworld" },
+  { value: "terraria", label: "Terraria" },
+  { value: "project-zomboid", label: "Project Zomboid" },
+  { value: "space-engineers", label: "Space Engineers" },
+  { value: "7dtd", label: "7 Days to Die" },
+  { value: "conan", label: "Conan Exiles" },
+  { value: "valheim", label: "Valheim" },
+  { value: "hytale", label: "Hytale" },
+  { value: "eco", label: "Eco" },
+  { value: "astroneer", label: "Astroneer" },
+  { value: "unturned", label: "Unturned" },
+  { value: "tf2", label: "Team Fortress 2" },
+  { value: "cs", label: "Counter-Strike" },
+  { value: "discord", label: "Discord" },
+  { value: "teamspeak", label: "TeamSpeak" }
 ]
 
 export default function DefaultPage() {
@@ -455,11 +481,11 @@ export default function DefaultPage() {
                 </p>
               </div>
               <p className="paragraph">
-                Variante compacte (inline-flex) :{' '}
+                Variante compacte (inline-flex) :{" "}
                 <span className="message message-success message-inline">
                   <Icon icon="hugeicons:checkmark-circle-02" />
                   <span>Enregistré</span>
-                </span>{' '}
+                </span>{" "}
                 <span className="message message-warning message-inline">
                   <Icon icon="hugeicons:alert-01" />
                   <span>3 jours restants</span>
@@ -515,7 +541,27 @@ export default function DefaultPage() {
                   placeholder="email@exemple.fr"
                 />
               </div>
-
+              <div className="field-group">
+                <Input
+                  id="text-premium"
+                  type="text"
+                  name="text-premium"
+                  icon="hugeicons:star"
+                  label="Champ premium"
+                  placeholder="Champ premium"
+                  classNameField="field-premium"
+                  tooltip="Test tooltip"
+                />
+                <Select
+                  id="kit-category"
+                  name="category"
+                  icon="hugeicons:folder-01"
+                  label="Catégorie"
+                  options={selectCategories}
+                  showLabel
+                  classNameField="field-premium"
+                />
+              </div>
               <div className="field-group">
                 <Select
                   id="kit-category"
@@ -534,7 +580,18 @@ export default function DefaultPage() {
                   showLabel
                 />
               </div>
-
+              <Select
+                id="kit-game"
+                name="game"
+                icon="hugeicons:server-stack-03"
+                label="Jeu"
+                options={selectGamesSearchableDemo}
+                showLabel
+                searchable
+                searchPlaceholder="Rechercher un jeu…"
+                defaultValue="minecraft"
+              />
+              <DominantColorExample />
               <Textarea
                 id="kit-description"
                 name="description"
@@ -543,7 +600,21 @@ export default function DefaultPage() {
                 placeholder="Décrivez votre besoin en quelques lignes..."
                 rows={4}
               />
-
+              <FileInput
+                id="kit-attachment"
+                name="attachment"
+                icon="hugeicons:file-01"
+                label="Pièce jointe"
+                accept="image/*,.pdf"
+              />
+              <FileInput
+                id="kit-attachment"
+                name="attachment"
+                icon="hugeicons:file-01"
+                label="Pièce jointe"
+                accept="image/*,.pdf"
+                classNameField="field-premium"
+              />
               <div className="default-kit-checks">
                 <label className="field-checkbox">
                   <input type="checkbox" name="publish" defaultChecked />
@@ -554,7 +625,6 @@ export default function DefaultPage() {
                   Recevoir les nouveautés
                 </label>
               </div>
-
               <div className="default-kit-radios">
                 <label className="field-checkbox">
                   <input type="radio" name="visibility" defaultChecked />
@@ -565,12 +635,68 @@ export default function DefaultPage() {
                   Privé
                 </label>
               </div>
-
               <Button type="submit" icon="hugeicons:navigation-03">
                 Envoyer la démo
               </Button>
+              <p className="pargraph">
+                <small className="paragraph-mention">
+                  <span className="color-primary">*</span> Champ obligatoire
+                </small>
+              </p>
             </form>
           </section>
+          <section className="bloc">
+            <h2>
+              <Icon icon="hugeicons:layout-01" /> Modal
+            </h2>
+            <div className="default-kit-buttons">
+              <button
+                type="button"
+                className={clsx("btn", "primary")}
+                data-modal-open="kit-modal-demo"
+              >
+                <Icon icon="hugeicons:view" className="btn-icon" />
+                <span>Ouvrir la modal</span>
+              </button>
+            </div>
+          </section>
+        </div>
+        <div
+          className="modal"
+          data-modal="kit-modal-demo"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="kit-modal-demo-title"
+          aria-hidden="true"
+        >
+          <div className="bloc modal-panel">
+            <Button
+              type="button"
+              className="modal-close"
+              data-modal-close="kit-modal-demo"
+              icon="hugeicons:cancel-01"
+              aria-label="Fermer la modal"
+              variant="secondary"
+              border
+              iconOnly
+            />
+            <h2 id="kit-modal-demo-title">Modal test</h2>
+            <div className="paragraph">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Recusandae iure, dolore provident veniam vel incidunt expedita.
+              </p>
+            </div>
+            <div className="default-kit-buttons">
+              <Button
+                type="button"
+                className={clsx("btn", "secondary")}
+                data-modal-close="kit-modal-demo"
+              >
+                Fermer
+              </Button>
+            </div>
+          </div>
         </div>
 
         <Button

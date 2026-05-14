@@ -224,6 +224,15 @@ export default function LocationServeurPage() {
         </aside>
         <div className="wrapper-content location-content">
           <LocationOffers />
+          <Button
+            type="button"
+            variant="secondary"
+            border
+            icon="hugeicons:arrow-down-01"
+            className="vote-btn-more"
+          >
+            Afficher plus de résultat
+          </Button>
         </div>
         <Button
           className="btn-aside-responsive-left"

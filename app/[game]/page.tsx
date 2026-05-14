@@ -85,6 +85,7 @@ export default function Page() {
         }
       >
         <div className="game-banner-content">
+          <div className="tag">Survie</div>
           <h1>
             Trouvez un serveur Minecraft gratuit et Français
             sur&nbsp;notre&nbsp;classement
@@ -175,6 +176,13 @@ export default function Page() {
                 )}
                 data-link="/serveur"
               >
+                {(index === 0 || index === 2) && (
+                  <div className="serveur-position-wrapper">
+                    <div className="serveur-position serveur-position-premium">
+                      <Icon icon="hugeicons:police-badge" />
+                    </div>
+                  </div>
+                )}
                 <div className="sponso-serveur-top">
                   <img
                     src="https://placehold.co/200x100"
@@ -195,18 +203,18 @@ export default function Page() {
                     HYPING - LE MEILLEUR SERVEUR MINECRAFT DE 2026
                   </Link>
                   <div className="tags-list" data-truncate>
-                    <span className="tag" data-truncate-static>
+                    <a href="/minecraft" className="tag" data-truncate-item>
                       Survie
-                    </span>
-                    <span className="tag" data-truncate-item>
+                    </a>
+                    <a href="/minecraft" className="tag" data-truncate-item>
                       PVP
-                    </span>
-                    <span className="tag" data-truncate-item>
+                    </a>
+                    <a href="/minecraft" className="tag" data-truncate-item>
                       Vanilla
-                    </span>
-                    <span className="tag" data-truncate-item>
+                    </a>
+                    <a href="/minecraft" className="tag" data-truncate-item>
                       PVP Faction
-                    </span>
+                    </a>
                     <span
                       className="tag game-card-tag--more"
                       data-truncate-more
@@ -263,7 +271,14 @@ export default function Page() {
               data-link="/serveur"
             >
               <div className="serveur-item-left">
-                <div className="serveur-position">{index + 1}</div>
+                <div className="serveur-position-wrapper">
+                  <div className="serveur-position">{index + 1}</div>
+                  {index === 1 && (
+                    <div className="serveur-position serveur-position-premium">
+                      <Icon icon="hugeicons:police-badge" />
+                    </div>
+                  )}
+                </div>
                 <img
                   className="serveur-image"
                   src="https://placehold.co/200x100"
@@ -304,10 +319,18 @@ export default function Page() {
                   - LE MEILLEUR SERVEUR MINECRAFT DE 2026
                 </Link>
                 <div className="tags-list">
-                  <span className="tag">Survie</span>
-                  <span className="tag">PVP</span>
-                  <span className="tag">Vanilla</span>
-                  <span className="tag">PVP Faction</span>
+                  <a href="/minecraft" className="tag">
+                    Survie
+                  </a>
+                  <a href="/minecraft" className="tag">
+                    PVP
+                  </a>
+                  <a href="/minecraft" className="tag">
+                    Vanilla
+                  </a>
+                  <a href="/minecraft" className="tag">
+                    PVP Faction
+                  </a>
                 </div>
                 <div className="serveur-item-description">
                   Hyping est la meilleure expérience Minecraft francophone du

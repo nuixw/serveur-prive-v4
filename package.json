@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "template:css": "node scripts/build-template-style.mjs",
+    "template:html": "node scripts/compose-template-index.mjs"
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",

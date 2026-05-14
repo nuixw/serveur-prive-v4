@@ -22,100 +22,100 @@ $mobile: 950px;
       max-width: calc(50% - var(--presentation-gap) / 2);
     }
   }
-}
 
-.presentation-right {
-  flex: 1;
-  display: flex;
-  gap: var(--presentation-gap);
+  &-right {
+    flex: 1;
+    display: flex;
+    gap: var(--presentation-gap);
 
-  @include min($responsive) {
+    @include min($responsive) {
+      flex-direction: column;
+    }
+
+    @include max($mobile) {
+      flex-direction: column;
+    }
+  }
+
+  &-bloc {
+    --paragraph-color: oklch(from var(--white) l c h / 0.75);
+    position: relative;
+    flex: 1;
+    display: flex;
     flex-direction: column;
-  }
+    justify-content: flex-end;
+    border-radius: var(--presentation-radius);
+    background-color: light-dark(var(--black-medium), var(--black-dark));
+    padding: var(--presentation-padding);
+    color: var(--white);
+    gap: calc(var(--presentation-padding) / 2.5);
 
-  @include max($mobile) {
-    flex-direction: column;
-  }
-}
+    &>* {
+      z-index: 1;
+    }
 
-.presentation-bloc {
-  --paragraph-color: oklch(from var(--white) l c h / 0.75);
-  position: relative;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  border-radius: var(--presentation-radius);
-  background-color: light-dark(var(--black-medium), var(--black-dark));
-  padding: var(--presentation-padding);
-  color: var(--white);
-  gap: calc(var(--presentation-padding) / 2.5);
+    &.presentation-left {
+      background-color: var(--black-darker);
+      border-top-left-radius: var(--presentation-radius-big);
+      border-bottom-left-radius: var(--presentation-radius-big);
 
-  &>* {
-    z-index: 1;
-  }
+      @include max($responsive) {
+        border-top-right-radius: var(--presentation-radius-big);
+        border-bottom-left-radius: var(--presentation-radius);
+      }
+    }
 
-  &.presentation-left {
-    background-color: var(--black-darker);
-    border-top-left-radius: var(--presentation-radius-big);
-    border-bottom-left-radius: var(--presentation-radius-big);
-
-    @include max($responsive) {
+    &.presentation-top {
       border-top-right-radius: var(--presentation-radius-big);
-      border-bottom-left-radius: var(--presentation-radius);
+
+      @include max($responsive) {
+        border-top-right-radius: var(--presentation-radius);
+        border-bottom-left-radius: var(--presentation-radius-big);
+      }
+
+      @include max($mobile) {
+        border-bottom-left-radius: var(--presentation-radius);
+      }
     }
-  }
 
-  &.presentation-top {
-    border-top-right-radius: var(--presentation-radius-big);
+    &.presentation-bottom {
+      border-bottom-right-radius: var(--presentation-radius-big);
 
-    @include max($responsive) {
-      border-top-right-radius: var(--presentation-radius);
-      border-bottom-left-radius: var(--presentation-radius-big);
+      @include max($mobile) {
+        border-bottom-left-radius: var(--presentation-radius-big);
+      }
     }
 
     @include max($mobile) {
-      border-bottom-left-radius: var(--presentation-radius);
+      padding-top: calc(var(--presentation-padding) * 2);
+    }
+
+    h2 {
+      font-size: calc(24px + 6 * (100vw - 320px) / 1080);
+
+      strong {
+        color: var(--primary);
+      }
     }
   }
 
-  &.presentation-bottom {
-    border-bottom-right-radius: var(--presentation-radius-big);
+  &-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 0;
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: inherit;
+    @include mask(linear-gradient(-140deg, #000 20%, transparent 50%));
+    mix-blend-mode: soft-light;
 
-    @include max($mobile) {
-      border-bottom-left-radius: var(--presentation-radius-big);
+    &-left {
+      @include mask(linear-gradient(to bottom, #000 10%, transparent 80%));
+      width: 100%;
+      mix-blend-mode: lighten;
     }
   }
-
-  @include max($mobile) {
-    padding-top: calc(var(--presentation-padding) * 2);
-  }
-
-  h2 {
-    font-size: calc(24px + 6 * (100vw - 320px) / 1080);
-
-    strong {
-      color: var(--primary);
-    }
-  }
-}
-
-.presentation-bg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 0;
-  width: 80%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-radius: inherit;
-  @include mask(linear-gradient(-140deg, #000 20%, transparent 50%));
-  mix-blend-mode: soft-light;
-}
-
-.presentation-bg-left {
-  @include mask(linear-gradient(to bottom, #000 10%, transparent 80%));
-  width: 100%;
-  mix-blend-mode: lighten;
 }
